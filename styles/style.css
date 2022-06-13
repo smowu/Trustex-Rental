@@ -147,10 +147,19 @@ footer {
 }
 
 .home {
+  position: relative;
   color: #fbfbfb;
   height: 100vh;
   line-height: 100vh;
   background-color: #257b9f;
+}
+.home > img {
+  position: absolute;
+  width: 48vw;
+  right: 4vw;
+  top: 56px;
+  bottom: 0;
+  margin: auto;
 }
 .home-content {
   height: 100vh;
@@ -160,25 +169,25 @@ footer {
 }
 .home h1 {
   display: inline-block;
-  top: 56px;
+  top: 28px;
   font-size: 8vh;
   position: relative;
   justify-content: center;
   vertical-align: middle;
   line-height: 8vh;
+  width: 55%;
 }
 .home-button {
   position: relative;
   top: 56px;
-  right: -16vw;
-  padding: 8px 32px 8px 32px;
+  padding: 12px 36px 12px 36px;
+  margin-left: 16px;
   color: #fbfbfb;
   font-size: 1.5rem;
   font-weight: bold;
   background-color: transparent;
   border: solid 3px #fbfbfb;
   border-radius: 500em;
-  vertical-align: middle;
   cursor: pointer;
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
