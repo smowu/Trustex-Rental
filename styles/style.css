@@ -70,16 +70,18 @@ footer {
   width: 100%;
   margin: 0px 4px 0px 4px;
 }
-#login > img {
+#login img {
+  height: 16px;
   padding: 4px;
   margin: 4px 8px 4px 0px;
   border-radius: 50%;
-  border: solid 2px #000000;
-  filter: invert(100%) sepia(71%) saturate(58%) hue-rotate(356deg) brightness(109%) contrast(97%);
+  border: solid 2px #fbfbfb;
+  content: url("../assets/icons/icon-user.png");
 }
 #login:hover img {
-  filter: invert(36%) sepia(98%) saturate(412%) hue-rotate(152deg) brightness(93%) contrast(82%);
+  border: solid 2px #257b9f;
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  content: url("../assets/icons/icon-user-blue.png");
 }
 
 .nav-links {
@@ -123,7 +125,7 @@ footer {
   transition: width 0.5s ease-in-out;
 }
 .rent-nav:hover {
-  width: 128px;
+  width: 96px;
 }
 
 @keyframes widthAnimation {
@@ -181,7 +183,7 @@ footer {
   position: relative;
   top: 56px;
   padding: 12px 36px 12px 36px;
-  margin-left: 16px;
+  margin-right: 16px;
   color: #fbfbfb;
   font-size: 1.5rem;
   font-weight: bold;
@@ -194,6 +196,7 @@ footer {
 .home-button:hover {
   color:#257b9f;
   background-color: #fbfbfb;
+  box-shadow: 0px 4px 8px rgba(18, 64, 84, 0.2);
 }
 
 .listings {
@@ -254,6 +257,53 @@ footer {
   padding: 64px 2vw 64px 2vw;
   width: auto;
 }
+#socials p {
+  color: #c9dee7;
+}
+.link-box {
+  display: inline-block;
+  text-align: center;
+}
+.link-box a>img {
+  height: 32px;
+}
+.link-icon {
+  padding: 8px;
+  opacity: 0.8;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.link-icon:hover {
+  opacity: 1;
+}
+.link-icons {
+  bottom: 0px;
+  padding: 0px;
+  position: absolute;
+  right: 0px;
+}
+.link-icons p {
+  font-size: 16px;
+}
+.link-icon > img {
+  display: inline-block;
+}
+.icon-facebook img {
+  content: url("../assets/icons/icon-facebook.png");
+  
+}
+.icon-instagram img {
+  content: url("../assets/icons/icon-instagram.png");
+
+}
+.icon-twitter img {
+  content: url("../assets/icons/icon-twitter.png");
+
+}
+.icon-youtube img {
+  content: url("../assets/icons/icon-youtube.png");
+
+}
+
 footer hr {
   background-color: #fbfbfb; 
   height: 1px; 
