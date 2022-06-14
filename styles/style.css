@@ -56,7 +56,6 @@ footer {
   line-height: 36px;
   border: 1px solid #fbfbfb;
   border-radius: 100em;
-  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 #login:hover {
   background-color: #fbfbfb;
@@ -184,6 +183,7 @@ footer {
   top: 56px;
   padding: 12px 36px 12px 36px;
   margin-right: 16px;
+  margin-bottom: 8px;
   color: #fbfbfb;
   font-size: 1.5rem;
   font-weight: bold;
@@ -219,26 +219,67 @@ footer {
   font-size: 1rem;
   color: #00000044;
   position: relative;
+  background-color: transparent;
   border: solid 2px #92bdcf;
   border-radius: 100rem;
-  padding: 8px 16px 8px 16px;
+  padding: 10px 20px 10px 20px;
   width: 256px;
+}
+.listing-search-bar.focused {
+  border: solid 4px #92bdcf;
 }
 .listing-grid {
   position: relative;
   display: flex;
 }
 .list-item {
+  position: relative;
   margin: 2rem;
   width: 16vw;
   height: 512px;
   background-color: #fbfbfb;
-  border: solid 1px #c9dee7;
   border-radius: 1em;
-  box-shadow: 0px 4px 8px rgba(18, 64, 84, 0.2);
+  box-shadow: 0px 0px 8px rgba(18, 64, 84, 0.25);
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.list-item:hover {
+  cursor: pointer;
+  background-color: #f2f2f2;
+}
+.listing-grid-image-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 40%;
+  border-radius: 1em;
+}
+.listing-grid-image-container img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1em;
+}
+.listing-grid-info-container {
+  position: relative;
+  margin: 16px 16px 0px 16px;
+  color: #333333;
+}
+.listing-grid-owner {
+  width: 100%;
+  font-size: 0.8rem;
+  position: absolute;
+  line-height: 32px;
+  vertical-align: middle;
+  height: 32px;
+  bottom: 0;
+  border-top: solid 1px rgba(0, 0, 0,0.25);
+}
+.listing-grid-owner p {
+  padding: 0 16px 0 16px;
 }
 
-#footer-content {
+.footer-content {
   height: 100%;
   margin-left: 16vw;
   margin-right: 16vw;
@@ -276,7 +317,7 @@ footer {
 }
 #logo-footer {
   position: relative;
-  padding: 64px 2vw 64px 2vw;
+  padding: 96px 2vw 0px 2vw;
   width: auto;
 }
 #logo-footer img {
@@ -420,6 +461,11 @@ footer hr {
   #login {
     right: 2vw;
   }
+  .container-margin {
+    margin-left: 8vw;
+    margin-right: 8vw;
+  }
+  
 }
 @media only screen and (min-width: 1200px) {
 
