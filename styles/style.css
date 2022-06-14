@@ -104,8 +104,8 @@ footer {
   line-height: 36px;
 }
 .nav-link {
-  padding: 0px 24px 0px 24px;
-  margin: 10px 8px 8px 8px;
+  padding: 0px 16px 0px 16px;
+  margin: 10px 2px 8px 2px;
   display: relative;
   border-radius: 500em;
 }
@@ -411,4 +411,19 @@ footer hr {
   top: 48px;
   left: 48px;
   position: relative;
+}
+
+@media only screen and (max-width: 1200px) {
+  #logo {
+    left: 2vw;
+  }
+  #login {
+    right: 2vw;
+  }
+}
+@media only screen and (min-width: 1200px) {
+
+}
+@media only screen and (min-width: 900px) {
+
 }
