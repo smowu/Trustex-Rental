@@ -8,6 +8,6 @@
   $connect = mysqli_connect($host,$user,$pass,$dbname,$port);
 
   if (!isset($connect)) {
-    echo("Error: Failed to connect to the database!"); 
+    echo("Error: Failed to connect to the database!");
   }
 ?>
