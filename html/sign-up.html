@@ -3,16 +3,34 @@
   <head>
     <link rel="stylesheet" href="./styles/style.css" type="text/css">
   </head>
-  <body>
+  <body style="display: inline-flex;">
     <div id="signup-splashscreen">
       <a href="index.php">
         <img height="32" src="assets/images/TrustexLogo.png" alt="Trustex Logo">
       </a>
     </div>
-    <div>
-      <form>
+    <div class="user-signup-form-container">
+      <form class="user-signup-form" name="user-signup-form" method="POST" action="sign-up0.php">
+        <div class="textinput signup-input">
+          Username<br>
+          <input type="text" id="username" name="username"><br>
+        </div>
+        <div class="textinput signup-input">
+          Email<br>
+          <input type="text" id="useremail" name="useremail"><br>
+        </div>
+        <div class="textinput signup-input">
+          Password<br>
+          <input type="password" id="userpassword" name="userpassword"><br>
+        </div>
+        <div class="textinput signup-input">
+          Confirm Password<br>
+          <input type="text" id="confirmpassword" name="confirmpassword"><br>
+        </div>
 
+        <input type="submit" name="signup-submit" value="Sign Up">
       </form>
+      <p>Already have an account? <a href="index.php">Sign In</a></p>
     </div>
   </body>
 </html>
