@@ -479,9 +479,65 @@ footer hr {
   left: 48px;
   position: relative;
 }
+.user-signup-section {
+  position: relative;
+  display: flex;
+  width: 76vw;
+  overflow: hidden;
+  background-color: #fbfbfb;
+}
 .user-signup-form-container {
   position: relative;
-  padding: 8rem;
+  margin: auto auto;
+  padding: 4rem 12rem;
+  color: #333333;
+}
+.user-signup-form-container h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+.signup-input p {
+  padding-left: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+.user-signup-form input {
+  font-size: 1.25rem;
+  padding: 8px;
+  color: #333333;
+  border-radius: 0.5rem;
+  border: solid 1px #666666;
+  background-color: transparent;
+}
+.user-signup-form > input {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 8px;
+  width: 100%;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.user-signup-form > input:hover {
+  width: 100%;
+  color: #257b9f;
+  border: 3px solid #257b9f;
+  background-color: #fbfbfb;
+}
+.user-signup-form-container > p {
+  position: relative;
+  text-align: center;
+}
+.user-signup-form-container a {
+  color: #257b9f;
+  text-decoration: none;
+  border-bottom: 3px solid #257b9f00;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.user-signup-form-container a:hover {
+  border-bottom: 3px solid #257b9f;
 }
 
 @media only screen and (max-width: 100em) {
