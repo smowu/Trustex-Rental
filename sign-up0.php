@@ -3,7 +3,7 @@
 
   if (isset($_POST['signup-submit'])) {
 
-    /* capture values from user sign-up form */
+    /* Capture values from user sign-up form */
     $username = $_POST['username'];
     $email = $_POST['useremail'];
     $password = $_POST['userpassword'];

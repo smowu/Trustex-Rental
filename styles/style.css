@@ -80,6 +80,7 @@ footer {
   content: url("../assets/icons/icon-user-blue.png");
 }
 
+/* Navigation links */
 .nav-links {
   height: max-content;
   color: #fbfbfb;
@@ -98,6 +99,7 @@ footer {
   display: relative;
   vertical-align: middle;
   line-height: 36px;
+  border-bottom: solid 4px transparent;
 }
 .nav-link {
   padding: 0px 16px 0px 16px;
@@ -105,12 +107,13 @@ footer {
   display: relative;
   border-radius: 500em;
 }
-
-.nav-links a:hover {
+.nav-link:hover {
   background-color: #5c9cb7;
   cursor: pointer;
 }
-
+.nav-links li.active {
+  box-shadow: inset 0px 4px 0px #fbfbfb;
+}
 .rent-nav {
   font-size: 24px;
   font-weight: bold;
@@ -124,15 +127,21 @@ footer {
   width: 96px;
 }
 
-@keyframes widthAnimation {
-  from {
-
-  }
-  to {
-
-  }
+/* Textbox placeholder properties */
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #cccccc;
+  opacity: 1; /* Firefox */
 }
 
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #cccccc;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #cccccc;
+}
+
+/* Scrollbar CSS properties */
 ::-webkit-scrollbar {
   width: 0.5em;
 }
@@ -144,14 +153,15 @@ footer {
   background: #fbfbfb;
 }
 
-.home {
+/* Homepage splashscreen */
+.home-header {
   position: relative;
   color: #fbfbfb;
   height: 100vh;
   line-height: 100vh;
   background-color: #257b9f;
 }
-.home > img {
+.home-header > img {
   position: absolute;
   width: 48vw;
   right: 4vw;
@@ -165,7 +175,7 @@ footer {
   margin-left: 16vw;
   margin-right: 16vw;
 }
-.home h1 {
+.home-header h1 {
   display: inline-block;
   top: 28px;
   font-size: 8vh;
@@ -196,6 +206,7 @@ footer {
   box-shadow: 0px 4px 8px rgba(18, 64, 84, 0.2);
 }
 
+/* Property listing grid/menu */
 .listing-body {
   position: relative;
   height: max-content; 
@@ -210,11 +221,11 @@ footer {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 16vh;
+  height: 32vh;
 }
 .listing-search-bar {
   font-size: 1rem;
-  color: #00000044;
+  color: #666666;
   position: relative;
   background-color: transparent;
   border: solid 2px #92bdcf;
@@ -225,7 +236,6 @@ footer {
 .listing-search-bar.focused {
   border: solid 4px #92bdcf;
 }
-
 .listing-grid {
   position: relative;
   display: grid;
@@ -235,7 +245,6 @@ footer {
     "one two three four"
     "five six seven eight";
 }
-
 .list-item {
   position: relative;
   width: auto;
@@ -303,6 +312,8 @@ footer {
   width: 100%;
   height: 128px;
 }
+
+/* Footer contents */
 .footer-content {
   height: 100%;
   margin-left: 16vw;
@@ -318,7 +329,6 @@ footer {
 #bottom-copyright {
   margin: 0 auto auto 16px;
 }
-
 #bottom-links {
   position: relative;
   display: inline-flex;
@@ -419,7 +429,6 @@ footer {
 .icon-youtube img {
   content: url("../assets/icons/icon-youtube.png");
 }
-
 footer hr {
   background-color: #fbfbfb; 
   height: 1px; 
@@ -427,6 +436,7 @@ footer hr {
   opacity: 0.5;
 }
 
+/* Back to top of the page button */
 #backToTop {
   width: 48px;
   height: 48px;
@@ -467,7 +477,6 @@ footer hr {
 }
 
 /* Sign-up.php */
-
 #signup-splashscreen {
   position: relative;
   width: 24vw;
@@ -501,8 +510,8 @@ footer hr {
   padding-bottom: 0.25rem;
 }
 .user-signup-form input {
-  font-size: 1.25rem;
-  padding: 8px;
+  font-size: 1.2rem;
+  padding: 0.6rem 0.8rem;
   color: #333333;
   border-radius: 0.5rem;
   border: solid 1px #666666;
@@ -540,6 +549,80 @@ footer hr {
   border-bottom: 3px solid #257b9f;
 }
 
+/* login.php */
+#login-splashscreen {
+  position: relative;
+  width: 24vw;
+  height: 100vh;
+  background-color: #257b9f;
+}
+#login-splashscreen a {
+  top: 48px;
+  left: 48px;
+  position: relative;
+}
+.user-login-section {
+  position: relative;
+  display: flex;
+  width: 76vw;
+  overflow: hidden;
+  background-color: #fbfbfb;
+}
+.user-login-form-container {
+  position: relative;
+  margin: auto auto;
+  padding: 4rem 12rem;
+  color: #333333;
+}
+.user-login-form-container h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+.login-input p {
+  padding-left: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+.user-login-form input {
+  font-size: 1.2rem;
+  padding: 0.6rem 0.8rem;
+  color: #333333;
+  border-radius: 0.5rem;
+  border: solid 1px #666666;
+  background-color: transparent;
+}
+.user-login-form > input {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 8px;
+  width: 100%;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.user-login-form > input:hover {
+  width: 100%;
+  color: #257b9f;
+  border: 3px solid #257b9f;
+  background-color: #fbfbfb;
+}
+.user-login-form-container > p {
+  position: relative;
+  text-align: center;
+}
+.user-login-form-container a {
+  color: #257b9f;
+  text-decoration: none;
+  border-bottom: 3px solid #257b9f00;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.user-login-form-container a:hover {
+  border-bottom: 3px solid #257b9f;
+}
+
+/* Media queries */
 @media only screen and (max-width: 100em) {
   .listing-grid {
     grid-template-columns: repeat(3,1fr);

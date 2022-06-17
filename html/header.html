@@ -9,20 +9,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Trustex Rental</title>
   </head>
+  <!-- Header bar -->
   <header id="navbar">
-    <script src="scripts/script.js"></script>
+    <!-- Logo on nav-bar -->
     <a id="logo" href="index.php">
       <img height="32" src="assets/images/TrustexLogo.png" alt="Trustex Logo">
     </a>
+    <!-- Navigation menu -->
     <div class="nav-links">
       <ul>
         <div>
-          <li><a class="nav-link" onclick="backToTop()">Home</a></li>
-          <li><a class="nav-link" href="dashboard.php">Dashboard</a></li>
-          <li><a class="nav-link rent-nav" href="rent.php">Rent</a></li>
-          <li><a class="nav-link" href="about.php">About Us</a></li>
-          <li><a class="nav-link" href="faq.php">FAQ</a></li>
+          <li data-active="home">
+            <a class="nav-link" href="index.php">Home</a></li>
+          <li data-active="dashboard">
+            <a class="nav-link" href="dashboard.php">Dashboard</a></li>
+          <li data-active="rent">
+            <a class="nav-link rent-nav" href="#listing-body">Rent</a></li>
+          <li data-active="about">
+            <a class="nav-link" data-active="about" href="about.php">About Us</a></li>
+          <li data-active="faq">
+            <a class="nav-link" data-active="faq" href="faq.php">FAQ</a></li>
         </div>
+
+        <!-- Login button -->
         <li>
           <a id="login" href="login.php">
             <image src="assets/icons/icon-user.png" alt="Login Icon"><p>Login</p>
