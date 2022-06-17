@@ -15,9 +15,10 @@
       $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
 
       if (mysqli_num_rows($result) != 0) {
-        // 
+        
         $row = mysqli_fetch_assoc($result);
         $_SESSION['userID'] = $row['userID'];
+
         header("Location: dashboard.php");
       } else {
         echo "<script>alert('Incorrect email or password!');</script>";
