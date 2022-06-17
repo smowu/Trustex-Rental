@@ -1,8 +1,28 @@
 <?php 
-  // session_start(); 
   include("dbconnect.php"); 
+  session_start();
 
   if (isset($connect)) {
+    $email = "";
+    if (isset($_POST['login-submit'])) {
+      // Capture values from user login form
+      $email = $_POST['useremail'];
+      $password = md5($_POST['userpassword']); // md5() used for data encryption
+  
+      // Checks if the username/email and the matched password is in the database
+      $sql = "SELECT * FROM user 
+              WHERE userName = '$email' OR userEmail = '$email' AND userPassword = '$password'";
+      $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+
+      if (mysqli_num_rows($result) != 0) {
+        // 
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['userID'] = $row['userID'];
+        header("Location: dashboard.php");
+      } else {
+        echo "<script>alert('Incorrect email or password!');</script>";
+      }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,12 +41,12 @@
       <div class="user-login-form-container">
         <h1>Log in</h1>
         <!-- Log in form -->
-        <form class="user-login-form" name="user-login-form" method="POST" action="login0.php">
+        <form class="user-login-form" name="user-login-form" method="POST" action="">
           <div class="form-textinput login-input">
-            <input type="text" id="useremail" name="useremail" placeholder="Email" required><br>
+            <input type="text" id="useremail" name="useremail" placeholder="Email" value="<?php echo $email; ?>" required><br>
           </div><br>
           <div class="form-textinput login-input">
-            <input type="password" id="userpassword" name="userpassword" placeholder="Password" required><br>
+            <input type="password" id="userpassword" name="userpassword" placeholder="Password" value="" required><br>
           </div><br>
   
           <input type="submit" name="login-submit" value="Log in">
