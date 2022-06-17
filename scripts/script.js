@@ -14,6 +14,11 @@ for (let link of links) {
   }
 }
 
+// Check sign up infos
+
+function isSignupFormFilled() {
+
+}
 
 function checkUsernameFormat() {
 
@@ -29,4 +34,28 @@ function checkPasswordFormat() {
 
 function checkPasswordConfirmation() {
 
+}
+
+// Check login infos
+
+function isLoginFormFilled() {
+
+}
+
+// Property calculations
+
+function calcPricePerSqf() {
+
+}
+
+// Date calculations
+
+function calcBookingDaysLeft() {
+
+}
+
+// Payment calculations
+
+function calcTotalRentPrice() {
+  
 }

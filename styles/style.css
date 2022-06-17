@@ -131,14 +131,17 @@ footer {
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #cccccc;
   opacity: 1; /* Firefox */
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
   color: #cccccc;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: #cccccc;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Scrollbar CSS properties */
@@ -509,14 +512,6 @@ footer hr {
   padding-left: 0.5rem;
   padding-bottom: 0.25rem;
 }
-.user-signup-form input {
-  font-size: 1.2rem;
-  padding: 0.6rem 0.8rem;
-  color: #333333;
-  border-radius: 0.5rem;
-  border: solid 1px #666666;
-  background-color: transparent;
-}
 .user-signup-form > input {
   font-size: 1.2rem;
   font-weight: bold;
@@ -547,6 +542,31 @@ footer hr {
 }
 .user-signup-form-container a:hover {
   border-bottom: 3px solid #257b9f;
+}
+
+.form-textinput input {
+  font-size: 1.2rem;
+  padding: 0.6rem 0.8rem;
+  color: #333333;
+  border: none;
+  border-bottom: solid 3px #66666666;
+  background-color: transparent;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.form-textinput input:focus {
+  outline: none;
+  border-bottom: solid 3px #5c9cb7;
+}
+.form-textinput input:focus::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #5c9cb766;
+}
+
+.form-textinput input:focus:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #5c9cb766;
+}
+
+.form-textinput input:focus::-ms-input-placeholder { /* Microsoft Edge */
+  color: #5c9cb766;
 }
 
 /* login.php */
@@ -581,14 +601,6 @@ footer hr {
 .login-input p {
   padding-left: 0.5rem;
   padding-bottom: 0.25rem;
-}
-.user-login-form input {
-  font-size: 1.2rem;
-  padding: 0.6rem 0.8rem;
-  color: #333333;
-  border-radius: 0.5rem;
-  border: solid 1px #666666;
-  background-color: transparent;
 }
 .user-login-form > input {
   font-size: 1.2rem;

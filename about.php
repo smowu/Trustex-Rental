@@ -1,9 +1,17 @@
 <?php 
+  // session_start(); 
   include("dbconnect.php"); 
 
   if (isset($connect)) {
     echo file_get_contents("html/header.html");
-    echo file_get_contents("html/about.html");
+?>
+<!DOCTYPE html>
+<html>
+  <body id="about">
+
+  </body>
+</html>
+<?php
     echo file_get_contents("html/footer.html");
     mysqli_close($connect);
   }
