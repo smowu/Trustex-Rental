@@ -29,6 +29,7 @@
             $email = "";
             $_POST['userpassword'] = "";
             $_POST['confirmpassword'] = "";
+            header("Location: login.php");
           } else {
             echo "<script>alert('Error: Something went wrong!');</script>";
           }

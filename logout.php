@@ -3,6 +3,10 @@
 session_start();
 session_destroy();
 
-header("Location: index.php");
-
+echo "
+  <script>
+  alert('Successfully logged out!');
+  window.location.replace('index.php'); </script>
+";
+// header("Location: index.php");
 ?>
