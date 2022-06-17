@@ -1,7 +1,7 @@
 <?php 
   include("dbconnect.php");
+  session_start(); 
   if (isset($_SESSION['userID'])) {
-    session_start(); 
     $id = $_SESSION['userID'];
 
     $sql = "SELECT * FROM user WHERE userID = $id";

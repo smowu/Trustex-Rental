@@ -24,12 +24,18 @@
           $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
           
           if ($result) {
-            echo "<script>alert('Registration successful!');</script>";
             $username = "";
             $email = "";
             $_POST['userpassword'] = "";
             $_POST['confirmpassword'] = "";
-            header("Location: login.php");
+
+            echo "
+              <script>
+                alert('Registration successful!');
+                window.location.replace('login.php');
+              </script>
+            ";
+            // header("Location: login.php");
           } else {
             echo "<script>alert('Error: Something went wrong!');</script>";
           }
