@@ -31,8 +31,6 @@
     }
     mysqli_close($connect);
   } else {
-    echo "<script>
-      alert('Please log in first!');
-      window.location.replace('index.php'); </script>";
+    header("Location: login.php");
   }
 ?>
