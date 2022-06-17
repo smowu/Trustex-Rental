@@ -43,7 +43,7 @@
         <!-- Log in form -->
         <form class="user-login-form" name="user-login-form" method="POST" action="">
           <div class="form-textinput login-input">
-            <input type="text" id="useremail" name="useremail" placeholder="Email" value="<?php echo $email; ?>" required><br>
+            <input type="text" id="useremail" name="useremail" placeholder="Username or Email" value="<?php echo $email; ?>" required><br>
           </div><br>
           <div class="form-textinput login-input">
             <input type="password" id="userpassword" name="userpassword" placeholder="Password" value="" required><br>
