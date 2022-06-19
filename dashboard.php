@@ -14,7 +14,7 @@
       $u = mysqli_fetch_assoc($result);
       $username= $u['userName'];
     
-    echo file_get_contents("html/header.html");
+    include("html/header.html");
   
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
   </body>
 </html>
 <?php
-      echo file_get_contents("html/footer.html");
+      include("html/footer.html");
     }
     mysqli_close($connect);
   } else {

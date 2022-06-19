@@ -3,7 +3,7 @@
   include("dbconnect.php"); 
 
   if (isset($connect)) {
-    echo file_get_contents("html/header.html");
+    include("html/header.html");
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
   </body>
 </html>
 <?php
-    echo file_get_contents("html/footer.html");
+    include("html/footer.html");
     mysqli_close($connect);
   }
 ?>

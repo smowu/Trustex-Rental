@@ -4,6 +4,19 @@ function backToTop() {
   document.documentElement.scrollTop = 0;
 }
 
+// Focus on location search bar
+document.addEventListener('DOMContentLoaded', function() {
+  if (location.hash === "#listing-body") {
+    focusSearch(600);
+  }
+}, false);
+
+function focusSearch(time) {
+  setTimeout(function () {
+    document.getElementById("listing-search-bar").focus();
+  }, time);
+}
+
 // Set a line indicator on the active navigation menu
 let links = document.querySelectorAll(".nav-links li");
 let bodyId = document.body.id;
@@ -13,6 +26,7 @@ for (let link of links) {
     link.classList.add("active");
   }
 }
+
 
 // Check sign up infos
 
@@ -57,5 +71,5 @@ function calcBookingDaysLeft() {
 // Payment calculations
 
 function calcTotalRentPrice() {
-  
+
 }

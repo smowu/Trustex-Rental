@@ -24,19 +24,36 @@
           <li data-active="dashboard">
             <a class="nav-link" href="dashboard.php">Dashboard</a></li>
           <li data-active="rent">
-            <a class="nav-link rent-nav" href="index.php#listing-body">Rent</a></li>
+            <a class="nav-link rent-nav" href="index.php#listing-body" onclick="focusSearch(600)">Rent</a></li>
           <li data-active="about">
             <a class="nav-link" data-active="about" href="about.php">About Us</a></li>
           <li data-active="faq">
             <a class="nav-link" data-active="faq" href="faq.php">FAQ</a></li>
         </div>
-
+        <?php 
+          include("dbconnect.php");
+          session_start(); 
+          if (isset($_SESSION['userID'])) {
+        ?>
+            <!-- Login button -->
+            <li>
+              <a id="login" href="logout.php">
+                <image src="assets/icons/icon-user.png" alt="Logout Icon"><p>Logout</p>
+              </a>
+            </li>
+        <?php
+            mysqli_close($connect);
+          } else {
+        ?>
         <!-- Login button -->
         <li>
           <a id="login" href="login.php">
             <image src="assets/icons/icon-user.png" alt="Login Icon"><p>Login</p>
           </a>
         </li>
+        <?php
+          }
+        ?>
       </ul>
     </div>
   </header>
