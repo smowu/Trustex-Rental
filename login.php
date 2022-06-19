@@ -7,7 +7,7 @@
     if (isset($_POST['login-submit'])) {
       // Capture values from user login form
       $email = $_POST['useremail'];
-      $password = md5($_POST['userpassword']); // md5() used for data encryption
+      $password = md5($_POST['userpassword']); // md5() used for encryption
   
       // Checks if the username/email and the matched password is in the database
       $sql = "SELECT * FROM user 
@@ -18,8 +18,28 @@
         
         $row = mysqli_fetch_assoc($result);
         $_SESSION['userID'] = $row['userID'];
-
-        header("Location: dashboard.php");
+        $usertype = $row['userType'];
+        
+        if ($usertype == 'A') {
+          echo "
+            <script>
+              alert('User is admin.');
+              window.location.replace('dashboard.php'); 
+            </script>
+          ";
+          // header("Location: dashboard.php");
+        } else if ($usertype == 'L') {
+          // header("Location: dashboard.php");
+        } else {
+          echo "
+            <script>
+              alert('User is normal user/tenant');
+              window.location.replace('dashboard.php'); 
+            </script>
+          ";
+          // header("Location: dashboard.php");
+        }
+        
       } else {
         echo "<script>alert('Incorrect email or password!');</script>";
       }

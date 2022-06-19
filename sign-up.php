@@ -8,7 +8,7 @@
       // Capture values from user sign-up form
       $username = $_POST['username'];
       $email = $_POST['useremail'];
-      $password = md5($_POST['userpassword']); // md5() used for data encryption
+      $password = md5($_POST['userpassword']); // md5() used for encryption
       $confirmpassword = md5($_POST['confirmpassword']);
   
       if ($password == $confirmpassword) {
@@ -18,8 +18,8 @@
 
         if (mysqli_num_rows($result) == 0) {
           // Inserting new data into the database
-          $sql = "INSERT INTO user (userName, userEmail, userPassword) 
-                  VALUES('".$username."','".$email."','".$password."')";
+          $sql = "INSERT INTO user (userName, userEmail, userPassword, userType) 
+                  VALUES('".$username."','".$email."','".$password."','T')";
 
           $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
           
