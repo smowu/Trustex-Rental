@@ -1,7 +1,4 @@
 <?php 
-  include("dbconnect.php"); 
-  
-  if (isset($connect)) {
     $username = "";
     $email = "";
     if (isset($_POST['signup-submit'])) {
@@ -12,27 +9,38 @@
       $confirmpassword = md5($_POST['confirmpassword']);
   
       if ($password == $confirmpassword) {
+        include("dbconnect.php"); 
         // Checks if the email address is already exist in the database
-        $sql = "SELECT * FROM user WHERE userEmail = '$email'";
+        $sql = "SELECT * FROM user WHERE userName = '$username' OR userEmail = '$email'";
         $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+        mysqli_close($connect);
 
         if (mysqli_num_rows($result) == 0) {
+          include("dbconnect.php"); 
           // Inserting new data into the database
           $sql = "INSERT INTO user (userName, userEmail, userPassword, userType) 
                   VALUES('".$username."','".$email."','".$password."','T')";
-
           $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
-          
+          mysqli_close($connect);
+
           if ($result) {
+            include("dbconnect.php");
+            $sql = "SELECT * FROM user WHERE userName = '$email' OR userEmail = '$email'";
+            $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+            mysqli_close($connect);
+
             $username = "";
             $email = "";
             $_POST['userpassword'] = "";
             $_POST['confirmpassword'] = "";
-
+            
+            session_start();
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['userID'] = $row['userID'];
             echo "
               <script>
                 alert('Registration successful!');
-                window.location.replace('login.php');
+                window.location.replace('dashboard.php');
               </script>
             ";
             // header("Location: login.php");
@@ -40,7 +48,14 @@
             echo "<script>alert('Error: Something went wrong!');</script>";
           }
         } else {
-          echo "<script>alert('The email is already registered! Sign in instead.');</script>";
+          $row = mysqli_fetch_assoc($result);
+          $existingUsername = $row['userName'];
+          $existingEmail = $row['userEmail'];
+          if ($username == $existingUsername) {
+            echo "<script>alert('That username is already taken!');</script>";
+          } else if ($email == $existingEmail) {
+            echo "<script>alert('The email is already registered! Sign in instead.');</script>";
+          }
         }
       } else {
         echo "<script>alert('Password is not matched.');</script>";
@@ -87,7 +102,3 @@
     </div>
   </body>
 </html>
-<?php
-    mysqli_close($connect);
-  }
-?>

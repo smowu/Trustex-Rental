@@ -31,6 +31,9 @@ footer {
   background-color: #124054;
   color: #fbfbfb;
 }
+button {
+  cursor: pointer;
+}
 @supports (scrollbar-color: transparent transparent) {
   * {
     scrollbar-color: #5c9cb7;
@@ -336,7 +339,7 @@ footer {
   height: 3rem;
 }
 .listing-property-address {
-  height: 3rem;
+  height: 4rem;
 }
 .listing-property-info {
   height: 4rem;
@@ -405,7 +408,6 @@ footer {
   border: none;
   border-radius: 100em;
   background-color: #92bdcf;
-  cursor: pointer;
 }
 .active-page {
   background-color: #124054;
@@ -494,7 +496,7 @@ footer {
   display: inline-block;
   text-align: center;
 }
-.link-box a>img {
+.link-box a > i {
   height: 32px;
 }
 .link-icon {
@@ -514,19 +516,19 @@ footer {
 .link-icons p {
   font-size: 16px;
 }
-.link-icon > img {
+.link-icon > i {
   display: inline-block;
 }
-.icon-facebook img {
+.icon-facebook i {
   content: url("../assets/icons/icon-facebook.png");
 }
-.icon-instagram img {
+.icon-instagram i {
   content: url("../assets/icons/icon-instagram.png");
 }
-.icon-twitter img {
+.icon-twitter i {
   content: url("../assets/icons/icon-twitter.png");
 }
-.icon-youtube img {
+.icon-youtube i {
   content: url("../assets/icons/icon-youtube.png");
 }
 footer hr {
@@ -769,20 +771,20 @@ footer hr {
   .list-property {
     position: relative;
     width: auto;
-    height: 36vh;
+    height: 320px;
     overflow-y: hidden;
   }
   .list-property::before {
     position: absolute;
     display: flex;
     width: 40%;
-    height: 28vh;
+    height: 264px;
     background-color: #124054;
   }
   .listing-property-container {
     display: flex;
     width: 100%;
-    height: 29vh;
+    height: 264px;
     overflow: hidden;
   }
   .listing-property-image-container {
@@ -801,7 +803,7 @@ footer hr {
     position: relative;
     width: 60%;
     padding: 0.5rem 0.5rem 1rem 1rem;
-    height: 29vh;
+    height: 264px;
   }
   .listing-property-info-container h3:first-child {
     overflow: hidden;
@@ -825,7 +827,12 @@ footer hr {
   }
 }
 @media only screen and (max-width: 50em) {
+  .listing-property-info {
+    display: inline;
+  }
   .listing-property-info p {
-    opacity: 0;
+    margin-left: 0;
+    margin-right: 1.25rem;
+    line-height: 1rem;
   }
 }

@@ -1,8 +1,5 @@
-<?php 
-  // session_start(); 
-  include("dbconnect.php"); 
-  if (isset($connect)) {
-    include("html/header.html");
+<?php
+  include("html/header.html");
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,8 +14,8 @@
       <div class="home-content container-margin">
         <h1>
           One click closer to your next home.<br>
-          <input class="home-button" type="button" onclick="location.href='sign-up.php'" value="Get started" />
-          <input class="home-button" type="button" onclick="location.href='landlord-sign-up.php'" value="Get Trusted" />
+          <input class="home-button" type="button" onclick="location.href='sign-up.php'" value="Get started"/>
+          <input class="home-button" type="button" onclick="location.href='landlord-sign-up.php'" value="Get Trusted"/>
         </h1>
       </div>
     </div>
@@ -31,41 +28,49 @@
           </input>
         </div>
         <div class="listing-grid">
-
           <?php
-            for ($i = 0; $i < 8; $i++) {
-              echo '
-                <div class="list-property" onclick="location.href=""listing/property-sample.php""">
-                  <div class="listing-property-container">
-                    <div class="listing-property-image-container">
-                      <image src="assets/images/properties/property-sample/image-property-sample-1.jpg" alt="Property Image Banner">
-                    </div>
-                      <div class="listing-property-info-container">
-                        <div>
-                          <h3>M Condominium @ Larkin Johor Bharu Johor</h3><br>
-                          <p class="listing-property-address">
-                            Jalan Dewata Off Susur Larkin Perdana 2, Larkin, Johor Bahru, Johor
-                          </p><br>
-                          <div class="listing-property-info">
-                            <h4>
-                              <image class="icon" src="assets/icons/bed.png" alt="Bedroom icon">3</image>
-                              <image class="icon" src="assets/icons/bath.png" alt="Bedroom icon">2</image>
-                            </h4><br>
-                            <p>1143 sqft RM</p><p>1.31 psf</p>
-                          </div><br>
-                          <h3>RM 1,500/month</h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="listing-property-owner">
-                    <hr>
-                    <p>Listed by <b>Max Yee</b></p>
-                  </div>
+            include("dbconnect.php"); 
+            $sql = "SELECT * FROM property";
+            $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+            mysqli_close($connect);
+
+            while ($rows = mysqli_fetch_array($result)) {
+              $id = $rows['propertyID'];
+              $link = "location.href='listing/property-" . $id . ".php'";
+              $thumb = "assets/images/properties/property-" . $id . "/image-property-sample-1.jpg"
+              // echo '<script>alert("' . $id . '");</script>';
+          ?>
+          <div class="list-property" onclick="<?php echo $link?>">
+            <div class="listing-property-container">
+              <div class="listing-property-image-container">
+                <image src="<?php echo $thumb?>" alt="Property Image Banner">
+              </div>
+                <div class="listing-property-info-container">
+                  <div>
+                    <h3><?php echo $rows['propertyName']?></h3><br>
+                    <p class="listing-property-address">
+                    <?php echo $rows['propertyAddress']?>
+                    </p><br>
+                    <div class="listing-property-info">
+                      <h4>
+                        <image class="icon" src="assets/icons/bed.png" alt="Bedroom icon"><?php echo $rows['propertyNumRooms']?></image>
+                        <image class="icon" src="assets/icons/bath.png" alt="Bedroom icon"><?php echo $rows['propertyBathrooms']?></image>
+                      </h4>
+                      <p><?php echo $rows['propertyFloorSize']?> sqft</p><p>RM 1.31 psf</p>
+                    </div><br>
+                    <h3>RM <?php echo round($rows['rentPrice'],0);?>/month</h3>
                 </div>
-              ';
+              </div>
+            </div>
+            <div class="listing-property-owner">
+              <hr>
+              <p>Listed by <b>Max Yee</b></p>
+            </div>
+          </div>
+          <?php
             }
           ?>
-
+          
           <!-- 
           <div class="list-property" onclick="location.href='listing/property-sample.php'">
             <div class="listing-property-container">
@@ -155,12 +160,9 @@
         </div>
       </div>
     </div>
-    
-  </body>
+  </div>
 </html>
 
 <?php
-    include("html/footer.html");
-    mysqli_close($connect);
-  }
+  include("html/footer.html");
 ?>

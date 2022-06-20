@@ -1,9 +1,5 @@
 <?php 
-  // session_start(); 
-  include("dbconnect.php"); 
-
-  if (isset($connect)) {
-    include("html/header.html");
+  include("html/header.html");
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +8,5 @@
   </body>
 </html>
 <?php
-    include("html/footer.html");
-    mysqli_close($connect);
-  }
+  include("html/footer.html");
 ?>

@@ -1,49 +1,53 @@
 <?php 
-  include("dbconnect.php"); 
-  session_start();
+  $email = "";
+  if (isset($_POST['login-submit'])) {
+    include("dbconnect.php");
+    // Capture values from user login form
+    $email = $_POST['useremail'];
+    $password = md5($_POST['userpassword']); // md5() used for encryption
 
-  if (isset($connect)) {
-    $email = "";
-    if (isset($_POST['login-submit'])) {
-      // Capture values from user login form
-      $email = $_POST['useremail'];
-      $password = md5($_POST['userpassword']); // md5() used for encryption
-  
-      // Checks if the username/email and the matched password is in the database
-      $sql = "SELECT * FROM user 
-              WHERE userName = '$email' OR userEmail = '$email' AND userPassword = '$password'";
-      $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
-
-      if (mysqli_num_rows($result) != 0) {
-        
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['userID'] = $row['userID'];
-        $usertype = $row['userType'];
-        
-        if ($usertype == 'A') {
-          echo "
-            <script>
-              alert('User is admin.');
-              window.location.replace('dashboard.php'); 
-            </script>
-          ";
-          // header("Location: dashboard.php");
-        } else if ($usertype == 'L') {
-          // header("Location: dashboard.php");
-        } else {
-          echo "
-            <script>
-              alert('User is normal user/tenant');
-              window.location.replace('dashboard.php'); 
-            </script>
-          ";
-          // header("Location: dashboard.php");
-        }
-        
+    // Checks if the username/email and the matched password is in the database
+    $sql = "SELECT * FROM user 
+            WHERE userName = '$email' OR userEmail = '$email' AND userPassword = '$password'";
+    $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+    mysqli_close($connect);
+    
+    if (mysqli_num_rows($result) != 0) {
+      session_start();
+      $row = mysqli_fetch_assoc($result);
+      $_SESSION['userID'] = $row['userID'];
+      $usertype = $row['userType'];
+      
+      if ($usertype == 'A') {
+        echo "
+          <script>
+            alert('User is admin');
+            window.location.replace('dashboard.php'); 
+          </script>
+        ";
+        // header("Location: dashboard.php");
+      } else if ($usertype == 'L') {
+        echo "
+          <script>
+            alert('User is landlord');
+            window.location.replace('dashboard.php'); 
+          </script>
+        ";
+        // header("Location: dashboard.php");
       } else {
-        echo "<script>alert('Incorrect email or password!');</script>";
+        echo "
+          <script>
+            alert('User is normal user/tenant');
+            window.location.replace('dashboard.php'); 
+          </script>
+        ";
+        // header("Location: dashboard.php");
       }
+      
+    } else {
+      echo "<script>alert('Incorrect email or password!');</script>";
     }
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -79,7 +83,3 @@
     </div>
   </body>
 </html>
-<?php
-    mysqli_close($connect);
-  }
-?>
