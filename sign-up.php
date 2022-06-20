@@ -5,26 +5,23 @@
       // Capture values from user sign-up form
       $username = $_POST['username'];
       $email = $_POST['useremail'];
-      $password = md5($_POST['userpassword']); // md5() used for encryption
-      $confirmpassword = md5($_POST['confirmpassword']);
-  
+      $password = $_POST['userpassword']; // used for encryption
+      $confirmpassword = $_POST['confirmpassword'];
+
       if ($password == $confirmpassword) {
         include("dbconnect.php"); 
         // Checks if the email address is already exist in the database
         $sql = "SELECT * FROM user WHERE userName = '$username' OR userEmail = '$email'";
         $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
-        mysqli_close($connect);
-
+        
         if (mysqli_num_rows($result) == 0) {
-          include("dbconnect.php"); 
           // Inserting new data into the database
+          $password = password_hash($password, PASSWORD_DEFAULT);
           $sql = "INSERT INTO user (userName, userEmail, userPassword, userType) 
                   VALUES('".$username."','".$email."','".$password."','T')";
           $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
-          mysqli_close($connect);
 
           if ($result) {
-            include("dbconnect.php");
             $sql = "SELECT * FROM user WHERE userName = '$email' OR userEmail = '$email'";
             $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
             mysqli_close($connect);
@@ -47,7 +44,9 @@
           } else {
             echo "<script>alert('Error: Something went wrong!');</script>";
           }
+          mysqli_close($connect);
         } else {
+          mysqli_close($connect);
           $row = mysqli_fetch_assoc($result);
           $existingUsername = $row['userName'];
           $existingEmail = $row['userEmail'];
