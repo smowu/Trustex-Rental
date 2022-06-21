@@ -94,17 +94,78 @@ button {
   justify-content: center;
   top: 0;
   position: absolute;
-  /* padding: 0px 12px 0px 12px; */
   margin: 8px 0px 8px 0px;
   right: 16vw;
   list-style: none;
-
+  cursor: pointer;
 }
 .profile-icon img {
   height: 38px;
   padding: 0px;
-  border: 1px solid #fbfbfb;
+  border: 2px solid #fbfbfb;
+  outline: 3px solid #fbfbfb00;
   border-radius: 100em;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.profile-icon img:hover {
+  outline: 3px solid #fbfbfb;
+}
+.user-menu {
+  position: fixed;
+  display: none;
+  width: 256px;
+  top: 64px;
+  right: 16vw;
+  margin-right: 8px;
+  height: max-content;
+  background-color: #fbfbfb;
+  border: 0.5rem solid #fbfbfb;
+  outline: 1px solid #ffffff;
+  border-radius: 1rem;
+  box-shadow: 1rem 1.5rem 1.5rem rgba(18, 64, 84, 0.15);
+  text-align: left;
+  line-height: 1rem;
+}
+.user-menu a {
+  display: flex;
+  width: 100%;
+  margin: 4px 0;
+  padding: 0 8px;
+  color: #333333;
+  line-height: 3rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.user-menu a:hover {
+  color: #257b9f;
+  background-color: #257b9f07;
+}
+.user-menu hr {
+  background-color: #333333; 
+  height: 1px;
+  border: 0;
+  opacity: 0.25;
+  bottom: 0;
+}
+.user-menu-profile {
+  position: relative;
+  display: inline;
+  color: #333333;
+}
+.user-menu-profile img {
+  width: 72px;
+  margin: 4px;
+  border: 3px solid #257b9f;
+  border-radius: 100em;
+  background-color: #257b9f;
+}
+.user-menu-profile h4, .user-menu-profile p {
+  padding: 4px 8px;
+}
+.user-menu-profile p {
+  font-size: 0.8rem;
+  color:#666666;
 }
 
 /* Navigation links */
@@ -117,7 +178,7 @@ button {
   right: 14px;
   position: relative;
 }
-.nav-links a {
+.nav-links a:not(.user-menu a){
   color: #fbfbfb;
   text-decoration: none;
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -774,7 +835,7 @@ footer hr {
   #logo {
     left: 4vw;
   }
-  #login, .profile-icon {
+  #login, .profile-icon, .user-menu {
     right: 2vw;
   }
   .container-margin {

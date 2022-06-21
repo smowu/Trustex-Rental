@@ -27,6 +27,21 @@ for (let link of links) {
   }
 }
 
+// User menu show/hide functions
+$(document).ready( function() {
+  $(".profile-icon").click( function() {
+    $(".user-menu").fadeToggle(200,"swing");
+  });
+});
+
+$(document).mouseup(function(e) {
+    var menu = $(".user-menu");
+    var icon = $(".profile-icon");
+    if (!menu.is(e.target) && menu.has(e.target).length == 0 &&
+        !icon.is(e.target) && icon.has(e.target).length == 0) {
+        menu.fadeOut(200,"swing");
+    }
+});
 
 // Check sign up infos
 

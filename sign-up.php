@@ -36,11 +36,16 @@
             $_SESSION['userID'] = $row['userID'];
             $_SESSION['userType'] = $row['userType'];
 
-            $dir = "./assets/images/users/user-" . sprintf('%010d', $userid) . "/profile-picture";
-            mkdir($dir);
+            $dir = "/assets/images/users/user-" . sprintf('%010d', $_SESSION['userID']) . "/profile-picture/";
+            mkdir(__DIR__ . $dir, 0777, true);
 
             echo "<script>alert('Registration successful!');</script>";
-            header("Location: dashboard.php");
+            echo "
+              <script>
+                window.location.replace('dashboard.php');
+              </script>
+            ";
+            // header("Location: dashboard.php");
           } else {
             echo "<script>alert('Error: Something went wrong!');</script>";
           }

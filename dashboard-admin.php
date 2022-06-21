@@ -5,15 +5,11 @@
     include("dbconnect.php");
     $sql = "SELECT * FROM user WHERE userID = $id";
     $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-    $row = mysqli_num_rows($result);
     mysqli_close($connect);
 
-    if ($row == 0) {
-      header("Location: login.php");
-    } else {
-      $user = mysqli_fetch_assoc($result);
-      $username= $user['userName'];
-      include("html/header.html");
+    $user = mysqli_fetch_assoc($result);
+    $username= $user['userName'];
+    include("html/header.html");
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,8 +22,7 @@
   </body>
 </html>
 <?php
-      include("html/footer.html");
-    }
+    include("html/footer.html");
   } else {
     header("Location: dashboard.php");
   }
