@@ -16,33 +16,8 @@
       if (password_verify($password, $row['userPassword'])) {
         session_start();
         $_SESSION['userID'] = $row['userID'];
-        $usertype = $row['userType'];
-        
-        if ($usertype == 'A') {
-          echo "
-            <script>
-              alert('User is admin');
-              window.location.replace('dashboard.php'); 
-            </script>
-          ";
-          // header("Location: dashboard.php");
-        } else if ($usertype == 'L') {
-          echo "
-            <script>
-              alert('User is landlord');
-              window.location.replace('dashboard.php'); 
-            </script>
-          ";
-          // header("Location: dashboard.php");
-        } else {
-          echo "
-            <script>
-              alert('User is normal user/tenant');
-              window.location.replace('dashboard.php'); 
-            </script>
-          ";
-          // header("Location: dashboard.php");
-        }
+        $_SESSION['userType'] = $row['userType'];
+        header("Location: dashboard.php");
       } else {
         echo "<script>alert('Incorrect password!');</script>";
       }

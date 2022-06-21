@@ -31,18 +31,21 @@
             <a class="nav-link" data-active="faq" href="faq.php">FAQ</a></li>
         </div>
         <?php 
-          include("dbconnect.php");
           session_start(); 
           if (isset($_SESSION['userID'])) {
+            $userid = $_SESSION['userID'];
+            $profileicon = "assets/images/users/user-" . sprintf('%010d', $userid) . "/profile-picture/profile-picture.png";
         ?>
             <!-- User quick menu button -->
             <li>
-              <a id="login" href="logout.php">
-                <image src="assets/icons/icon-user.png" alt="Logout Icon"><p>Logout</p>
+              <!-- <button class="profile-icon">
+                <image src="  "></image>
+              </button> -->
+              <a class="profile-icon" href="logout.php">
+                <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
               </a>
             </li>
         <?php
-            mysqli_close($connect);
           } else {
         ?>
         <!-- Login button -->

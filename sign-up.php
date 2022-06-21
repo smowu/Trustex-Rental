@@ -5,7 +5,7 @@
       // Capture values from user sign-up form
       $username = $_POST['username'];
       $email = $_POST['useremail'];
-      $password = $_POST['userpassword']; // used for encryption
+      $password = $_POST['userpassword'];
       $confirmpassword = $_POST['confirmpassword'];
 
       if ($password == $confirmpassword) {
@@ -16,7 +16,7 @@
         
         if (mysqli_num_rows($result) == 0) {
           // Inserting new data into the database
-          $password = password_hash($password, PASSWORD_DEFAULT);
+          $password = password_hash($password, PASSWORD_DEFAULT); // password encryption
           $sql = "INSERT INTO user (userName, userEmail, userPassword, userType) 
                   VALUES('".$username."','".$email."','".$password."','T')";
           $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
@@ -34,13 +34,13 @@
             session_start();
             $row = mysqli_fetch_assoc($result);
             $_SESSION['userID'] = $row['userID'];
-            echo "
-              <script>
-                alert('Registration successful!');
-                window.location.replace('dashboard.php');
-              </script>
-            ";
-            // header("Location: login.php");
+            $_SESSION['userType'] = $row['userType'];
+
+            $dir = "./assets/images/users/user-" . sprintf('%010d', $userid) . "/profile-picture";
+            mkdir($dir);
+
+            echo "<script>alert('Registration successful!');</script>";
+            header("Location: dashboard.php");
           } else {
             echo "<script>alert('Error: Something went wrong!');</script>";
           }

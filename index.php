@@ -39,25 +39,14 @@
             $startfrom = ($page-1) * $numlistperpage;
 
             include("dbconnect.php"); 
-            $sql = "SELECT * FROM listing, property WHERE listing.propertyID = property.propertyID LIMIT $startfrom, $numlistperpage";
+            $sql = "SELECT * FROM listing, property 
+                    WHERE listing.propertyID = property.propertyID 
+                    ORDER BY listing.listingID ASC
+                    LIMIT $startfrom, $numlistperpage";
             $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
             mysqli_close($connect);
 
             for ($i = 0; $i < $numlistperpage || $rows = mysqli_fetch_array($result); $i++) {
-
-              $link = "";
-              $thumb = "";
-              $alt = "";
-              $propertyname = "--";
-              $propertyaddress = "--";
-              $numofrooms = "-";
-              $bedrooms = "-";
-              $floorsize = "-.--";
-              $pricepersqft = "-.--";
-              $rentprice = "----";
-              $landlordFName = "";
-              $landlordLName = "";
-
               if ($rows = mysqli_fetch_array($result)) {
                 include("dbconnect.php"); 
                 $regNo = $rows['landlordRegNo'];
@@ -81,6 +70,19 @@
                 $rentprice = number_format(round($rows['rentPrice'],0));
                 $landlordFName = $landlord['userFName'];
                 $landlordLName = $landlord['userLName'];
+              } else {
+                $link = "";
+                $thumb = "";
+                $alt = "";
+                $propertyname = "--";
+                $propertyaddress = "--";
+                $numofrooms = "-";
+                $bedrooms = "-";
+                $floorsize = "-.--";
+                $pricepersqft = "-.--";
+                $rentprice = "----";
+                $landlordFName = "";
+                $landlordLName = "";
               }
           ?>
           <div class="list-property" onclick="<?php echo $link?>">
