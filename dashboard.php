@@ -9,12 +9,23 @@
       $id = $_SESSION['userID'];
       include("dbconnect.php");
       $sql = "SELECT * FROM user WHERE userID = $id";
-      $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-      $row = mysqli_num_rows($result);
+      $resultuser = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+
+      $user = mysqli_fetch_assoc($resultuser);
+      $username = $user['userName'];
+      
+      $firstname = $user['userFName'];
+      if ($firstname == null) {
+        $firstname = "--";
+      }
+
+      $sql = "SELECT * FROM request WHERE request.userID = $id";
+      $resultreq = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+      $row = mysqli_num_rows($resultreq);
       mysqli_close($connect);
 
-      $user = mysqli_fetch_assoc($result);
-      $username= $user['userName'];
+      $req = mysqli_fetch_assoc($resultreq);
+
       include("html/header.html");
 ?>
 <!DOCTYPE html>
@@ -32,6 +43,7 @@
               <p><?php echo $usertype ?> Account</p>
               <p>User ID: <?php echo sprintf('%010d', $id)?></p><br>
               <hr>
+              <p><?php echo $firstname ?></p>
             </div>
           </div>
           <a href="landlord-sign-up.php">
@@ -40,10 +52,34 @@
         </div>
         <div class="container-right">
           <div class="rental-status">
+            <h3>Rental Status</h3>
+            <div class="rent-status">
+              <div>
+                <p>You don't have any active rents!</p><br>
+                <a href="index.php#listing-body" onclick="focusSearch(600)">
+                  <button>Explore listings</button>
+                </a>
+              </div>
+            </div>
+            <!-- 
+            <div class="rent-status">
+              <ul>
 
+              </ul>
+            </div> -->
           </div>
           <div class="rental-history">
-
+            <h3>Rental History</h3>
+            <div class="rent-history">
+              <p>No previous rents was found!</p>
+            </div>
+            <!-- 
+            <div class="rent-status">
+              <ul>
+                
+              </ul>
+            </div> 
+            -->
           </div>
         </div>
       </div>

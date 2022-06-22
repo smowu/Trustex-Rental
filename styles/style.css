@@ -893,7 +893,32 @@ footer hr {
 }
 
 .rental-status {
-  height: 60vh;
+  position: relative;
+  height: 480px;
+}
+.rental-status > h3 {
+  height: 2rem;
+  padding: 8px 8px;
+  border-radius: 0.5rem;
+}
+.rental-status > div {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 420px;
+  width: 100%;
+  bottom: 0;
+  border-radius: 0.5rem;
+}
+.rent-status {
+  position: relative;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: #33333366;
+  border: solid 1px #cccccc;  
+  background-color: #cccccc22;
 }
 .rental-history {
   height: 60vh;

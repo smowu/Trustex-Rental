@@ -46,7 +46,7 @@
             $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
             mysqli_close($connect);
 
-            for ($i = 0; $i < $numlistperpage || $rows = mysqli_fetch_array($result); $i++) {
+            for ($i = 0; $i < $numlistperpage; $i++) {
               if ($rows = mysqli_fetch_array($result)) {
                 include("dbconnect.php"); 
                 $regNo = $rows['landlordRegNo'];
