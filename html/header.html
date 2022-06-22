@@ -51,7 +51,6 @@
             } else {
               $usertype = "Tenant";
             }
-
             $profileicon = "assets/images/users/user-" . sprintf('%010d', $userid) . "/profile-picture/profile-picture.png";
         ?>
             <!-- User quick menu button -->
@@ -63,15 +62,24 @@
                 <div class="profile-menu user-menu-profile">
                   <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
                   <h4><?php echo $username ?></h4>
-                  <p><?php echo $useremail ?></p>
-                  <p><?php echo $usertype ?></p>
-                </div><br><hr>
-                <a href="settings.php">Profile settings</a><hr>
-                <a href="logout.php">Log out</a>
+                  <p><?php echo $useremail ?></p><br>
+                  <p><?php echo $usertype ?> Account</p>
+                  <br>
+                </div><hr>
+                <a href="dashboard.php">
+                  <img class="user-menu-icon" style="padding: 2px;" src="assets/icons/dashboard.png"></img>
+                  Dashboard
+                </a>
+                <a href="settings.php">
+                  <img class="user-menu-icon" src="assets/icons/setting.png"></img>
+                  Profile settings
+                </a>
+                <a href="logout.php">
+                  <img class="user-menu-icon" style="padding: 2px;" src="assets/icons/logout.png"></img>
+                  Log out
+                </a>
               </div>
             </li>
-            
-
         <?php
           } else {
         ?>
