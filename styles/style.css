@@ -697,9 +697,7 @@ footer hr {
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .user-signup-form > input:hover {
-  width: 100%;
   color: #257b9f;
-  border: 3px solid #257b9f;
   background-color: #fbfbfb;
 }
 .user-signup-form-container > p {
@@ -805,6 +803,7 @@ footer hr {
   border-bottom: 3px solid #257b9f;
 }
 
+/* Dashboard */
 #dashboard {
   color: #333333;
   height: max-content;
@@ -864,7 +863,7 @@ footer hr {
   color: #fbfbfbcc;
 }
 .account-info {
-  height: 70vh;
+  height: max-content;
   color: #fbfbfb;
   background-color: #257b9f;
   border: 0.5rem solid #257b9f;
@@ -876,6 +875,21 @@ footer hr {
   border: 0;
   opacity: 0.75;
   bottom: 0;
+}
+.register-landlord-button {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.register-landlord-button:hover {
+  color: #257b9f;
+  background-color: #fbfbfb;
 }
 
 .rental-status {

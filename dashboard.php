@@ -29,10 +29,14 @@
               <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
               <h2><?php echo $username ?></h2>
               <p><?php echo $useremail ?></p><br>
-              <p><?php echo $usertype ?> Account</p><br>
+              <p><?php echo $usertype ?> Account</p>
+              <p>User ID: <?php echo sprintf('%010d', $id)?></p><br>
               <hr>
             </div>
           </div>
+          <a href="landlord-sign-up.php">
+            <button class="register-landlord-button">Become a Landlord</button>
+          </a>
         </div>
         <div class="container-right">
           <div class="rental-status">
