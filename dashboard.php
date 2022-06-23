@@ -70,16 +70,55 @@
           </div>
           <div class="rental-history">
             <h3>Rental History</h3>
-            <div class="rent-history">
-              <p>No previous rents was found!</p>
-            </div>
-            <!-- 
-            <div class="rent-status">
-              <ul>
-                
-              </ul>
-            </div> 
-            -->
+            <div class="rental-history-table">
+              <?php $numrows = 24; 
+                if ($numrows > 0) {
+              ?>
+              <div class="rent-history">
+                <table>
+                  <tr class="no-hover">
+                    <th>Req ID</th>
+                    <th>Property Name</th>
+                    <th>Landlord</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Duration</th>
+                    <th>Rent Price</th>
+                  </tr>
+                  <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
+                  <?php
+                    
+                    for ($i = 0; $i < $numrows; $i++) {
+                  ?>
+                    <tr>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                      <td>text</td>
+                    </tr>
+                  <?php
+                      if ($i < $numrows-1) {
+                        echo "<tr class='spacer'><td></td></tr>";
+                      }
+                    }
+                  ?>
+                </table>
+              </div> 
+              <?php
+                } else {
+              ?>
+              <div class="rent-history">
+                <p>No previous rents was found!</p>
+              </div>
+              <?php  
+                }
+              ?>
+              </div>
+            
+           
           </div>
         </div>
       </div>
