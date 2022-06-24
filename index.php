@@ -15,7 +15,7 @@
         <h1>
           One click closer to your next home.<br>
           <input class="home-button" type="button" onclick="location.href='sign-up.php'" value="Get started"/>
-          <input class="home-button" type="button" onclick="location.href='landlord-sign-up.php'" value="Get Trusted"/>
+          <input class="home-button" type="button" onclick="location.href='landlord-application.php'" value="Get Trusted"/>
         </h1>
       </div>
     </div>

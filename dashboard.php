@@ -7,17 +7,18 @@
       header("Location: dashboard-landlord.php");
     } else {
       $id = $_SESSION['userID'];
-      include("dbconnect.php");
-      $sql = "SELECT * FROM user WHERE userID = $id";
-      $resultuser = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-
-      $user = mysqli_fetch_assoc($resultuser);
-      $username = $user['userName'];
+      $username = $_SESSION['userName'];
+      $useremail = $_SESSION['userEmail'];
+      $usertype = $_SESSION['userType'];
       
-      $firstname = $user['userFName'];
+      $firstname = null;
       if ($firstname == null) {
         $firstname = "--";
       }
+
+      include("dbconnect.php");
+      $sql = "SELECT userID, applicationStatus FROM applications WHERE applications.userID = $id";
+      $resultapplication = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
 
       $sql = "SELECT * FROM request WHERE request.userID = $id";
       $resultreq = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
@@ -46,9 +47,40 @@
               <p><?php echo $firstname ?></p>
             </div>
           </div>
-          <a href="landlord-sign-up.php">
-            <button class="register-landlord-button">Become a Landlord</button>
+          <?php
+            if (mysqli_num_rows($resultapplication) != 0) {
+              $application = mysqli_fetch_assoc($resultapplication);
+              if ($application['applicationStatus'] == "Pending") {
+          ?>
+          <p>Your landlord application has been sent.</p><br>
+          <button class="apply-landlord-button button-disable" disabled>Application Pending</button>
+          <?php
+              } else if ($application['applicationStatus'] == "Accepted") {
+          ?>
+          <p>Your landlord application has been ACCEPTED!</p><br>
+          <a href="dashboard-landlord.php">
+            <button class="apply-landlord-button">Switch to Landlord account</button>
           </a>
+          <?php
+              } else if ($application['applicationStatus'] == "Rejected") {
+          ?>
+          <p>Your landlord application has been REJECTED!<br>Try re-applying again.</p><br>
+          <a href="landlord-application.php">
+            <button class="apply-landlord-button">Re-apply</button>
+          </a>
+          <?php
+              } else {
+                echo "<p>Unable to fetch application details.</p>";
+              }
+            } else {
+          ?>
+          <p>Want to list your property on Trustex?<br>Apply for a Landlord account now!</p><br>
+          <a href="landlord-application.php">
+            <button class="apply-landlord-button">Become a Landlord</button>
+          </a>
+          <?php
+            }
+          ?>
         </div>
         <div class="container-right">
           <div class="rental-status">
@@ -57,7 +89,7 @@
               <div>
                 <p>You don't have any active rents!</p><br>
                 <a href="index.php#listing-body" onclick="focusSearch(600)">
-                  <button>Explore listings</button>
+                  <button class="rental-status-explore-button">Explore listings</button>
                 </a>
               </div>
             </div>
@@ -90,7 +122,7 @@
                     
                     for ($i = 0; $i < $numrows; $i++) {
                   ?>
-                    <tr>
+                    <tr onclick="location.href='property.php'">
                       <td>text</td>
                       <td>text</td>
                       <td>text</td>
@@ -100,6 +132,7 @@
                       <td>text</td>
                     </tr>
                   <?php
+                      // Gap between rows
                       if ($i < $numrows-1) {
                         echo "<tr class='spacer'><td></td></tr>";
                       }

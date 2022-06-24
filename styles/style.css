@@ -43,6 +43,10 @@ button {
   width: 32px; height: 32px;
   padding: 4px; margin: 4px;
 }
+.button-disable {
+  pointer-events: none; 
+  opacity: 0.5;
+}
 #logo {
   position: absolute;
   padding: 12px 0px 12px 0px;
@@ -821,10 +825,11 @@ footer hr {
   padding: 2rem 0 0;
   width: 100%;
 }
+.container-margin {
+  margin: 0 16vw;
+}
 .container-left {
-  width: 30%;
-  min-width: max-content;
-  max-width: 320px;
+  width: 16rem;
 }
 .container-left > div {
   color: #fbfbfb;
@@ -838,7 +843,6 @@ footer hr {
 }
 .container-right h3 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  height: 2rem;
   padding: 8px 8px;
   border-radius: 0.5rem;
 }
@@ -883,7 +887,8 @@ footer hr {
   opacity: 0.75;
   bottom: 0;
 }
-.register-landlord-button {
+.apply-landlord-button {
+  width: 240px;
   font-size: 1rem;
   font-weight: bold;
   padding: 8px;
@@ -894,7 +899,7 @@ footer hr {
   cursor: pointer;
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.register-landlord-button:hover {
+.apply-landlord-button:hover {
   color: #257b9f;
   background-color: #fbfbfb;
 }
@@ -922,6 +927,22 @@ footer hr {
   border: solid 1px #cccccc;  
   background-color: #cccccc22;
 }
+.rental-status-explore-button {
+  width: 160px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 8px;
+  color: #257b9f;
+  background-color: transparent;
+  border-radius: 100rem;
+  border: 3px solid #257b9f;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.rental-status-explore-button:hover {
+  color: #fbfbfb;
+  background-color: #257b9f;
+}
+
 .rental-history {
   position: relative;
   height: max-content;
@@ -929,7 +950,7 @@ footer hr {
 .rental-history-table {
   height: 100%;
   max-height: 31rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   border-radius: 0.5rem;
   border: solid 1px #cccccc;  
   background-color: #cccccc22;
@@ -976,10 +997,237 @@ footer hr {
   opacity: 0;
 }
 
-
-.container-margin {
-  margin: 0 16vw;
+/* Profile Settings */
+#settings {
+  color: #333333;
+  height: max-content;
+  min-height: 100vh;
 }
+.settings-container {
+  padding: 56px 0;
+}
+.settings-container > h1 {
+  font-size: 3rem;
+  padding: 2rem 0 0;
+  width: 100%;
+}
+.settings-content {
+  position: relative;
+  display: flex;
+  height: max-content;
+  margin: 2rem 0;
+  background-color: #fbfbfb;
+  border: 0.5rem solid #fbfbfb;
+  outline: 1px solid #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
+}
+.settings-content h1 {
+  font-size: 3rem;
+}
+.settings-content h3 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 8px 8px;
+  border-radius: 0.5rem;
+}
+.settings-content p {
+  color: #999999;
+}
+.profile-section {
+  display: inline;
+  width: 100%;
+}
+.profile-info {
+  display: flex;
+}
+
+.profile-pic-container  {
+  position: relative;
+  border-radius: 50%;
+}
+.profile-pic-container h4 {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 256px;
+  color: #fbfbfb;
+  top: 57%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+.profile-pic {
+  width: 256px;
+  margin: 16px;
+  border-radius: 50%;
+  border: 1px solid #cccccc;
+  background-color: #257b9f20;
+}
+.profile-pic-container .camera-icon {
+  position: absolute;
+  width: 48px;
+  top: 43%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  filter: invert(99%) sepia(3%) saturate(20%) hue-rotate(331deg) brightness(105%) contrast(97%);
+  z-index: 9999;
+  pointer-events: none;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.profile-pic-container:after {
+  content: '';
+  color: #fbfbfb;
+  font-weight: bold;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  line-height: 256px;
+  margin: 16px;
+  width: 256px; height: 256px;
+  top: 0; left: 0;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  opacity: 0;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+}
+.profile-pic-container:hover:after,
+.profile-pic-container:hover .camera-icon,
+.profile-pic-container:hover .camera-icon-text {
+  opacity: 1;
+}
+
+.profile-info div:nth-child(2) {
+  width: 100%;
+  padding: 24px;
+  margin: auto;
+}
+.edit-button {
+  float: right;
+  padding: 2px;
+  color: #666666;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  border: 1px solid #cccccc;
+  padding-right: 8px;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.edit-button:hover {
+  background-color: #cccccc22;
+}
+.edit-icon {
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  filter: invert(14%) sepia(34%) saturate(0%) hue-rotate(248deg) brightness(94%) contrast(85%);
+}
+
+.personal-details {
+  display: inline;
+  width: 100%;
+}
+.personal-info {
+  padding: 0 8px;
+  /* border: 1px solid #cccccc33; */
+  border-radius: 0.5rem;
+}
+.personal-info div {
+  margin: 8px 0;
+  padding: 16px;
+  height: max-content;
+  border-radius: 0.5rem;
+  background-color: #cccccc33;
+}
+.personal-info h4 {
+  padding: 2px 0;
+}
+
+
+/* Landlord Registration */
+.landlord-application-section {
+  position: relative;
+  display: flex;
+  width: 76vw;
+  overflow: hidden;
+  background-color: #fbfbfb;
+}
+.landlord-application-form-container {
+  position: relative;
+  width: 100%;
+  padding: 4rem 4rem;
+  color: #333333;
+}
+.landlord-application-form-container h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+.application-input p {
+  padding-left: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+.landlord-application-form > input {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 8px;
+  width: 12rem;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.landlord-application-form > input:hover {
+  color: #257b9f;
+  background-color: #fbfbfb;
+}
+.landlord-application-form-container > p {
+  position: relative;
+  text-align: center;
+}
+.landlord-application-form-container a {
+  color: #257b9f;
+  text-decoration: none;
+  border-bottom: 3px solid #257b9f00;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.landlord-application-form-container a:hover {
+  border-bottom: 3px solid #257b9f;
+}
+
+/* 
+.form-textinput input {
+  font-size: 1.2rem;
+  padding: 0.6rem 0.8rem;
+  color: #333333;
+  border: none;
+  border-bottom: solid 3px #66666666;
+  background-color: transparent;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.form-textinput input:focus {
+  outline: none;
+  border-bottom: solid 3px #5c9cb7;
+}
+.form-textinput input:focus::placeholder {
+  color: #5c9cb766;
+}
+
+.form-textinput input:focus:-ms-input-placeholder {
+  color: #5c9cb766;
+}
+
+.form-textinput input:focus::-ms-input-placeholder {
+  color: #5c9cb766;
+} */
+
 
 /* Media queries */
 @media only screen and (max-width: 85em) {

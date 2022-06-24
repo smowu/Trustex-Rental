@@ -43,6 +43,19 @@ $(document).mouseup(function(e) {
     }
 });
 
+// Upload Image
+
+function uploadImage() {
+  alert("Upload Image");
+}
+
+// Edit profile in settings
+
+function enableEdit() {
+
+}
+
+
 // Check sign up infos
 
 function isSignupFormFilled() {

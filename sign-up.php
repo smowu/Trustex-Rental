@@ -17,8 +17,8 @@
         if (mysqli_num_rows($result) == 0) {
           // Inserting new data into the database
           $password = password_hash($password, PASSWORD_DEFAULT); // password encryption
-          $sql = "INSERT INTO user (userName, userEmail, userPassword, userType) 
-                  VALUES('".$username."','".$email."','".$password."','T')";
+          $sql = "INSERT INTO user (userName, userEmail, userPassword) 
+                  VALUES('".$username."','".$email."','".$password."')";
           $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
 
           if ($result) {
@@ -83,7 +83,7 @@
       <div class="user-signup-form-container">
         <h1>Sign Up</h1>
         <!-- Sign up form -->
-        <form class="user-signup-form" name="user-signup-form" method="POST" action="">
+        <form class="user-signup-form" name="user-signup" method="POST" action="">
           <div class="form-textinput signup-input">
             <input type="text" id="username" name="username" placeholder="Username" value="<?php echo $username; ?>" required><br>
           </div><br>

@@ -35,14 +35,8 @@
           session_start(); 
           if (isset($_SESSION['userID'])) {
             $userid = $_SESSION['userID'];
-            include("dbconnect.php");
-            $sql = "SELECT userName, userEmail FROM user WHERE userID = $userid";
-            $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-            mysqli_close($connect);
-
-            $user = mysqli_fetch_assoc($result);
-            $username = $user['userName'];
-            $useremail = $user['userEmail'];
+            $username = $_SESSION['userName'];
+            $useremail = $_SESSION['userEmail'];
             $usertype = "--";
             if ($_SESSION['userType'] == 'A') {
               $usertype = "Admin";
@@ -51,7 +45,7 @@
             } else {
               $usertype = "Tenant";
             }
-            $profileicon = "assets/images/users/user-" . sprintf('%010d', $userid) . "/profile-picture/profile-picture.png";
+            $profileicon = "assets/images/users/user-".sprintf('%010d', $userid)."/profile-picture/profile-picture.png";
         ?>
             <!-- User quick menu button -->
             <li>

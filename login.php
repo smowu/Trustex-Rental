@@ -17,6 +17,8 @@
         session_start();
         $_SESSION['userID'] = $row['userID'];
         $_SESSION['userType'] = $row['userType'];
+        $_SESSION['userName'] = $row['userName'];
+        $_SESSION['userEmail'] = $row['userEmail'];
         header("Location: dashboard.php");
       } else {
         echo "<script>alert('Incorrect password!');</script>";
