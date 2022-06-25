@@ -43,10 +43,43 @@ $(document).mouseup(function(e) {
     }
 });
 
-// Upload Image
+// Toggle image upload form
+function toggleImageForm(original) {
+  $(".image-upload-overlay").fadeToggle(100,"swing");
+  if (onerror != null) {
+    $('.image-upload-form .profile-pic').attr('src', original);
+  }
+  
+}
 
-function uploadImage() {
-  alert("Upload Image");
+$(document).mouseup(function(e) {
+  var uploadform = $(".image-upload-form");
+  var container = $(".image-upload-overlay");
+  if (!uploadform.is(e.target) && uploadform.has(e.target).length == 0) {
+    container.fadeOut(100,"swing");
+    $('.save-image-button').prop('disabled', true);
+    $(".image-upload-form").trigger("reset");
+  }
+});
+
+// Preview image to upload
+function readImageURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('.image-upload-form .profile-pic').attr('src', e.target.result);
+      $('.save-image-button').prop('disabled', false);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+// Reset image
+function removeImage() {
+  $('.image-upload-form .profile-pic').attr('src', "assets/images/profile-default.png");
+  $(".image-upload-form").trigger("reset");
+  $('.save-image-button').prop('disabled', false);
 }
 
 // Edit profile in settings

@@ -1,6 +1,26 @@
 <?php
   include("html/header.html");
+?>
+<!-- Overlay for changing profile picture -->
+<div class="image-upload-overlay">
+  <form class="image-upload-form" action="uploadImage.php" method="post" enctype="multipart/form-data">
+    <div>
+      <h3>
+        Upload Image
+        <image class="icon close-icon" src="assets/icons/close.png" onclick="toggleImageForm()">
+      </h3>
+    </div>
+    <image class="profile-pic" src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+    <hr><br>
+    <div>
+      <input type="file" name="fileToUpload" onchange="readImageURL(this)">
+      <input type="submit" value="Save Image" name="upload-image" class="save-image-button" disabled>
+      <input type="button" value="Remove Profile Picture" name="remove-profile-picture" onclick="removeImage()">
+    </div>
+  </form>
+</div>
 
+<?php
   include("dbconnect.php");
   $sql = "SELECT * FROM user WHERE userID = ".$_SESSION['userID']."";
   $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
@@ -27,8 +47,6 @@
 
   $profileicon = "assets/images/users/user-".sprintf('%010d', $id)."/profile-picture/profile-picture.png";
 
-  include("uploadImage.php");
-
   // if (password_verify($oldpassword, $userpassword)) {
 
   //   // Asks new password and confirmation
@@ -49,18 +67,11 @@
   <body id="settings">
     <div class="settings-container container-margin">
       <h1>Profile settings</h1>
-      <!-- 
-      <form action="upload.php" method="post" enctype="multipart/form-data">
-        Select image to upload:
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <input type="submit" value="Upload Image" name="upload-submit">
-      </form>
-       -->
       <div class="settings-content">
         <div class="profile-section">
           <h3>Account Info</h3>
           <div class="profile-info">
-            <div class="profile-pic-container" onclick="uploadImage()">
+            <div class="profile-pic-container" onclick="toggleImageForm('<?php echo $profileicon ?>')">
               <image class="camera-icon" src="assets/icons/camera.png">
                 <h4 class="camera-icon-text">Change profile picture</h4>
               </image>
@@ -80,47 +91,35 @@
       </div>
       <div class="settings-content">
         <div class="personal-details">
-          <h3>Personal Details</h3>
+          <h3>
+            Personal Details
+            <button class="edit-button">
+              <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
+            </button>
+          </h3>
+          
           <div class="personal-info">
             <div>
-              <button class="edit-button">
-                <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
-              </button>
               <p>First Name</p><br>
               <h4><?php echo $firstname ?></h4>
             </div>
             <div>
-              <button class="edit-button">
-                <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
-              </button>
               <p>Last Name</p><br>
               <h4><?php echo $lastname ?></h4>
             </div>
             <div>
-              <button class="edit-button">
-                <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
-              </button>
               <p>IC Number</p><br>
               <h4><?php echo $ic ?></h4>
             </div>
             <div>
-              <button class="edit-button">
-                <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
-              </button>
               <p>Gender</p><br>
               <h4><?php echo $gender ?></h4>
             </div>
             <div>
-              <button class="edit-button">
-                <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
-              </button>
               <p>Address</p><br>
               <h4><?php echo $address ?></h4>
             </div>
             <div>
-              <button class="edit-button">
-                <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
-              </button>
               <p>Phone No.</p><br>
               <h4><?php echo $phoneno ?></h4>
             </div>

@@ -1109,7 +1109,7 @@ footer hr {
 }
 .edit-button {
   float: right;
-  padding: 2px;
+  /* padding: 2px; */
   color: #666666;
   font-size: 1rem;
   border-radius: 0.5rem;
@@ -1149,6 +1149,56 @@ footer hr {
   padding: 2px 0;
 }
 
+.image-upload-overlay {
+  position: fixed;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000bb;
+  z-index: 99999;
+}
+.image-upload-overlay form {
+  position: relative;
+  width: 512px;
+  height: 512px;
+  padding: 8px 8px;
+  margin: 25vh auto;
+  background-color: #fbfbfb;
+  border: 0.5rem solid #fbfbfb;
+  border-radius: 1rem;
+  outline: 1px solid #ffffff;
+  box-shadow: 2rem 3rem 2rem #00000011;
+}
+
+.close-icon {
+  float: right;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  border-radius: 0.5rem;
+  background-color: none;
+  filter: invert(14%) sepia(34%) saturate(0%) hue-rotate(248deg) brightness(94%) contrast(85%);
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.close-icon:hover {
+  background-color: #cccccc77;
+}
+.image-upload-form input {
+  cursor: pointer;
+}
+
+.image-upload-overlay .profile-pic {
+  display: flex;
+  margin: 32px auto;
+  width: 320px;
+}
+.image-upload-overlay input {
+  display: inline;
+  align-content: center;
+  width: 100%;
+}
 
 /* Landlord Registration */
 .landlord-application-section {
