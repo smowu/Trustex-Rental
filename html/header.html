@@ -34,9 +34,9 @@
         <?php 
           session_start(); 
           if (isset($_SESSION['userID'])) {
-            $userid = $_SESSION['userID'];
+            $id = $_SESSION['userID'];
             $username = $_SESSION['userName'];
-            $useremail = $_SESSION['userEmail'];
+            $email = $_SESSION['userEmail'];
             $usertype = "--";
             if ($_SESSION['userType'] == 'A') {
               $usertype = "Admin";
@@ -45,7 +45,7 @@
             } else {
               $usertype = "Tenant";
             }
-            $profileicon = "assets/images/users/user-".sprintf('%010d', $userid)."/profile-picture/profile-picture.png";
+            $profileicon = "assets/images/users/user-".sprintf('%010d', $id)."/profile-picture/profile-picture.png";
         ?>
             <!-- User quick menu button -->
             <li>
@@ -56,7 +56,7 @@
                 <div class="profile-menu user-menu-profile">
                   <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
                   <h4><?php echo $username ?></h4>
-                  <p><?php echo $useremail ?></p><br>
+                  <p><?php echo $email ?></p><br>
                   <p><?php echo $usertype ?> Account</p>
                   <br>
                 </div><hr>

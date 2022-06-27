@@ -8,13 +8,8 @@
     } else {
       $id = $_SESSION['userID'];
       $username = $_SESSION['userName'];
-      $useremail = $_SESSION['userEmail'];
+      $email = $_SESSION['userEmail'];
       $usertype = $_SESSION['userType'];
-      
-      $firstname = null;
-      if ($firstname == null) {
-        $firstname = "--";
-      }
 
       include("dbconnect.php");
       $sql = "SELECT userID, applicationStatus FROM applications WHERE applications.userID = $id";
@@ -40,11 +35,8 @@
             <div class="account-profile">
               <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
               <h2><?php echo $username ?></h2>
-              <p><?php echo $useremail ?></p><br>
-              <p><?php echo $usertype ?> Account</p>
-              <p>User ID: <?php echo sprintf('%010d', $id)?></p><br>
-              <hr>
-              <p><?php echo $firstname ?></p>
+              <p><?php echo $email ?></p><br>
+              <p><?php echo $usertype ?> Account</p><br>
             </div>
           </div>
           <?php
@@ -74,7 +66,7 @@
               }
             } else {
           ?>
-          <p>Want to list your property on Trustex?<br>Apply for a Landlord account now!</p><br>
+          <p>Want to list your property on Trustex?<br><br>Apply for a Landlord account now!</p><br>
           <a href="landlord-application.php">
             <button class="apply-landlord-button">Become a Landlord</button>
           </a>
@@ -150,8 +142,6 @@
                 }
               ?>
               </div>
-            
-           
           </div>
         </div>
       </div>

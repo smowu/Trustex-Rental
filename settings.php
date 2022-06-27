@@ -10,12 +10,12 @@
         <image class="icon close-icon" src="assets/icons/close.png" onclick="toggleImageForm()">
       </h3>
     </div>
-    <image class="profile-pic" src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+    <image class="profile-pic" src="" onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
     <hr><br>
     <div>
       <input type="file" name="fileToUpload" onchange="readImageURL(this)">
       <input type="submit" value="Save Image" name="upload-image" class="save-image-button" disabled>
-      <input type="button" value="Remove Profile Picture" name="remove-profile-picture" onclick="removeImage()">
+      <input type="button" value="Remove Profile Picture" name="remove-profile-picture" onclick="resetProfilePicture()">
     </div>
   </form>
 </div>
@@ -29,8 +29,8 @@
 
   $id = $user['userID'];
   $username = $user['userName'];
-  $useremail = $user['userEmail'];
-  $userpassword = $user['userPassword'];
+  $email = $user['userEmail'];
+  $password = $user['userPassword'];
   if ($user['userType'] == 'A') {
     $usertype = "Admin";
   } else if ($user['userType'] == 'L') {
@@ -42,12 +42,19 @@
   $lastname = $user['userLName'];
   $ic = $user['userIC'];
   $gender = $user['userGender'];
+  if (strtoupper($gender) == 'M') {
+    $gender = "Male";
+  } else if (strtoupper($gender) == 'F') {
+    $gender = "Female";
+  } else {
+    $gender = "No Data";
+  }
   $address = $user['userAddress'];
   $phoneno = $user['userPhoneNo'];
 
   $profileicon = "assets/images/users/user-".sprintf('%010d', $id)."/profile-picture/profile-picture.png";
 
-  // if (password_verify($oldpassword, $userpassword)) {
+  // if (password_verify($oldpassword, $password)) {
 
   //   // Asks new password and confirmation
 
@@ -69,20 +76,27 @@
       <h1>Profile settings</h1>
       <div class="settings-content">
         <div class="profile-section">
-          <h3>Account Info</h3>
+          <h3>
+            Account Info
+            <button class="edit-button profile-edit">
+              <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
+            </button>
+          </h3>
+          
           <div class="profile-info">
-            <div class="profile-pic-container" onclick="toggleImageForm('<?php echo $profileicon ?>')">
+            <div class="profile-pic-container" onclick="toggleImageForm()">
               <image class="camera-icon" src="assets/icons/camera.png">
                 <h4 class="camera-icon-text">Change profile picture</h4>
               </image>
               <image class="profile-pic" src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
             </div>
             <div>
-              <button class="edit-button" onclick="enableEdit()">
-                <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
-              </button>
-              <h1><?php echo $username ?></h1>
-              <h4><?php echo $useremail ?></h4><br>
+              <form class="account-info-form" action="" method="POST" enctype="multipart/form-data">
+                <input class="profile-username" type="text" name="username" value="<?php echo $username ?>" required readonly>
+                <input class="profile-email" type="text" name="email" value="<?php echo $email ?>" required readonly>
+                <input class="save-account-edit" type="submit" name="save-account-edit" value="" style="display: none;">
+              </form>
+              <br>
               <p><?php echo $usertype ?> Account</p>
               <p>User ID: <?php echo sprintf('%010d', $user['userID'])?></p>
             </div>
@@ -93,37 +107,37 @@
         <div class="personal-details">
           <h3>
             Personal Details
-            <button class="edit-button">
+            <button class="edit-button personal-edit">
               <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
             </button>
           </h3>
-          
-          <div class="personal-info">
-            <div>
+          <form class="personal-info-form" action="" method="POST" enctype="multipart/form-data">
+            <div class="personal-info-firstname">
               <p>First Name</p><br>
-              <h4><?php echo $firstname ?></h4>
+              <input class="personal-firstname" type="text" name="firstname" value="<?php echo $firstname ?>" placeholder="-" readonly>
             </div>
-            <div>
+            <div class="personal-info-lastname">
               <p>Last Name</p><br>
-              <h4><?php echo $lastname ?></h4>
+              <input class="personal-lastname" type="text" name="lastname" value="<?php echo $lastname ?>" placeholder="-" readonly>
             </div>
-            <div>
+            <div class="personal-info-ic">
               <p>IC Number</p><br>
-              <h4><?php echo $ic ?></h4>
+              <input class="personal-ic" type="text" name="ic" value="<?php echo $ic ?>" placeholder="-" readonly>
             </div>
-            <div>
+            <div class="personal-info-gender">
               <p>Gender</p><br>
-              <h4><?php echo $gender ?></h4>
+              <input class="personal-gender" type="text" name="gender" value="<?php echo $gender ?>" placeholder="-" readonly>
             </div>
-            <div>
+            <div class="personal-info-address">
               <p>Address</p><br>
-              <h4><?php echo $address ?></h4>
+              <input class="personal-address" type="text" name="address" value="<?php echo $address ?>" placeholder="-" readonly>
             </div>
-            <div>
+            <div class="personal-info-phoneno">
               <p>Phone No.</p><br>
-              <h4><?php echo $phoneno ?></h4>
+              <input class="personal-phoneno" type="text" name="phoneno" value="<?php echo $phoneno ?>" placeholder="-" readonly>
             </div>
-          </div>
+            <input class="save-profile-edit" type="submit" name="save-profile-edit" value="" style="display: none;">
+          </form>
         </div>
       </div>
     </div>
@@ -131,4 +145,56 @@
 </html>
 <?php
   include("html/footer.html");
+
+  if (isset($_POST['save-account-edit']) || isset($_POST['save-profile-edit'])) {
+    
+    if (isset($_POST['save-account-edit'])) {
+      if ($_POST['username'] != $user['userName'] && isset($_POST['username'])) {
+        $username = $_POST['username'];
+      }
+      if ($_POST['email'] != $user['userEmail'] && isset($_POST['email'])) {
+        $email = $_POST['email'];
+      }
+    } else {
+      if ($_POST['firstname'] != $user['userFName']) {
+        $firstname = $_POST['firstname'];
+      }
+      if ($_POST['lastname'] != $user['userLName']) {
+        $lastname = $_POST['lastname'];
+      }
+      if ($_POST['ic'] != $user['userIC']) {
+        $ic = $_POST['ic'];
+      }
+
+      if ($_POST['gender'] != $user['userGender']) {
+        $gender = $_POST['gender'];
+      }
+      if ($_POST['address'] != $user['userAddress']) {
+        $address = $_POST['address'];
+      }
+      if ($_POST['phoneno'] != $user['userPhoneNo']) {
+        $phoneno = $_POST['phoneno'];
+      }
+    }
+    
+    include("dbconnect.php");
+    $sql = "UPDATE user SET 
+            userName = '$username',
+            userEmail = '$email',
+            userFName = '$firstname',
+            userLName = '$lastname',
+            userIC = '$ic',
+            userGender = '$gender',
+            userAddress = '$address',
+            userPhoneNo = '$phoneno'
+            WHERE user.userID = ".$_SESSION['userID']."";
+    $update_result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+    mysqli_close($connect);
+
+    if (!$update_result) {
+      echo "<script>alert('Something went wrong!');</script>";
+    }
+    echo "<script>history.go(-1);</script>";
+  }
+  
 ?>

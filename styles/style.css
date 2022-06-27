@@ -843,7 +843,7 @@ footer hr {
 }
 .container-right h3 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  padding: 8px 8px;
+  padding: 16px 8px;
   border-radius: 0.5rem;
 }
 .container-right > div {
@@ -913,7 +913,7 @@ footer hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 420px;
+  height: 400px;
   width: 100%;
   bottom: 0;
   border-radius: 0.5rem;
@@ -1027,7 +1027,7 @@ footer hr {
 }
 .settings-content h3 {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  padding: 8px 8px;
+  padding: 16px 8px;
   border-radius: 0.5rem;
 }
 .settings-content p {
@@ -1109,7 +1109,6 @@ footer hr {
 }
 .edit-button {
   float: right;
-  /* padding: 2px; */
   color: #666666;
   font-size: 1rem;
   border-radius: 0.5rem;
@@ -1129,24 +1128,59 @@ footer hr {
   filter: invert(14%) sepia(34%) saturate(0%) hue-rotate(248deg) brightness(94%) contrast(85%);
 }
 
+.profile-username {
+  font-size: 3rem;
+  font-weight: bold;
+  width: 90%;
+  color: #333333;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+}
+.profile-email {
+  margin: 8px 0;
+  font-size: medium;
+  font-weight: bold;
+  width: 60%;
+  color: #333333;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+}
+.account-info-form input:focus {
+  outline: none;
+}
+
 .personal-details {
   display: inline;
   width: 100%;
 }
-.personal-info {
+.personal-info-form {
   padding: 0 8px;
-  /* border: 1px solid #cccccc33; */
   border-radius: 0.5rem;
 }
-.personal-info div {
+.personal-info-form div {
   margin: 8px 0;
   padding: 16px;
   height: max-content;
   border-radius: 0.5rem;
   background-color: #cccccc33;
 }
-.personal-info h4 {
+.personal-info-form input {
   padding: 2px 0;
+  font-size: medium;
+  font-weight: bold;
+  color: #333333;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+}
+.personal-info-form input:focus {
+  outline: none;
+}
+.personal-address {
+  width: 100%;
+  height: max-content;
 }
 
 .image-upload-overlay {
@@ -1201,6 +1235,31 @@ footer hr {
 }
 
 /* Landlord Registration */
+.register-splashscreen {
+  position: relative;
+  width: 24vw; height: 100vh;
+  background-color: #257b9f;
+}
+.register-splashscreen a:nth-child(1) {
+  top: 48px;
+  left: 48px;
+  position: relative;
+}
+.return-dashboard {
+  position: fixed;
+  display: absolute;
+  bottom: 48px;
+  left: 48px;
+  color: #fbfbfb;
+  text-decoration: none;
+  border-bottom: 3px solid #fbfbfb00;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.return-dashboard:hover {
+  border-bottom: 3px solid #fbfbfb;
+}
+
 .landlord-application-section {
   position: relative;
   display: flex;
@@ -1218,10 +1277,33 @@ footer hr {
   font-size: 3rem;
   margin-bottom: 2rem;
 }
-.application-input p {
+.application-input input,
+.application-input textarea {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  padding: 0.6rem 0.8rem;
+  color: #333333;
+  border: none;
+  border-bottom: solid 3px #66666666;
+  background-color: #eeeeee;
+  resize: none;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.application-input input:focus,
+.application-input textarea:focus {
+  outline: none;
+  background-color: #5c9cb733;
+  border-bottom: solid 3px #5c9cb7;
+}
+.application-input input:focus::placeholder,
+.application-input textarea:focus::placeholder {
+  color: #5c9cb766;
+}
+.application-input input p {
   padding-left: 0.5rem;
   padding-bottom: 0.25rem;
 }
+
 .landlord-application-form > input {
   font-size: 1.2rem;
   font-weight: bold;
@@ -1252,32 +1334,20 @@ footer hr {
   border-bottom: 3px solid #257b9f;
 }
 
-/* 
-.form-textinput input {
-  font-size: 1.2rem;
-  padding: 0.6rem 0.8rem;
+/* About Us */
+#about {
   color: #333333;
-  border: none;
-  border-bottom: solid 3px #66666666;
-  background-color: transparent;
-  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  height: max-content;
+  min-height: 100vh;
 }
-.form-textinput input:focus {
-  outline: none;
-  border-bottom: solid 3px #5c9cb7;
+.about-container {
+  padding: 56px 0;
 }
-.form-textinput input:focus::placeholder {
-  color: #5c9cb766;
+.about-container > h1 {
+  font-size: 3rem;
+  padding: 2rem 0 0;
+  width: 100%;
 }
-
-.form-textinput input:focus:-ms-input-placeholder {
-  color: #5c9cb766;
-}
-
-.form-textinput input:focus::-ms-input-placeholder {
-  color: #5c9cb766;
-} */
-
 
 /* Media queries */
 @media only screen and (max-width: 85em) {

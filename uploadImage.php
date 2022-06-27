@@ -5,10 +5,6 @@
   $uploadOk = 1;
   $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-  // if (isset($_POST["remove-profile-picture"])) {
-  //   echo "<script>alert('Image is removed');</script>";
-  // }
-
   // Check if file already exists
   // if (file_exists($target_file)) {
   //   echo "Sorry, file already exists.";
@@ -16,7 +12,11 @@
   // }
 
   if (empty($_FILES["fileToUpload"]["tmp_name"])) {
-    echo "<script>alert('Image is removed');</script>";
+    $filepath = $target_dir . "profile-picture.png";
+    if (file_exists($filepath)) {
+      unlink($filepath);
+      echo "<script>alert('Successfully removed profile picture!');</script>";
+    }
   } else {
     // Check if image file is a actual image or fake image
     if(isset($_POST["upload-submit"])) {
@@ -28,7 +28,7 @@
         echo "<script>alert('File is not an image');</script>";
         $uploadOk = 0;
       }
-      }
+    }
     // Check file size
     if ($_FILES["fileToUpload"]["size"] > 20000000) {
       echo "<script>alert('Image file must be <20 MB');</script>";
@@ -47,17 +47,15 @@
       echo "<script>alert('Sorry, your file was not uploaded.');</script>";
     // if everything is ok, try to upload file
     } else {
-      // $temp = explode(".", $_FILES["fileToUpload"]["name"]);
-      // $newfilename = "profile-picture." . end($temp);
       if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . "profile-picture.png")) {
-        echo "<script>alert('The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.');</script>";
+        echo "<script>alert('Successfully changed profile picture!');</script>";
         echo "<script> window.location.replace('settings.php');</script>";
-       
       } else {
         echo "<script>alert('Sorry, there was an error uploading your file.');</script>";
       }
     }
   }
 
-  echo "<script>history.go(-1);</script>";
+  // echo "<script>history.go(-1);</script>";
+  header("Refresh:0; url=settings.php");
 ?>

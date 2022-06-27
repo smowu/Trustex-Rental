@@ -44,12 +44,10 @@ $(document).mouseup(function(e) {
 });
 
 // Toggle image upload form
-function toggleImageForm(original) {
+function toggleImageForm() {
+  var img = $('.profile-pic-container .profile-pic').attr("src");
+  $('.image-upload-form .profile-pic').attr('src', img);
   $(".image-upload-overlay").fadeToggle(100,"swing");
-  if (onerror != null) {
-    $('.image-upload-form .profile-pic').attr('src', original);
-  }
-  
 }
 
 $(document).mouseup(function(e) {
@@ -75,18 +73,74 @@ function readImageURL(input) {
   }
 }
 
-// Reset image
-function removeImage() {
+function resetProfilePicture() {
   $('.image-upload-form .profile-pic').attr('src', "assets/images/profile-default.png");
   $(".image-upload-form").trigger("reset");
   $('.save-image-button').prop('disabled', false);
 }
 
 // Edit profile in settings
+$(document).ready(function(){
+	$('.profile-edit').click(function(){
+    enableEditAccountInfo();
+    $(".profile-username").select();
+	});
+  $('.profile-username').dblclick(function(){
+    enableEditAccountInfo();
+	});
+  $('.profile-email').dblclick(function(){
+    enableEditAccountInfo();
+	});
 
-function enableEdit() {
+  $('.personal-edit').click(function(){
+    enableEditPersonalInfo();
+    $(".personal-firstname").select();
+	});
+  $(".personal-info-form input").dblclick(function(){
+    enableEditPersonalInfo();
+	});
 
-}
+  function enableEditAccountInfo() {
+    $(".profile-edit").hide();
+    $(".account-info-form input").attr("readonly", false);
+    $(".account-info-form input").css("border", "2px solid #cccccc");
+  }
+  function saveEditAccountInfo() {
+    $(".account-info-form input").css("border", "transparent");
+    $(".account-info-form input").attr("readonly", true);
+    $(".save-account-edit").click();
+  }
+
+  function enableEditPersonalInfo() {
+    $(".personal-edit").hide();
+    $(".personal-info-form input").attr("readonly", false);
+    $(".personal-info-form input").css("border", "2px solid #cccccc");
+  }
+  function saveEditPersonalInfo() {
+    $(".personal-info-form input").css("border", "transparent");
+    $(".personal-info-form input").attr("readonly", true);
+    $(".save-profile-edit").click();
+  }
+
+	$('input[type="text"]').blur(function() {
+    // if ($.trim(this.value) == ''){
+    //   this.value = (this.defaultValue ? this.defaultValue : '');
+    // }
+    saveEditAccountInfo();
+    saveEditPersonalInfo();
+  });
+
+  $('input[type="text"]').keypress(function(event) {
+    if (event.keyCode == '13') {
+      // if ($.trim(this.value) == ''){
+      //   this.value = (this.defaultValue ? this.defaultValue : '');
+      // }
+      saveEditAccountInfo();
+      saveEditPersonalInfo();
+    }
+  });
+
+});
 
 
 // Check sign up infos

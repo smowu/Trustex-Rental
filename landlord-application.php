@@ -1,20 +1,102 @@
 <?php 
   session_start();
   if (isset($_SESSION['userID']) && $_SESSION['userType'] == 'T') {
+
+    include("dbconnect.php");
+    $sql = "SELECT * FROM user WHERE userID = ".$_SESSION['userID']."";
+    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    mysqli_close($connect);
+    $user = mysqli_fetch_assoc($result);
+
+    $id = $user['userID'];
+    $username = $user['userName'];
+    $email = $user['userEmail'];
+    if ($user['userType'] == 'A') {
+      $usertype = "Admin";
+    } else if ($user['userType'] == 'L') {
+      $usertype = "Landlord";
+    } else { 
+      $usertype = "Tenant";
+    }
+    $firstname = $user['userFName'];
+    $lastname = $user['userLName'];
+    $ic = $user['userIC'];
+    $gender = $user['userGender'];
+    if (strtoupper($gender) == 'M') {
+      $gender = "Male";
+    } else if (strtoupper($gender) == 'F') {
+      $gender = "Female";
+    } else {
+      $gender = "No Data";
+    }
+    $address = $user['userAddress'];
+    $phoneno = $user['userPhoneNo'];
+
+    // echo "<script>alert('');</script>";
+?>
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <link rel="stylesheet" href="./styles/style.css" type="text/css">
+      </head>
+      <body style="display: inline-flex; background-color: #257b9f;">
+        <!-- Splashscreen & logo on the left side -->
+        <div class="register-splashscreen">
+          <a href="index.php">
+            <img height="32" src="assets/images/TrustexLogo.png" alt="Trustex Logo">
+          </a>
+          <a href="dashboard.php" class="return-dashboard">
+            <h3>Return to Dashboard</h3>
+          </a>
+        </div>
+        <!-- Sign up section/container -->
+        <div class="landlord-application-section">
+          <div class="landlord-application-form-container">
+            <h1>Landlord Application Form</h1>
+            <!-- Sign up form -->
+            <form class="landlord-application-form" name="landlord-application" method="POST" action="">
+              <div class="application-input">
+                <input type="text" name="username" placeholder="Username" value="<?php echo $username ?>" required readonly><br>
+              </div><br>
+              <div class="application-input">
+                <input type="text" name="email" placeholder="Email" value="<?php echo $email ?>" required readonly><br>
+              </div><br>
+              <div class="application-input">
+                <input type="text" name="firstname" placeholder="First Name" value="<?php echo $firstname ?>" required><br>
+                <input type="text" name="lastname" placeholder="Last Name" value="<?php echo $lastname ?>" required><br>
+              </div><br>
+              <div class="application-input">
+                <input type="text" name="useric" placeholder="IC Number" value="<?php echo $ic ?>" required><br>
+              </div><br>
+              <div class="application-input">
+                <input type="text" name="phoneno" placeholder="Phone Number" value="<?php echo $phoneno ?>" required><br>
+              </div><br>
+              <div class="application-input">
+                <textarea name="address" rows="4" cols="50" placeholder="Enter your address here..." required><?php 
+                  echo $address 
+                ?></textarea><br>
+              </div><br>
+              <!-- <input type="reset" name="reset-form" value="Clear Form"> -->
+              <input type="submit" name="apply-submit" value="Apply">
+            </form>
+          </div>
+        </div>
+      </body>
+    </html>
+<?php
     if (isset($_POST["apply-submit"])) {
       // Capture values from user sign-up form
-      $userid = $_SESSION['userID'];
       $username = $_POST['username'];
       $email = $_POST['useremail'];
       $firstname = $_POST['firstname'];
       $lastname = $_POST['lastname'];
-      $useric = $_POST['useric'];
+      $ic = $_POST['useric'];
       $phoneno = $_POST['phoneno'];
       $address = $_POST['address'];
   
       include("dbconnect.php");
       $sql = "INSERT INTO applications (userID, userFName, userLName, userIC, userAddress, userPhoneNo) 
-              VALUES ('".$userid."','".$firstname."','".$lastname."','".$useric."','".$address."','".$phoneno."')";
+              VALUES ('".$_SESSION['userID']."','".$firstname."','".$lastname."','".$ic."','".$address."','".$phoneno."')";
       $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
       mysqli_close($connect);
   
@@ -27,56 +109,6 @@
         echo "<script>alert('Something went wrong!');</script>";
       }
     } 
-    // echo "<script>alert('');</script>";
-?>
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <link rel="stylesheet" href="./styles/style.css" type="text/css">
-      </head>
-      <body style="display: inline-flex; background-color: #257b9f;">
-        <!-- Splashscreen & logo on the left side -->
-        <div id="signup-splashscreen">
-          <a href="index.php">
-            <img height="32" src="assets/images/TrustexLogo.png" alt="Trustex Logo">
-          </a>
-          <a href="dashboard.php">
-            <h3>Return to Dashboard</h3>
-          </a>
-        </div>
-        <!-- Sign up section/container -->
-        <div class="landlord-application-section">
-          <div class="landlord-application-form-container">
-            <h1>Landlord Application Form</h1>
-            <!-- Sign up form -->
-            <form class="landlord-application-form" name="landlord-application" method="POST" action="">
-              <div class="form-textinput application-input">
-                <input type="text" id="username" name="username" placeholder="Username" value="<?php echo $_SESSION['userName']; ?>" required readonly><br>
-              </div><br>
-              <div class="form-textinput application-input">
-                <input type="text" id="useremail" name="useremail" placeholder="Email" value="<?php echo $_SESSION['userEmail']; ?>" required readonly><br>
-              </div><br>
-              <div class="form-textinput application-input">
-                <input type="text" id="firstname" name="firstname" placeholder="First Name" value="" required><br>
-                <input type="text" id="lastname" name="lastname" placeholder="Last Name" value="" required><br>
-              </div><br>
-              <div class="form-textinput application-input">
-                <input type="text" id="useric" name="useric" placeholder="IC Number" value="" required><br>
-              </div><br>
-              <div class="form-textinput application-input">
-                <input type="text" id="phoneno" name="phoneno" placeholder="Phone Number" value="" required><br>
-              </div><br>
-              <div class="form-textareainput application-input">
-                <textarea id="address" name="address" rows="4" cols="50" placeholder="Enter your address here..." required></textarea><br>
-              </div><br>
-              <input type="reset" name="reset-form" value="Clear Form">
-              <input type="submit" name="apply-submit" value="Apply">
-            </form>
-          </div>
-        </div>
-      </body>
-    </html>
-<?php
   } else {
     header("Location: dashboard.php");
   }
