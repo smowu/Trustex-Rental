@@ -56,12 +56,6 @@
             <!-- Sign up form -->
             <form class="landlord-application-form" name="landlord-application" method="POST" action="">
               <div class="application-input">
-                <input type="text" name="username" placeholder="Username" value="<?php echo $username ?>" required readonly><br>
-              </div><br>
-              <div class="application-input">
-                <input type="text" name="email" placeholder="Email" value="<?php echo $email ?>" required readonly><br>
-              </div><br>
-              <div class="application-input">
                 <input type="text" name="firstname" placeholder="First Name" value="<?php echo $firstname ?>" required><br>
                 <input type="text" name="lastname" placeholder="Last Name" value="<?php echo $lastname ?>" required><br>
               </div><br>
@@ -86,8 +80,6 @@
 <?php
     if (isset($_POST["apply-submit"])) {
       // Capture values from user sign-up form
-      $username = $_POST['username'];
-      $email = $_POST['useremail'];
       $firstname = $_POST['firstname'];
       $lastname = $_POST['lastname'];
       $ic = $_POST['useric'];

@@ -114,27 +114,27 @@
           <form class="personal-info-form" action="" method="POST" enctype="multipart/form-data">
             <div class="personal-info-firstname">
               <p>First Name</p><br>
-              <input class="personal-firstname" type="text" name="firstname" value="<?php echo $firstname ?>" placeholder="-" readonly>
+              <input class="personal-firstname" type="text" name="firstname" value="<?php echo $firstname ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-lastname">
               <p>Last Name</p><br>
-              <input class="personal-lastname" type="text" name="lastname" value="<?php echo $lastname ?>" placeholder="-" readonly>
+              <input class="personal-lastname" type="text" name="lastname" value="<?php echo $lastname ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-ic">
               <p>IC Number</p><br>
-              <input class="personal-ic" type="text" name="ic" value="<?php echo $ic ?>" placeholder="-" readonly>
+              <input class="personal-ic" type="text" name="ic" value="<?php echo $ic ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-gender">
               <p>Gender</p><br>
-              <input class="personal-gender" type="text" name="gender" value="<?php echo $gender ?>" placeholder="-" readonly>
+              <input class="personal-gender" type="text" name="gender" value="<?php echo $gender ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-address">
               <p>Address</p><br>
-              <input class="personal-address" type="text" name="address" value="<?php echo $address ?>" placeholder="-" readonly>
+              <input class="personal-address" type="text" name="address" value="<?php echo $address ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-phoneno">
               <p>Phone No.</p><br>
-              <input class="personal-phoneno" type="text" name="phoneno" value="<?php echo $phoneno ?>" placeholder="-" readonly>
+              <input class="personal-phoneno" type="text" name="phoneno" value="<?php echo $phoneno ?>" placeholder="N/A" readonly>
             </div>
             <input class="save-profile-edit" type="submit" name="save-profile-edit" value="" style="display: none;">
           </form>

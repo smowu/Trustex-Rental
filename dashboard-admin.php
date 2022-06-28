@@ -33,10 +33,10 @@
               <?php 
                 include("dbconnect.php");
                 $sql = "SELECT * FROM applications WHERE applicationStatus = 'Pending'";
-                $list_result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $app_list_result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
                 mysqli_close($connect);
 
-                $numrows = mysqli_num_rows($list_result);
+                $numrows = mysqli_num_rows($app_list_result);
                 // $numrows = 0; 
                 if ($numrows > 0) {
               ?>
@@ -47,22 +47,21 @@
                     <th>Date</th>
                     <th>Name</th>
                     <th>IC Number</th>
-                    <th>Details</th>
-                    <th>Accept</th>
-                    <th>Reject</th>
+                    <th></th>
+                    <th></th>
                   </tr>
                   <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
               <?php
-                  for ($i = 0; $i < $numrows; $i++) {
+                  for ($i = 0; $applicant = mysqli_fetch_assoc($app_list_result); $i++) {
+                    $location = "location.href='application-details.php?id=".$applicant['applicationID'].".php'";
               ?>
-                    <tr onclick="location.href='property.php'">
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
+                    <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
+                      <td><?php echo sprintf('%06d', $applicant['applicationID']); ?></td>
+                      <td>date</td>
+                      <td><?php echo $applicant['userFName']." ".$applicant['userLName']; ?></td>
+                      <td><?php echo $applicant['userIC']; ?></td>
+                      <td><button onclick="<?php echo $location ?>">View</button></td>
+                      <td><button>Approve</button><button>Deny</button></td>
                     </tr>
               <?php
                     // Gap between rows
@@ -87,7 +86,16 @@
           <div class="rental-history">
             <h3>Current Landlord</h3>
             <div class="rental-history-table">
-              <?php $numrows = 10; 
+              <?php 
+                include("dbconnect.php");
+                $sql = "SELECT landlordRegNo, landlord.userID, user.userFName, user.userLName, user.userIC, 'admin.userName'
+                        FROM landlord 
+                        INNER JOIN user ON landlord.userID = user.userID"; // INNER JOIN 'admin' ON landlord.administratorID = 'admin.administratorID'";
+                $landlord_list_result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                mysqli_close($connect);
+
+                $numrows = mysqli_num_rows($landlord_list_result);
+                // $numrows = 0; 
                 if ($numrows > 0) {
               ?>
               <div class="rent-history">
@@ -97,17 +105,19 @@
                     <th>Name</th>
                     <th>IC Number</th>
                     <th>Approved By</th>
+                    <th></th>
                   </tr>
-                  <tr class="no-hover"><th class="th-border" colspan="8"></th></tr>
+                  <tr class="no-hover"><th class="th-border" colspan="5"></th></tr>
                   <?php
-                    
-                    for ($i = 0; $i < $numrows; $i++) {
+                    for ($i = 0; $landlord = mysqli_fetch_assoc($landlord_list_result); $i++) {
+                      $location = "location.href='landlord-details.php?id=".$landlord['landlordRegNo'].".php'";
                   ?>
-                    <tr onclick="location.href='property.php'">
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
+                    <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
+                      <td><?php echo sprintf('%06d', $landlord['landlordRegNo']); ?></td>
+                      <td><?php echo $landlord["userFName"]." ".$landlord["userLName"] ?></td>
+                      <td><?php echo $landlord["userIC"] ?></td>
+                      <td><?php // echo sprintf('%04d', $landlord['administratorID']); ?></td>
+                      <td><button onclick="<?php echo $location ?>">View</button></td>
                     </tr>
                   <?php
                       // Gap between rows
