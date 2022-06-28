@@ -26,9 +26,8 @@
             <div class="account-profile">
               <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
               <h2><?php echo $username ?></h2>
-              <p><?php echo $useremail ?></p><br>
+              <p><?php echo $email ?></p><br>
               <p><?php echo $usertype ?> Account</p><br>
-              <hr>
             </div>
           </div>
         </div>

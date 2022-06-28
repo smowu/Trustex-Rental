@@ -57,7 +57,7 @@
             <form class="landlord-application-form" name="landlord-application" method="POST" action="">
               <div class="application-input">
                 <input type="text" name="firstname" placeholder="First Name" value="<?php echo $firstname ?>" required><br>
-                <input type="text" name="lastname" placeholder="Last Name" value="<?php echo $lastname ?>" required><br>
+                <input type="text" name="lastname" placeholder="Last Name" value="<?php echo $lastname ?>"><br>
               </div><br>
               <div class="application-input">
                 <input type="text" name="useric" placeholder="IC Number" value="<?php echo $ic ?>" required><br>

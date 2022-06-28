@@ -41,21 +41,16 @@
       <p>Phone No.: <?php echo $phoneno ?></p>
       <p>Application Status: <?php echo $status ?></p>
       <br>
-      <form method="POST" action="">
-        <input type="submit" name="approve-application" value="Approve">
-        <input type="submit" name="reject-application" value="Reject">
+      <form method="POST" action="application-result.php">
+        <input type="text" name="id" value="<?php echo $applicantid ?>" style="display: none;">
+        <input type="submit" name="approve" value="Approve">
+        <input type="submit" name="reject" value="Reject">
       </form>
     </div>
   </body>
 </html>
 <?php
-    if (isset($_POST["approve-application"])) {
-      echo "<script>alert('Application Approved!')</script>";
-      echo "<script>window.location.replace('dashboard.php');</script>";
-    } else if (isset($_POST["reject-application"])) {
-      echo "<script>alert('Application Rejected!')</script>";
-      echo "<script>window.location.replace('dashboard.php');</script>";
-    }
+    include("application-result.php");
     include("html/footer.html");
   } else {
     header("Location: dashboard.php");

@@ -12,7 +12,7 @@
       $usertype = $_SESSION['userType'];
 
       include("dbconnect.php");
-      $sql = "SELECT userID, applicationStatus FROM applications WHERE applications.userID = $id";
+      $sql = "SELECT userID, applicationID, applicationStatus FROM applications WHERE applications.userID = $id";
       $resultapplication = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
 
       $sql = "SELECT * FROM request WHERE request.userID = $id";
@@ -41,35 +41,41 @@
           </div>
           <?php
             if (mysqli_num_rows($resultapplication) != 0) {
-              $application = mysqli_fetch_assoc($resultapplication);
-              if ($application['applicationStatus'] == "Pending") {
+              $status = null;
+              $app_id = null;
+              while ($application = mysqli_fetch_assoc($resultapplication)) {
+                $status = $application['applicationStatus'];
+                $app_id = $application['applicationID'];
+              }
+              if ($status == "Pending") {
           ?>
-          <p>Your landlord application has been sent.</p><br>
-          <button class="apply-landlord-button button-disable" disabled>Application Pending</button>
+                <p>Your landlord application has been sent.</p><br>
+                <button class="apply-landlord-button button-disable" disabled>Application Pending</button>
           <?php
-              } else if ($application['applicationStatus'] == "Accepted") {
+              } else if ($status == "Approved") {
           ?>
-          <p>Your landlord application has been ACCEPTED!</p><br>
-          <a href="dashboard-landlord.php">
-            <button class="apply-landlord-button">Switch to Landlord account</button>
-          </a>
+                <p>Your landlord application has been APPROVED!</p><br>
+                <form method="POST" action="switch-landlord.php">
+                  <input type="text" name="application-id" value="<?php echo $app_id ?>" style="display: none;">
+                  <input class="apply-landlord-button" type="submit" name="switch-landlord" value="Switch to Landlord account">
+                </form>
           <?php
-              } else if ($application['applicationStatus'] == "Rejected") {
+              } else if ($status == "Rejected") {
           ?>
-          <p>Your landlord application has been REJECTED!<br>Try re-applying again.</p><br>
-          <a href="landlord-application.php">
-            <button class="apply-landlord-button">Re-apply</button>
-          </a>
+                <p>Your landlord application has been REJECTED!<br>Try re-applying again.</p><br>
+                <a href="landlord-application.php">
+                  <button class="apply-landlord-button">Re-apply</button>
+                </a>
           <?php
               } else {
                 echo "<p>Unable to fetch application details.</p>";
               }
             } else {
           ?>
-          <p>Want to list your property on Trustex?<br><br>Apply for a Landlord account now!</p><br>
-          <a href="landlord-application.php">
-            <button class="apply-landlord-button">Become a Landlord</button>
-          </a>
+              <p>Want to list your property on Trustex?<br><br>Apply for a Landlord account now!</p><br>
+              <a href="landlord-application.php">
+                <button class="apply-landlord-button">Become a Landlord</button>
+              </a>
           <?php
             }
           ?>

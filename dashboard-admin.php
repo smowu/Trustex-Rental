@@ -53,7 +53,7 @@
                   <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
               <?php
                   for ($i = 0; $applicant = mysqli_fetch_assoc($app_list_result); $i++) {
-                    $location = "location.href='application-details.php?id=".$applicant['applicationID'].".php'";
+                    $location = "location.href='application-details.php?id=".$applicant['applicationID']."'";
               ?>
                     <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
                       <td><?php echo sprintf('%06d', $applicant['applicationID']); ?></td>
@@ -61,7 +61,13 @@
                       <td><?php echo $applicant['userFName']." ".$applicant['userLName']; ?></td>
                       <td><?php echo $applicant['userIC']; ?></td>
                       <td><button onclick="<?php echo $location ?>">View</button></td>
-                      <td><button>Approve</button><button>Deny</button></td>
+                      <td>
+                        <form method="POST" action="application-result.php">
+                          <input type="text" name="id" value="<?php echo $applicant['applicationID'] ?>" style="display: none;">
+                          <input type="submit" name="approve" value="Approve">
+                          <input type="submit" name="reject" value="Reject">
+                        </form>
+                      </td>
                     </tr>
               <?php
                     // Gap between rows
@@ -88,9 +94,15 @@
             <div class="rental-history-table">
               <?php 
                 include("dbconnect.php");
-                $sql = "SELECT landlordRegNo, landlord.userID, user.userFName, user.userLName, user.userIC, 'admin.userName'
-                        FROM landlord 
-                        INNER JOIN user ON landlord.userID = user.userID"; // INNER JOIN 'admin' ON landlord.administratorID = 'admin.administratorID'";
+                $sql = "SELECT landlordRegNo, landlord.userID, user.userFName, user.userLName, user.userIC, adm.userName AS admin_username
+                        FROM landlord
+                        LEFT JOIN user ON landlord.userID = user.userID
+                        LEFT JOIN (
+                          SELECT administrator.administratorID, user.userName
+                          FROM administrator, user
+                          WHERE user.userID = administrator.userID
+                        ) AS adm ON adm.administratorID = landlord.administratorID";
+
                 $landlord_list_result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
                 mysqli_close($connect);
 
@@ -116,7 +128,7 @@
                       <td><?php echo sprintf('%06d', $landlord['landlordRegNo']); ?></td>
                       <td><?php echo $landlord["userFName"]." ".$landlord["userLName"] ?></td>
                       <td><?php echo $landlord["userIC"] ?></td>
-                      <td><?php // echo sprintf('%04d', $landlord['administratorID']); ?></td>
+                      <td><?php echo $landlord["admin_username"] ?></td>
                       <td><button onclick="<?php echo $location ?>">View</button></td>
                     </tr>
                   <?php
