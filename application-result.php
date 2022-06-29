@@ -23,8 +23,6 @@
     } else if ($new_status == "Rejected") {
       echo "<script>alert('Application successfully Rejected!')</script>";
     }
-    echo "<script>window.location.replace('dashboard.php');</script>";
-  } else {
-    echo "<script>window.location.replace('dashboard.php');</script>";
   }
+  echo "<script>window.location.replace('dashboard.php');</script>";
 ?>

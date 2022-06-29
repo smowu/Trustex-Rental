@@ -1,4 +1,8 @@
-<?php 
+<?php
+  session_start();
+  if (isset($_SESSION['userID'])) {
+    header("Location: dashboard.php");
+  } else {
     $username = "";
     $email = "";
     if (isset($_POST['signup-submit'])) {
@@ -34,6 +38,8 @@
             session_start();
             $row = mysqli_fetch_assoc($result);
             $_SESSION['userID'] = $row['userID'];
+            $_SESSION['userName'] = $row['userName'];
+            $_SESSION['userEmail'] = $row['userEmail'];
             $_SESSION['userType'] = $row['userType'];
 
             $dir = "/assets/images/users/user-" . sprintf('%010d', $_SESSION['userID']) . "/profile-picture/";
@@ -106,3 +112,6 @@
     </div>
   </body>
 </html>
+<?php
+  }
+?>

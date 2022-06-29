@@ -54,7 +54,7 @@
           <?php
               } else if ($status == "Approved") {
           ?>
-                <p>Your landlord application has been APPROVED!</p><br>
+                <p>Your landlord application has been <b>APPROVED!</b></p><br>
                 <form method="POST" action="switch-landlord.php">
                   <input type="text" name="application-id" value="<?php echo $app_id ?>" style="display: none;">
                   <input class="apply-landlord-button" type="submit" name="switch-landlord" value="Switch to Landlord account">
@@ -62,7 +62,7 @@
           <?php
               } else if ($status == "Rejected") {
           ?>
-                <p>Your landlord application has been REJECTED!<br>Try re-applying again.</p><br>
+                <p>Your landlord application has been <b>REJECTED!</b><br>Try re-applying again.</p><br>
                 <a href="landlord-application.php">
                   <button class="apply-landlord-button">Re-apply</button>
                 </a>
@@ -81,73 +81,104 @@
           ?>
         </div>
         <div class="container-right">
-          <div class="rental-status">
+          <div>
             <h3>Rental Status</h3>
-            <div class="rent-status">
-              <div>
-                <p>You don't have any active rents!</p><br>
-                <a href="index.php#listing-body" onclick="focusSearch(600)">
-                  <button class="rental-status-explore-button">Explore listings</button>
-                </a>
-              </div>
-            </div>
-            <!-- 
-            <div class="rent-status">
-              <ul>
+            <div class="dashboard-table-content">
+              <?php
+                include("dbconnect.php");
+                $sql = "";
+                // $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                mysqli_close($connect);
 
-              </ul>
-            </div> -->
-          </div>
-          <div class="rental-history">
-            <h3>Rental History</h3>
-            <div class="rental-history-table">
-              <?php $numrows = 24; 
+                // $numrows = mysqli_num_rows($result);
+                // $numrows = 24;
+                $numrows = 0;
                 if ($numrows > 0) {
               ?>
-              <div class="rent-history">
-                <table>
-                  <tr class="no-hover">
-                    <th>Req ID</th>
-                    <th>Property Name</th>
-                    <th>Landlord</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Duration</th>
-                    <th>Rent Price</th>
-                  </tr>
-                  <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
-                  <?php
-                    
-                    for ($i = 0; $i < $numrows; $i++) {
-                  ?>
-                    <tr onclick="location.href='property.php'">
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                      <td>text</td>
-                    </tr>
-                  <?php
-                      // Gap between rows
-                      if ($i < $numrows-1) {
-                        echo "<tr class='spacer'><td></td></tr>";
-                      }
-                    }
-                  ?>
-                </table>
-              </div> 
+                  <div class="dashboard-table">
+                    <div style="height:400px;"></div>
+                  </div> 
               <?php
                 } else {
               ?>
-              <div class="rent-history">
-                <p>No previous rents was found!</p>
-              </div>
+                  <div class="dashboard-empty">
+                    <div>
+                      <p>You don't have any active rents!</p><br>
+                      <a href="index.php#listing-body" onclick="focusSearch(600)">
+                        <button>Explore listings</button>
+                      </a>
+                    </div>
+                  </div>
               <?php  
                 }
               ?>
-              </div>
+            </div>
+          </div>
+          <div>
+            <h3>Rental History</h3>
+            <div class="dashboard-table-content">
+              <?php 
+                include("dbconnect.php");
+                $sql = "";
+                // $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                mysqli_close($connect);
+
+                // $numrows = mysqli_num_rows($result);
+                // $numrows = 24;
+                $numrows = 0;
+                if ($numrows > 0) {
+              ?>
+                  <div class="dashboard-table">
+                    <table>
+                      <tr class="no-hover">
+                        <th>Req ID</th>
+                        <th>Property Name</th>
+                        <th>Landlord</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Duration</th>
+                        <th>Rent Price</th>
+                      </tr>
+                      <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
+                      <?php
+                      // for ($i = 0; $x = mysqli_fetch_assoc($result); $i++) {
+                         for ($i = 0; $i < $numrows; $i++) {
+                          // $location = "location.href='xxxxx.php?id=".$x['xxx']."'";
+                           $location = "";
+                      ?>
+                        <tr onclick="location.href='property.php'">
+                          <td>text</td>
+                          <td>text</td>
+                          <td>text</td>
+                          <td>text</td>
+                          <td>text</td>
+                          <td>text</td>
+                          <td>text</td>
+                        </tr>
+                      <?php
+                          // Gap between rows
+                          if ($i < $numrows-1) {
+                            echo "<tr class='spacer'><td></td></tr>";
+                          }
+                        }
+                      ?>
+                    </table>
+                  </div> 
+              <?php
+                } else {
+              ?>
+                  <div class="dashboard-empty">
+                    <div>
+                      <p>You don't have any previous rents!</p><br>
+                      <a href="index.php#listing-body" onclick="focusSearch(600)">
+                        <button>Start renting</button>
+                      </a>
+                    </div>
+                  </div>
+              <?php  
+                }
+              ?>
+            </div>
           </div>
         </div>
       </div>

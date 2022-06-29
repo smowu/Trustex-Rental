@@ -56,10 +56,11 @@
                 mysqli_close($connect);
 
                 $landlord = mysqli_fetch_array($landlordResult);
-                $id = $rows['propertyID'];
+                $list_id = $rows['listingID'];
+                $prop_id = $rows['propertyID'];
 
-                $link = "location.href='listing/property-" . sprintf('%06d', $id) . ".php'";
-                $thumb = "assets/images/properties/property-" . sprintf('%06d', $id) . "/image-property-1.jpg";
+                $link = "location.href='listing.php?id=" . sprintf('%012d', $list_id) . "'";
+                $thumb = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "/image-property-1.jpg";
                 $alt = "Property Image Banner";
                 $propertyname = $rows['propertyName'];
                 $propertyaddress = $rows['propertyAddress'];
@@ -70,6 +71,7 @@
                 $rentprice = number_format(round($rows['rentPrice'],0));
                 $landlordFName = $landlord['userFName'];
                 $landlordLName = $landlord['userLName'];
+                $display = "";
               } else {
                 $link = "";
                 $thumb = "";
@@ -83,9 +85,10 @@
                 $rentprice = "----";
                 $landlordFName = "";
                 $landlordLName = "";
+                $display = "opacity: 0; cursor: default;"; // Temp solution
               }
           ?>
-          <div class="list-property" onclick="<?php echo $link?>">
+          <div class="list-property" onclick="<?php echo $link?>" style="<?php echo $display ?>">
             <div class="listing-property-container">
               <div class="listing-property-image-container">
                 <image src="<?php echo $thumb?>" alt="<?php echo $alt?>" onerror="this.style.display='none'">

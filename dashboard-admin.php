@@ -1,13 +1,6 @@
 <?php
   session_start();
   if (isset($_SESSION['userID']) && $_SESSION['userType'] == 'A') {
-    include("dbconnect.php");
-    $sql = "SELECT * FROM user WHERE userID = ".$_SESSION['userID']."";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-    mysqli_close($connect);
-
-    $user = mysqli_fetch_assoc($result);
-
     include("html/header.html");
 ?>
 <!DOCTYPE html>
@@ -27,9 +20,9 @@
           </div>
         </div>
         <div class="container-right">
-          <div class="rental-history admin-landlord-applicants">
-            <h3>Landlord Applicants</h3>
-            <div class="rental-history-table">
+          <div>
+            <h3>Landlord Applications</h3>
+            <div class="dashboard-table-content">
               <?php 
                 include("dbconnect.php");
                 $sql = "SELECT * FROM applications WHERE applicationStatus = 'Pending'";
@@ -40,58 +33,60 @@
                 // $numrows = 0; 
                 if ($numrows > 0) {
               ?>
-              <div class="rent-history">
-                <table>
-                  <tr class="no-hover">
-                    <th>Application ID</th>
-                    <th>Date</th>
-                    <th>Name</th>
-                    <th>IC Number</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                  <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
-              <?php
-                  for ($i = 0; $applicant = mysqli_fetch_assoc($app_list_result); $i++) {
-                    $location = "location.href='application-details.php?id=".$applicant['applicationID']."'";
-              ?>
-                    <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
-                      <td><?php echo sprintf('%06d', $applicant['applicationID']); ?></td>
-                      <td>date</td>
-                      <td><?php echo $applicant['userFName']." ".$applicant['userLName']; ?></td>
-                      <td><?php echo $applicant['userIC']; ?></td>
-                      <td><button onclick="<?php echo $location ?>">View</button></td>
-                      <td>
-                        <form method="POST" action="application-result.php">
-                          <input type="text" name="id" value="<?php echo $applicant['applicationID'] ?>" style="display: none;">
-                          <input type="submit" name="approve" value="Approve">
-                          <input type="submit" name="reject" value="Reject">
-                        </form>
-                      </td>
-                    </tr>
-              <?php
-                    // Gap between rows
-                    if ($i < $numrows-1) {
-                      echo "<tr class='spacer'><td></td></tr>";
-                    }
-                  }
-              ?>
-                </table>
-              </div> 
+                  <div class="dashboard-table">
+                    <table>
+                      <tr class="no-hover">
+                        <th>Application ID</th>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>IC Number</th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                      <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
+                      <?php
+                        for ($i = 0; $applicant = mysqli_fetch_assoc($app_list_result); $i++) {
+                          $location = "location.href='application-details.php?id=".$applicant['applicationID']."'";
+                      ?>
+                          <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
+                            <td><?php echo sprintf('%06d', $applicant['applicationID']); ?></td>
+                            <td>date</td>
+                            <td><?php echo $applicant['userFName']." ".$applicant['userLName']; ?></td>
+                            <td><?php echo $applicant['userIC']; ?></td>
+                            <td><button onclick="<?php echo $location ?>">View</button></td>
+                            <td>
+                              <form method="POST" action="application-result.php">
+                                <input type="text" name="id" value="<?php echo $applicant['applicationID'] ?>" style="display: none;">
+                                <input type="submit" name="approve" value="Approve">
+                                <input type="submit" name="reject" value="Reject">
+                              </form>
+                            </td>
+                          </tr>
+                      <?php
+                          // Gap between rows
+                          if ($i < $numrows-1) {
+                            echo "<tr class='spacer'><td></td></tr>";
+                          }
+                        }
+                      ?>
+                    </table>
+                  </div> 
               <?php
                 } else {
               ?>
-              <div class="rent-history">
-                <p>No active application.</p>
-              </div>
+                  <div class="dashboard-empty">
+                    <div>
+                      <p>You don't have any active rents!</p>
+                    </div>
+                  </div>
               <?php  
                 }
               ?>
-              </div>
+            </div>
           </div>
-          <div class="rental-history">
+          <div>
             <h3>Current Landlord</h3>
-            <div class="rental-history-table">
+            <div class="dashboard-table-content">
               <?php 
                 include("dbconnect.php");
                 $sql = "SELECT landlordRegNo, landlord.userID, user.userFName, user.userLName, user.userIC, adm.userName AS admin_username
@@ -110,7 +105,7 @@
                 // $numrows = 0; 
                 if ($numrows > 0) {
               ?>
-              <div class="rent-history">
+              <div class="dashboard-table">
                 <table>
                   <tr class="no-hover">
                     <th>Reg No</th>
@@ -122,7 +117,7 @@
                   <tr class="no-hover"><th class="th-border" colspan="5"></th></tr>
                   <?php
                     for ($i = 0; $landlord = mysqli_fetch_assoc($landlord_list_result); $i++) {
-                      $location = "location.href='landlord-details.php?id=".$landlord['landlordRegNo'].".php'";
+                      $location = "location.href='landlord-details.php?id=".$landlord['landlordRegNo']."'";
                   ?>
                     <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
                       <td><?php echo sprintf('%06d', $landlord['landlordRegNo']); ?></td>
@@ -139,17 +134,20 @@
                     }
                   ?>
                 </table>
-              </div> 
+              </div>
+            </div>
               <?php
                 } else {
               ?>
-              <div class="rent-history">
-                <p>No previous rents was found!</p>
-              </div>
+                  <div class="dashboard-empty">
+                    <div>
+                      <p>No landlord found!</p>
+                    </div>
+                  </div>
               <?php  
                 }
               ?>
-              </div>
+            </div>
           </div>
         </div>
       </div>

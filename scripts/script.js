@@ -122,20 +122,32 @@ $(document).ready(function(){
     $(".save-profile-edit").click();
   }
 
-	$('input[type="text"]').blur(function() {
+	$('input.input-account[type="text"]').blur(function() {
     // if ($.trim(this.value) == ''){
     //   this.value = (this.defaultValue ? this.defaultValue : '');
     // }
     saveEditAccountInfo();
+  });
+  $('input.input-personal[type="text"]').blur(function() {
+    // if ($.trim(this.value) == ''){
+    //   this.value = (this.defaultValue ? this.defaultValue : '');
+    // }
     saveEditPersonalInfo();
   });
 
-  $('input[type="text"]').keypress(function(event) {
+  $('input.input-account[type="text"]').keypress(function(event) {
     if (event.keyCode == '13') {
       // if ($.trim(this.value) == ''){
       //   this.value = (this.defaultValue ? this.defaultValue : '');
       // }
       saveEditAccountInfo();
+    }
+  });
+  $('input.input-personal[type="text"]').keypress(function(event) {
+    if (event.keyCode == '13') {
+      // if ($.trim(this.value) == ''){
+      //   this.value = (this.defaultValue ? this.defaultValue : '');
+      // }
       saveEditPersonalInfo();
     }
   });

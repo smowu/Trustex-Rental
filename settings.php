@@ -46,8 +46,6 @@
     $gender = "Male";
   } else if (strtoupper($gender) == 'F') {
     $gender = "Female";
-  } else {
-    $gender = "No Data";
   }
   $address = $user['userAddress'];
   $phoneno = $user['userPhoneNo'];
@@ -92,8 +90,8 @@
             </div>
             <div>
               <form class="account-info-form" action="" method="POST" enctype="multipart/form-data">
-                <input class="profile-username" type="text" name="username" value="<?php echo $username ?>" required readonly>
-                <input class="profile-email" type="text" name="email" value="<?php echo $email ?>" required readonly>
+                <input class="profile-username input-account" type="text" name="username" value="<?php echo $username ?>" required readonly>
+                <input class="profile-email input-account" type="text" name="email" value="<?php echo $email ?>" required readonly>
                 <input class="save-account-edit" type="submit" name="save-account-edit" value="" style="display: none;">
               </form>
               <br>
@@ -114,27 +112,27 @@
           <form class="personal-info-form" action="" method="POST" enctype="multipart/form-data">
             <div class="personal-info-firstname">
               <p>First Name</p><br>
-              <input class="personal-firstname" type="text" name="firstname" value="<?php echo $firstname ?>" placeholder="N/A" readonly>
+              <input class="personal-firstname input-personal" type="text" name="firstname" value="<?php echo $firstname ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-lastname">
               <p>Last Name</p><br>
-              <input class="personal-lastname" type="text" name="lastname" value="<?php echo $lastname ?>" placeholder="N/A" readonly>
+              <input class="personal-lastname input-personal" type="text" name="lastname" value="<?php echo $lastname ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-ic">
               <p>IC Number</p><br>
-              <input class="personal-ic" type="text" name="ic" value="<?php echo $ic ?>" placeholder="N/A" readonly>
+              <input class="personal-ic input-personal" type="text" name="ic" value="<?php echo $ic ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-gender">
               <p>Gender</p><br>
-              <input class="personal-gender" type="text" name="gender" value="<?php echo $gender ?>" placeholder="N/A" readonly>
+              <input class="personal-gender input-personal" type="text" name="gender" value="<?php echo $gender ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-address">
               <p>Address</p><br>
-              <input class="personal-address" type="text" name="address" value="<?php echo $address ?>" placeholder="N/A" readonly>
+              <input class="personal-address input-personal" type="text" name="address" value="<?php echo $address ?>" placeholder="N/A" readonly>
             </div>
             <div class="personal-info-phoneno">
               <p>Phone No.</p><br>
-              <input class="personal-phoneno" type="text" name="phoneno" value="<?php echo $phoneno ?>" placeholder="N/A" readonly>
+              <input class="personal-phoneno input-personal" type="text" name="phoneno" value="<?php echo $phoneno ?>" placeholder="N/A" readonly>
             </div>
             <input class="save-profile-edit" type="submit" name="save-profile-edit" value="" style="display: none;">
           </form>
@@ -146,7 +144,7 @@
 <?php
   include("html/footer.html");
 
-  if (isset($_POST['save-account-edit']) || isset($_POST['save-profile-edit'])) {
+  if (isset($_POST['save-account-edit']) || isset($_POST['save-profile-edit'] )) {
     
     if (isset($_POST['save-account-edit'])) {
       if ($_POST['username'] != $user['userName'] && isset($_POST['username'])) {
