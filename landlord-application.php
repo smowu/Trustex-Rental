@@ -1,38 +1,39 @@
 <?php 
   session_start();
-  if (isset($_SESSION['userID']) && $_SESSION['userType'] == 'T') {
+  if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'T') {
+    header("Location: dashboard.php");
+  }
+  include("dbconnect.php");
+  $sql = "SELECT * FROM user WHERE userID = ".$_SESSION['userID']."";
+  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  mysqli_close($connect);
+  $user = mysqli_fetch_assoc($result);
 
-    include("dbconnect.php");
-    $sql = "SELECT * FROM user WHERE userID = ".$_SESSION['userID']."";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-    mysqli_close($connect);
-    $user = mysqli_fetch_assoc($result);
+  $id = $user['userID'];
+  $username = $user['userName'];
+  $email = $user['userEmail'];
+  if ($user['userType'] == 'A') {
+    $usertype = "Admin";
+  } else if ($user['userType'] == 'L') {
+    $usertype = "Landlord";
+  } else { 
+    $usertype = "Tenant";
+  }
+  $firstname = $user['userFName'];
+  $lastname = $user['userLName'];
+  $ic = $user['userIC'];
+  $gender = $user['userGender'];
+  if (strtoupper($gender) == 'M') {
+    $gender = "Male";
+  } else if (strtoupper($gender) == 'F') {
+    $gender = "Female";
+  } else {
+    $gender = "No Data";
+  }
+  $address = $user['userAddress'];
+  $phoneno = $user['userPhoneNo'];
 
-    $id = $user['userID'];
-    $username = $user['userName'];
-    $email = $user['userEmail'];
-    if ($user['userType'] == 'A') {
-      $usertype = "Admin";
-    } else if ($user['userType'] == 'L') {
-      $usertype = "Landlord";
-    } else { 
-      $usertype = "Tenant";
-    }
-    $firstname = $user['userFName'];
-    $lastname = $user['userLName'];
-    $ic = $user['userIC'];
-    $gender = $user['userGender'];
-    if (strtoupper($gender) == 'M') {
-      $gender = "Male";
-    } else if (strtoupper($gender) == 'F') {
-      $gender = "Female";
-    } else {
-      $gender = "No Data";
-    }
-    $address = $user['userAddress'];
-    $phoneno = $user['userPhoneNo'];
-
-    // echo "<script>alert('');</script>";
+  // echo "<script>alert('');</script>";
 ?>
     <!DOCTYPE html>
     <html>
@@ -78,30 +79,27 @@
       </body>
     </html>
 <?php
-    if (isset($_POST["apply-submit"])) {
-      // Capture values from user sign-up form
-      $firstname = $_POST['firstname'];
-      $lastname = $_POST['lastname'];
-      $ic = $_POST['useric'];
-      $phoneno = $_POST['phoneno'];
-      $address = $_POST['address'];
-  
-      include("dbconnect.php");
-      $sql = "INSERT INTO applications (userID, userFName, userLName, userIC, userAddress, userPhoneNo) 
-              VALUES ('".$_SESSION['userID']."','".$firstname."','".$lastname."','".$ic."','".$address."','".$phoneno."')";
-      $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
-      mysqli_close($connect);
-  
-      if ($result) {
-        echo "<script>
-                alert('Your Application has been submitted!');
-                window.location.replace('dashboard.php');
-              </script>";
-      } else {
-        echo "<script>alert('Something went wrong!');</script>";
-      }
-    } 
-  } else {
-    header("Location: dashboard.php");
-  }
+  if (isset($_POST["apply-submit"])) {
+    // Capture values from user sign-up form
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $ic = $_POST['useric'];
+    $phoneno = $_POST['phoneno'];
+    $address = $_POST['address'];
+
+    include("dbconnect.php");
+    $sql = "INSERT INTO applications (userID, userFName, userLName, userIC, userAddress, userPhoneNo) 
+            VALUES ('".$_SESSION['userID']."','".$firstname."','".$lastname."','".$ic."','".$address."','".$phoneno."')";
+    $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+    mysqli_close($connect);
+
+    if ($result) {
+      echo "<script>
+              alert('Your Application has been submitted!');
+              window.location.replace('dashboard.php');
+            </script>";
+    } else {
+      echo "<script>alert('Something went wrong!');</script>";
+    }
+  } 
 ?>

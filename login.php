@@ -1,4 +1,8 @@
-<?php 
+<?php
+  session_start();
+  if (isset($_SESSION['userID'])) {
+    header("Location: dashboard.php");
+  }
   $email = "";
   if (isset($_POST['login-submit'])) {
     include("dbconnect.php");

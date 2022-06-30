@@ -1,7 +1,9 @@
 <?php
   session_start();
-  if (isset($_SESSION['userID']) && $_SESSION['userType'] == 'A') {
-    include("html/header.html");
+  if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'A') {
+    header("Location: dashboard.php");
+  }
+  include("html/header.html");
 ?>
 <!DOCTYPE html>
 <html>
@@ -155,8 +157,5 @@
   </body>
 </html>
 <?php
-    include("html/footer.html");
-  } else {
-    header("Location: dashboard.php");
-  }
+  include("html/footer.html");
 ?>

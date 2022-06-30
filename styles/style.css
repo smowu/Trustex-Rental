@@ -6,7 +6,7 @@
 }
 html {
   color: #000000;
-  background-color: #fbfbfb;
+  background-color: #f7f7f7;
   font-family: Helvetica, Arial, sans-serif;
   max-width: 100%;
   overflow-x: hidden;
@@ -250,7 +250,7 @@ button {
   border-radius: 100vw;
 }
 ::-webkit-scrollbar-track {
-  background: #fbfbfb;
+  background: #f7f7f7;
 }
 
 /* Homepage splashscreen */
@@ -1057,7 +1057,6 @@ footer hr {
   width: 256px;
   margin: 16px;
   border-radius: 50%;
-  /* border: 1px solid #cccccc; */
   background-color: #257b9f20;
 }
 .profile-pic-container .camera-icon {

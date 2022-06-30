@@ -1,20 +1,22 @@
 <?php
   session_start();
-  if (isset($_SESSION['userID']) && $_SESSION['userType'] == 'L') {
-    $id = $_SESSION['userID'];
-    include("dbconnect.php");
-    $sql = "SELECT * FROM user
-            LEFT JOIN landlord ON landlord.userID = user.userID
-            WHERE user.userID = $id";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-    $row = mysqli_num_rows($result);
-    mysqli_close($connect);
+  if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'L') {
+    header("Location: dashboard.php");
+  }
+  $id = $_SESSION['userID'];
+  include("dbconnect.php");
+  $sql = "SELECT * FROM user
+          LEFT JOIN landlord ON landlord.userID = user.userID
+          WHERE user.userID = $id";
+  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $row = mysqli_num_rows($result);
+  mysqli_close($connect);
 
-    $user = mysqli_fetch_assoc($result);
-    $reg_no = $user['landlordRegNo'];
-    $username = $user['userName'];
+  $user = mysqli_fetch_assoc($result);
+  $reg_no = $_SESSION['landlordRegNo'] = $user['landlordRegNo'];
+  $username = $user['userName'];
 
-    include("html/header.html");
+  include("html/header.html");
 ?>
 <!DOCTYPE html>
 <html>
@@ -187,7 +189,7 @@
                 mysqli_close($connect);
 
                 $numrows = mysqli_num_rows($result);
-                // $numrows = 0;
+                // $numrows = 5;
                 if ($numrows > 0) {
               ?>
                   <div class="dashboard-table">
@@ -198,10 +200,9 @@
                         <th>City</th>
                         <th>State</th>
                         <th>Type</th>
-                        <th>Rent Price</th>
                         <th></th>
                       </tr>
-                      <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
+                      <tr class="no-hover"><th class="th-border" colspan="6"></th></tr>
                       <?php
                       for ($i = 0; $property = mysqli_fetch_assoc($result); $i++) {
                           $location = "location.href='property.php?id=".$property['propertyID']."'";
@@ -212,16 +213,23 @@
                           <td><?php echo $property['propertyCity'] ?></td>
                           <td><?php echo $property['propertyState'] ?></td>
                           <td><?php echo $property['propertyType'] ?></td>
-                          <td><?php echo $property['rentPrice'] ?></td>
                           <td><button onclick="<?php echo $location ?>">View</button></td>
                         </tr>
                       <?php
                           // Gap between rows
-                          if ($i < $numrows-1) {
+                          if ($i < $numrows) {
                             echo "<tr class='spacer'><td></td></tr>";
                           }
                         }
                       ?>
+                      <tr class="no-hover">
+                        <td colspan="6">
+                          <a href="add-property.php" class="add-property-button" onclick="">
+                            <button>Add new</button>
+                          </a>
+                        </td>
+                        <td></td>
+                      </tr>
                     </table>
                   </div> 
               <?php
@@ -247,8 +255,5 @@
   </body>
 </html>
 <?php
-    include("html/footer.html");
-  } else {
-    header("Location: dashboard.php");
-  }
+  include("html/footer.html");
 ?>

@@ -30,7 +30,6 @@
         <div class="listing-grid">
           <?php
             $numlistperpage = 8;
-
             if (isset($_GET["page"])) {
               $page = $_GET["page"];
             } else {
@@ -59,7 +58,7 @@
                 $list_id = $rows['listingID'];
                 $prop_id = $rows['propertyID'];
 
-                $link = "location.href='listing.php?id=" . sprintf('%012d', $list_id) . "'";
+                $link = "location.href='listing.php?id=".$list_id."'";
                 $thumb = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "/image-property-1.jpg";
                 $alt = "Property Image Banner";
                 $propertyname = $rows['propertyName'];
@@ -145,7 +144,6 @@
     </div>
   </div>
 </html>
-
 <?php
   include("html/footer.html");
 ?>

@@ -1,28 +1,30 @@
 <?php 
   session_start();
-  if (isset($_SESSION['userID'])) {
-    if ($_SESSION['userType'] == 'A') {
-      header("Location: dashboard-admin.php");
-    } else if ($_SESSION['userType'] == 'L') {
-      header("Location: dashboard-landlord.php");
-    } else {
-      $id = $_SESSION['userID'];
-      $username = $_SESSION['userName'];
-      $email = $_SESSION['userEmail'];
-      $usertype = $_SESSION['userType'];
+  if (!isset($_SESSION['userID'])) {
+    header("Location: login.php");
+  }
+  if ($_SESSION['userType'] == 'A') {
+    header("Location: dashboard-admin.php");
+  } else if ($_SESSION['userType'] == 'L') {
+    header("Location: dashboard-landlord.php");
+  } else {
+    $id = $_SESSION['userID'];
+    $username = $_SESSION['userName'];
+    $email = $_SESSION['userEmail'];
+    $usertype = $_SESSION['userType'];
 
-      include("dbconnect.php");
-      $sql = "SELECT userID, applicationID, applicationStatus FROM applications WHERE applications.userID = $id";
-      $resultapplication = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    include("dbconnect.php");
+    $sql = "SELECT userID, applicationID, applicationStatus FROM applications WHERE applications.userID = $id";
+    $resultapplication = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
 
-      $sql = "SELECT * FROM request WHERE request.userID = $id";
-      $resultreq = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-      $row = mysqli_num_rows($resultreq);
-      mysqli_close($connect);
+    $sql = "SELECT * FROM request WHERE request.userID = $id";
+    $resultreq = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    $row = mysqli_num_rows($resultreq);
+    mysqli_close($connect);
 
-      $req = mysqli_fetch_assoc($resultreq);
+    $req = mysqli_fetch_assoc($resultreq);
 
-      include("html/header.html");
+    include("html/header.html");
 ?>
 <!DOCTYPE html>
 <html>
@@ -86,13 +88,14 @@
             <div class="dashboard-table-content">
               <?php
                 include("dbconnect.php");
-                $sql = "";
-                // $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $sql = "SELECT *
+                        FROM request, rent
+                        WHERE request.ticketNo = rent.ticketNo AND request.userID = '$id'";
+                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
                 mysqli_close($connect);
 
-                // $numrows = mysqli_num_rows($result);
-                // $numrows = 24;
-                $numrows = 0;
+                $numrows = mysqli_num_rows($result);
+                // $numrows = 5;
                 if ($numrows > 0) {
               ?>
                   <div class="dashboard-table">
@@ -119,13 +122,14 @@
             <div class="dashboard-table-content">
               <?php 
                 include("dbconnect.php");
-                $sql = "";
-                // $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $sql = "SELECT *
+                        FROM request
+                        WHERE request.userID = '$id'";
+                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
                 mysqli_close($connect);
 
-                // $numrows = mysqli_num_rows($result);
-                // $numrows = 24;
-                $numrows = 0;
+                $numrows = mysqli_num_rows($result);
+                // $numrows = 5;
                 if ($numrows > 0) {
               ?>
                   <div class="dashboard-table">
@@ -186,9 +190,6 @@
   </body>
 </html>
 <?php
-      include("html/footer.html");
-    }
-  } else {
-    header("Location: login.php");
+    include("html/footer.html");
   }
 ?>
