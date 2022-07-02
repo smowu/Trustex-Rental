@@ -100,6 +100,17 @@
               </form>
               <br>
               <p><?php echo $usertype ?> Account</p>
+              <?php
+                if ($_SESSION['userType'] == 'L') {
+              ?>
+              <p>Registration No.: <?php echo sprintf('%06d', $_SESSION['landlordRegNo'])?></p><br>
+              <?php
+                } else if ($_SESSION['userType'] == 'A') {
+              ?>
+              <p>Admin ID: <?php echo sprintf('%04d', $_SESSION['administratorID'])?></p><br>
+              <?php
+                }
+              ?>
               <p>User ID: <?php echo sprintf('%010d', $user['userID'])?></p>
             </div>
           </div>

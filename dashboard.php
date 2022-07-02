@@ -142,8 +142,9 @@
                         <th>End Date</th>
                         <th>Duration</th>
                         <th>Rent Price</th>
+                        <th></th>
                       </tr>
-                      <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
+                      <tr class="no-hover"><th class="th-border" colspan="8"></th></tr>
                       <?php
                       // for ($i = 0; $x = mysqli_fetch_assoc($result); $i++) {
                          for ($i = 0; $i < $numrows; $i++) {
@@ -158,6 +159,11 @@
                           <td>text</td>
                           <td>text</td>
                           <td>text</td>
+                          <td>
+                            <button class="view-button" onclick="<?php echo $location ?>">
+                              <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
+                            </button>
+                          </td>
                         </tr>
                       <?php
                           // Gap between rows

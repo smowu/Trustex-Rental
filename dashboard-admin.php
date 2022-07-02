@@ -3,6 +3,18 @@
   if (!isset($_SESSION['userID']) || $_SESSION['userType'] != 'A') {
     header("Location: dashboard.php");
   }
+  $id = $_SESSION['userID'];
+  include("dbconnect.php");
+  $sql = "SELECT * FROM user
+          LEFT JOIN administrator ON administrator.userID = user.userID
+          WHERE user.userID = $id";
+  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $row = mysqli_num_rows($result);
+  mysqli_close($connect);
+
+  $user = mysqli_fetch_assoc($result);
+  $_SESSION['administratorID'] = $user['administratorID'];
+
   include("html/header.html");
 ?>
 <!DOCTYPE html>
@@ -43,9 +55,8 @@
                         <th>Name</th>
                         <th>IC Number</th>
                         <th></th>
-                        <th></th>
                       </tr>
-                      <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
+                      <tr class="no-hover"><th class="th-border" colspan="5"></th></tr>
                       <?php
                         for ($i = 0; $applicant = mysqli_fetch_assoc($app_list_result); $i++) {
                           $location = "location.href='application-details.php?id=".$applicant['applicationID']."'";
@@ -55,13 +66,10 @@
                             <td>date</td>
                             <td><?php echo $applicant['userFName']." ".$applicant['userLName']; ?></td>
                             <td><?php echo $applicant['userIC']; ?></td>
-                            <td><button onclick="<?php echo $location ?>">View</button></td>
                             <td>
-                              <form method="POST" action="application-result.php">
-                                <input type="text" name="id" value="<?php echo $applicant['applicationID'] ?>" style="display: none;">
-                                <input type="submit" name="approve" value="Approve">
-                                <input type="submit" name="reject" value="Reject">
-                              </form>
+                              <button class="view-button" onclick="<?php echo $location ?>">
+                                <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
+                              </button>
                             </td>
                           </tr>
                       <?php
@@ -126,7 +134,11 @@
                       <td><?php echo $landlord["userFName"]." ".$landlord["userLName"] ?></td>
                       <td><?php echo $landlord["userIC"] ?></td>
                       <td><?php echo $landlord["admin_username"] ?></td>
-                      <td><button onclick="<?php echo $location ?>">View</button></td>
+                      <td>
+                        <button class="view-button" onclick="<?php echo $location ?>">
+                          <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
+                        </button>
+                      </td>
                     </tr>
                   <?php
                       // Gap between rows

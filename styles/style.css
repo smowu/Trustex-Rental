@@ -940,10 +940,11 @@ footer hr {
   color: #666666;
 }
 .dashboard-table tr {
+  outline: none;
   transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .dashboard-table tr:hover:not(.spacer):not(.no-hover) {
-  background-color: #c9dee7;
+  background-color: #c9dee777;
   cursor: pointer;
   transition: none;
 }
@@ -955,6 +956,10 @@ footer hr {
 .dashboard-table td:last-child,
 .dashboard-table th:last-child:not(.th-border) {
   border-radius: 0 10px 10px 0;
+}
+.bottom-row td {
+  background-color: transparent;
+  padding: 8px 2px;
 }
 .spacer td {
   padding: 4px;
@@ -990,6 +995,77 @@ footer hr {
   color: #fbfbfb;
   background-color: #257b9f;
 }
+
+.add-button {
+  color: #666666;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  border: 0px solid #cccccc;
+  /* padding-right: 8px; */
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.add-button:hover {
+  background-color: #5f912522;
+  /* background-color: #5f9125; */
+}
+.add-button:hover .add-icon {
+  filter: invert(49%) sepia(99%) saturate(373%) hue-rotate(45deg) brightness(84%) contrast(80%);
+}
+.add-icon {
+  padding: 2px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  filter: invert(14%) sepia(34%) saturate(0%) hue-rotate(248deg) brightness(94%) contrast(85%);
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.view-button {
+  color: #666666;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+  background-color: #fbfbfb;
+  border: 1px solid #cccccc;
+  /* padding-right: 8px; */
+  padding: 0px 6px 0 2px;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.view-button:hover {
+  background-color: #eeeeee;
+}
+.view-icon {
+  padding: 2px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  filter: invert(14%) sepia(34%) saturate(0%) hue-rotate(248deg) brightness(94%) contrast(85%);
+}
+
+/* Add Listing */
+.container-max {
+  width: 100%;
+}
+.container-max h3 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 16px 8px;
+  border-radius: 0.5rem;
+}
+.container-max > div {
+  margin: 2rem 0;
+  background-color: #fbfbfb;
+  border: 0.5rem solid #fbfbfb;
+  outline: 1px solid #ffffff;
+}
+.listing-content {
+  position: relative;
+  display: flex;
+}
+.listing-content > div > div {
+  border-radius: 1rem;
+  box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
+}
+
 
 /* Profile Settings */
 #settings {

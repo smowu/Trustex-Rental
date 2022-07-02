@@ -213,7 +213,11 @@
                           <td><?php echo $property['propertyCity'] ?></td>
                           <td><?php echo $property['propertyState'] ?></td>
                           <td><?php echo $property['propertyType'] ?></td>
-                          <td><button onclick="<?php echo $location ?>">View</button></td>
+                          <td>
+                            <button class="view-button" onclick="<?php echo $location ?>">
+                              <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
+                            </button>
+                          </td>
                         </tr>
                       <?php
                           // Gap between rows
@@ -222,10 +226,12 @@
                           }
                         }
                       ?>
-                      <tr class="no-hover">
+                      <tr class="no-hover bottom-row">
                         <td colspan="6">
                           <a href="add-property.php" class="add-property-button" onclick="">
-                            <button>Add new</button>
+                          <button class="add-button">
+                            <image class="icon add-icon" src="assets/icons/plus.png">
+                          </button>
                           </a>
                         </td>
                         <td></td>

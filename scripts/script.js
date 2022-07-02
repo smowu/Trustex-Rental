@@ -154,7 +154,6 @@ $(document).ready(function(){
 
 });
 
-
 // Check sign up infos
 
 function isSignupFormFilled() {
