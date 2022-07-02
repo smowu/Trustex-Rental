@@ -93,9 +93,7 @@
                         WHERE request.ticketNo = rent.ticketNo AND request.userID = '$id'";
                 $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
                 mysqli_close($connect);
-
                 $numrows = mysqli_num_rows($result);
-                // $numrows = 5;
                 if ($numrows > 0) {
               ?>
                   <div class="dashboard-table">

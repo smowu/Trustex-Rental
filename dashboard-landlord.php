@@ -145,19 +145,33 @@
                       ?>
                         <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
                           <td><?php echo sprintf('%012d', $listing['listingID']) ?></td>
-                          <td><?php echo $listing['propertyID'] ?></td>
+                          <td><?php echo sprintf("%08d",$listing['propertyID']) ?></td>
                           <td><?php echo $listing['propertyName'] ?></td>
                           <td><?php echo $listing['rentPrice'] ?></td>
                           <td><?php echo $listing['listingTimestamp'] ?></td>
-                          <td><button onclick="<?php echo $location ?>">View</button></td>
+                          <td>
+                            <button class="view-button" onclick="<?php echo $location ?>">
+                              <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
+                            </button>
+                          </td>
                         </tr>
                       <?php
                           // Gap between rows
-                          if ($i < $numrows-1) {
+                          if ($i < $numrows) {
                             echo "<tr class='spacer'><td></td></tr>";
                           }
                         }
                       ?>
+                      <tr class="no-hover bottom-row">
+                        <td colspan="6">
+                          <a href="add-listing.php">
+                          <button class="add-button">
+                            <image class="icon add-icon" src="assets/icons/plus.png">
+                          </button>
+                          </a>
+                        </td>
+                        <td></td>
+                      </tr>
                     </table>
                   </div> 
               <?php
@@ -167,7 +181,7 @@
                     <div>
                       <p>No active listing is found.</p>
                       <br>
-                      <a href="add-listing.php" onclick="">
+                      <a href="add-listing.php">
                         <button>Create new listing</button>
                       </a>
                     </div>
@@ -228,7 +242,7 @@
                       ?>
                       <tr class="no-hover bottom-row">
                         <td colspan="6">
-                          <a href="add-property.php" class="add-property-button" onclick="">
+                          <a href="add-property.php">
                           <button class="add-button">
                             <image class="icon add-icon" src="assets/icons/plus.png">
                           </button>
@@ -245,7 +259,7 @@
                     <div>
                       <p>No properties were found.</p>
                       <br>
-                      <a href="add-property.php" onclick="">
+                      <a href="add-property.php">
                         <button>Add new property</button>
                       </a>
                     </div>

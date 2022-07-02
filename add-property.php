@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
   <body id="new-property">
-    <div class="about-container new-property-container container-margin">
+    <div class="default-container container-margin">
       <h1>New Property</h1>
       <br>
       <form class="add-property-form" action="" method="POST" enctype="multipart/form-data">

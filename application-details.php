@@ -27,7 +27,7 @@
 <!DOCTYPE html>
 <html>
   <body id="application-form">
-    <div class="about-container container-margin">
+    <div class="default-container container-margin">
       <h1>Landlord Application Details</h1><br>
       <p>Application ID: <?php echo sprintf('%06d', $applicantid) ?></p><br>
 

@@ -7,7 +7,7 @@
 ?>
 <!-- Overlay for changing profile picture -->
 <div class="image-upload-overlay">
-  <form class="image-upload-form" action="uploadImage.php" method="post" enctype="multipart/form-data">
+  <form class="image-upload-form" action="uploadProfilePicture.php" method="post" enctype="multipart/form-data">
     <div>
       <h3>
         Upload Image

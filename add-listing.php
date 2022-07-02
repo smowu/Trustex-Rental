@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
   <body id="list-property">
-    <div class="about-container list-property-container container-margin">
+    <div class="default-container container-margin">
       <h1>New Listing</h1>
       <br>
       <div class="listing-content">

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
   <body id="about">
-    <div class="about-container container-margin">
+    <div class="default-container container-margin">
       <h1>About Us</h1>
     </div>
   </body>

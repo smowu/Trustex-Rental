@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
   <body id="faq">
-    <div class="faq-container container-margin">
-      <h1>About Us</h1>
+    <div class="default-container container-margin">
+      <h1>Frequently Asked Question</h1>
     </div>
   </body>
 </html>
