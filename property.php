@@ -21,8 +21,8 @@
 <html>
   <body id="property">
     <div class="default-container container-margin">
-      <h1><?php echo $property['propertyName'] ?></h1>
-      <p><?php echo sprintf("%08d",$property['propertyID']) ?></p>
+      <h1><?php echo $property['propertyName'] ?></h1><br>
+      <p>Property ID: <?php echo sprintf("%08d",$property['propertyID']) ?></p>
     </div>
   </body>
 </html>

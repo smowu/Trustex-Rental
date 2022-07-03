@@ -69,10 +69,10 @@
                       <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
                       <?php
                       for ($i = 0; $request = mysqli_fetch_assoc($result); $i++) {
-                          $location = "location.href='request.php?id=".$request['ticketNo']."'";
+                          $location = "location.href='request.php?t=".$request['ticketNo']."'";
                       ?>
                         <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
-                          <td><?php echo $request['requestTimestamp'] ?></td>
+                          <td><?php echo date("Y-m-d",strtotime($request['requestTimestamp'])) ?></td>
                           <td><?php echo sprintf('%012d', $request['listingID']) ?></td>
                           <td><?php echo $request['propertyName'] ?></td>
                           <td><?php echo $request['requestType'] ?></td>
@@ -148,7 +148,7 @@
                           <td><?php echo sprintf("%08d", $listing['propertyID']) ?></td>
                           <td><?php echo $listing['propertyName'] ?></td>
                           <td><?php echo $listing['rentPrice'] ?></td>
-                          <td><?php echo $listing['listingTimestamp'] ?></td>
+                          <td><?php echo date("Y-m-d",strtotime($listing['listingTimestamp'])) ?></td>
                           <td>
                             <button class="view-button" onclick="<?php echo $location ?>">
                               <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
