@@ -56,6 +56,7 @@
 
   $profileicon = "assets/images/users/user-".sprintf('%010d', $id)."/profile-picture/profile-picture.png";
 
+  // For editing password
   // if (password_verify($oldpassword, $password)) {
 
   //   // Asks new password and confirmation

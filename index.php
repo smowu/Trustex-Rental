@@ -59,7 +59,19 @@
                 $prop_id = $rows['propertyID'];
 
                 $link = "location.href='listing.php?id=".$list_id."'";
-                $thumb = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "/image-property-1.jpg";
+
+                $dir = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "";
+                $file = "";
+                if ($f = opendir($dir)) {
+                  while (($file = readdir($f)) != false) {
+                    if ($file != '.' && $file != '..') {
+                        break;
+                    }
+                  }
+                  closedir($f);
+                }
+
+                $thumb = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "/" . $file . "";
                 $alt = "Property Image Banner";
                 $propertyname = $rows['propertyName'];
                 $propertyaddress = $rows['propertyAddress'];
