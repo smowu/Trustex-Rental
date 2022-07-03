@@ -77,10 +77,8 @@
         </div>
       </div>
       <br>
-
-      <div id="listing-form">
-        <form id="listing-form" class="listing-form" action="" method="POST" enctype="multipart/form-data">
-
+      <form method="POST" action="" enctype="multipart/form-data">
+        <div id="listing-form">
           <div class="image-upload-form" action="uploadImage.php" method="post" enctype="multipart/form-data">
             <image class="" src=""></image>
             <br>
@@ -89,100 +87,93 @@
             </div>
           </div><br>
 
-          <label for="name">Name</label>
-          <input type="text" name="name" value="" placeholder="Property Name" required><br><br>
-          <label for="address">Address</label>
-          <input type="text" name="address" value="" placeholder="Property Address" required><br><br>
-          <label for="city">City</label>
-          <input type="text" name="city" value="" placeholder="Property City" required><br><br>
-          <label for="poscode">Poscode</label>
-          <input type="text" name="poscode" value="" placeholder="Property Poscode" required><br><br>
+          <label for="name">Name: </label><br>
+          <p><?php echo "<br>" ?></p><br>
 
-          <label for="state">State</label>
-          <select name="state" id="state" required>
-            <option disabled selected value> -- Select a state -- </option>
-          </select><br><br>
+          <label for="address">Address: </label><br>
+          <p><?php echo "<br>" ?></p><br>
 
-          <label for="type">Property Type</label><br>
-          <input type="radio" id="condominium" name="type" value="Condominium">
+          <label for="city">City: </label>
+          <p><?php echo "<br>" ?></p><br>
+
+          <label for="poscode">Poscode: </label>
+          <p><?php echo "<br>" ?></p><br>
+
+          <label for="state">State: </label>
+          <p><?php echo "<br>" ?></p><br>
+
+          <label for="type">Property Type: </label><br>
+          <input type="radio" id="condominium" name="type" value="Condominium" disabled>
           <label for="condominium">Condominium</label><br>
-          <input type="radio" id="apartment" name="type" value="Apartment">
+          <input type="radio" id="apartment" name="type" value="Apartment" disabled>
           <label for="apartment">Apartment</label><br>
-          <input type="radio" id="terrace" name="type" value="Terrace">
+          <input type="radio" id="terrace" name="type" value="Terrace" disabled>
           <label for="terrace">Terrace</label><br>
-          <input type="radio" id="bungalow" name="type" value="Bungalow">
+          <input type="radio" id="bungalow" name="type" value="Bungalow" disabled>
           <label for="bungalow">Bungalow</label><br>
-          <input type="radio" id="semid" name="type" value="Semi-D">
+          <input type="radio" id="semid" name="type" value="Semi-D" disabled>
           <label for="semid">Semi-D</label><br>
-          <input type="radio" id="townhouse" name="type" value="Townhouse">
+          <input type="radio" id="townhouse" name="type" value="Townhouse" disabled>
           <label for="townhouse">Town House</label><br>
-          <input type="radio" id="others" name="type" value="Others" required>
+          <input type="radio" id="others" name="type" value="Others" required disabled>
           <label for="others">Others</label><br><br>
 
-          <label for="floor-level">Floor Level</label>
-          <input type="text" name="floor-level" value="" placeholder="Floor Level"><br><br>
-          <label for="floor-size">Floor Size</label>
-          <input type="text" name="floor-size" value="" placeholder="Floor Size"><br><br>
-          <label for="num-rooms">No. of Rooms</label>
-          <input type="text" name="num-rooms" value="" placeholder="No. of Rooms" required><br>
-          <label for="num-bathrooms">No. of Bathrooms</label>
-          <input type="text" name="num-bathrooms" value="" placeholder="No. of Bathrooms" required><br><br>
+          <label for="floor-level">Floor Level: </label>
+          <p><?php echo "<br>" ?></p><br>
+          <label for="floor-size">Floor Size: </label>
+          <p><?php echo "0" ?> sqft</p><br>
+          <label for="num-rooms">No. of Rooms: </label>
+          <p><?php echo "<br>" ?></p><br>
+          <label for="num-bathrooms">No. of Bathrooms: </label>
+          <p><?php echo "<br>" ?></p><br>
 
-          <label for="furnishing">Furnishing</label>
-          <select name="furnishing" id="furnishing">
-            <option disabled selected value> -- Select furnishing -- </option>
-          </select><br><br>
+          <label for="furnishing">Furnishing: </label>
+          <p><?php echo "<br>" ?></p><br>
 
-          <label for="facilities[]">Facilities</label><br>
-          <input type="checkbox" id="facilities1" name="facilities[]" value="Wifi">
+          <label for="facilities[]">Facilities: </label><br>
+          <input type="checkbox" id="facilities1" name="facilities[]" value="Wifi" disabled>
           <label for="facilities1"> Wifi</label><br>
-          <input type="checkbox" id="facilities2" name="facilities[]" value="Parking">
+          <input type="checkbox" id="facilities2" name="facilities[]" value="Parking" disabled>
           <label for="facilities2"> Parking Lot</label><br>
-          <input type="checkbox" id="facilities3" name="facilities[]" value="Gym">
+          <input type="checkbox" id="facilities3" name="facilities[]" value="Gym" disabled>
           <label for="facilities3"> Gymnasium</label><br>
-          <input type="checkbox" id="facilities4" name="facilities[]" value="Pool">
+          <input type="checkbox" id="facilities4" name="facilities[]" value="Pool" disabled>
           <label for="facilities4"> Swimming Pool</label><br>
-          <input type="checkbox" id="facilities5" name="facilities[]" value="Security">
+          <input type="checkbox" id="facilities5" name="facilities[]" value="Security" disabled>
           <label for="facilities5"> Security Guard</label><br>
-
-          <input type="checkbox" id="other1" name="facilities[]" value="Others">
+          <input type="checkbox" id="other1" name="facilities[]" value="Others" disabled>
           <label for="other1"> Others</label><br><br>
 
-          <label for="rent-price">Rent Price</label>
-          RM <input type="text" name="rent-price" value="" placeholder="Renting Price"><br><br>
+          <label for="rent-price">Rent Price: </label>
+          <p>RM <?php echo "0" ?></p><br>
 
-          <label for="description">Description</label><br>
-          <textarea name="description" cols="50" rows="10" placeholder="Enter property description..."></textarea><br>
-          <br>
-          <input type="submit" name="listing-submit" value="Add Property">
+          <label for="description">Description: </label><br>
+          <p><?php echo "<br>" ?></p><br>
 
-        </form>
-      </div>
+          <input type="submit" name="listing-submit" value="Add to Listing" disabled>
+        </div>
+      </form>
       <br>
-
       <button onclick="location.href='dashboard-landlord.php'">Cancel</button>
     </div>
   </body>
 </html>
 <?php
 
-  if (isset($_POST['listing-submit'])) {
-    include("dbconnect.php");
-    $sql = "INSERT INTO listing (landlordRegNo, propertyName, propertyAddress, propertyCity) 
-            VALUES('".$_SESSION['landlordRegNo']."','".$_POST['name']."','".$_POST['address']."','".$_POST['city']."')";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-    $prop_id = mysqli_insert_id($connect);
-    mysqli_close($connect);
+if (isset($_POST['listing-submit'])) {
+  include("dbconnect.php");
+  $sql = "INSERT INTO listing (propertyID)
+          VALUES ('".$_POST['propertyID']."')";
+  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  mysqli_close($connect);
 
-    if ($result) {
-      $dir = "/assets/images/properties/property-" . sprintf('%06d', $prop_id) . "";
-
-      echo "<script>alert('Successfully added property to listings!')</script>";
-      echo "<script>window.location.replace('dashboard.php');</script>";
-    } else {
-      echo "<script>alert('Something went wrong!')</script>";
-    }
+  if ($result) {
+    echo "<script>alert('Your property has been successfully listed!')</script>";
+    echo "<script>window.location.replace('dashboard.php');</script>";
+  } else {
+    echo "<script>alert('Something went wrong!')</script>";
   }
+}
   include("html/footer.html");
 ?>
 

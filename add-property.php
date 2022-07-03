@@ -21,17 +21,17 @@
           </div>
         </div><br>
 
-        <label for="name">Name</label>
+        <label for="name">Name</label><br>
         <input type="text" name="name" value="" placeholder="Property Name" required><br><br>
-        <label for="address">Address</label>
+        <label for="address">Address</label><br>
         <input type="text" name="address" value="" placeholder="Property Address" required><br><br>
-        <label for="city">City</label>
+        <label for="city">City</label><br>
         <input type="text" name="city" value="" placeholder="Property City" required><br><br>
-        <label for="poscode">Poscode</label>
+        <label for="poscode">Poscode</label><br>
         <input type="text" name="poscode" value="" placeholder="Property Poscode" required><br><br>
 
         <!-- State -->
-        <label for="state">State</label>
+        <label for="state">State</label><br>
         <select name="state" id="state" required>
           <option disabled selected value> -- Select a state -- </option>
         </select><br><br>
@@ -52,17 +52,17 @@
         <input type="radio" id="others" name="type" value="Others" required>
         <label for="others">Others</label><br><br>
 
-        <label for="floor-level">Floor Level</label>
+        <label for="floor-level">Floor Level</label><br>
         <input type="text" name="floor-level" value="" placeholder="Floor Level"><br><br>
-        <label for="floor-size">Floor Size</label>
+        <label for="floor-size">Floor Size</label><br>
         <input type="text" name="floor-size" value="" placeholder="Floor Size"><br><br>
-        <label for="num-rooms">No. of Rooms</label>
+        <label for="num-rooms">No. of Rooms</label><br>
         <input type="text" name="num-rooms" value="" placeholder="No. of Rooms" required><br>
-        <label for="num-bathrooms">No. of Bathrooms</label>
+        <label for="num-bathrooms">No. of Bathrooms</label><br>
         <input type="text" name="num-bathrooms" value="" placeholder="No. of Bathrooms" required><br><br>
 
         <!-- Furnishing -->
-        <label for="furnishing">Furnishing</label>
+        <label for="furnishing">Furnishing</label><br>
         <select name="furnishing" id="furnishing">
           <option disabled selected value> -- Select furnishing -- </option>
         </select><br><br>
@@ -83,7 +83,7 @@
         <input type="checkbox" id="other1" name="facilities[]" value="Others">
         <label for="other1"> Others</label><br><br>
 
-        <label for="rent-price">Rent Price</label>
+        <label for="rent-price">Rent Price</label><br>
         RM <input type="text" name="rent-price" value="" placeholder="Renting Price"><br><br>
 
         <label for="description">Description</label><br>

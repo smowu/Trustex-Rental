@@ -31,15 +31,32 @@
       <h1>Landlord Application Details</h1><br>
       <p>Application ID: <?php echo sprintf('%06d', $applicantid) ?></p><br>
 
-      <p>User ID: <?php echo sprintf('%010d', $userid) ?></p>
-      <p>Username: <?php echo $username ?></p>
-      <p>Email: <?php echo $email ?></p>
-      <p>First Name: <?php echo $firstname ?></p>
-      <p>Last Name: <?php echo $lastname ?></p>
-      <p>IC Number: <?php echo $ic ?></p>
-      <p>Address: <?php echo $address ?></p>
-      <p>Phone No.: <?php echo $phoneno ?></p>
-      <p>Application Status: <?php echo $status ?></p>
+      <label>User ID: </label><br>
+      <p><?php echo sprintf('%010d', $userid) ?></p><br>
+
+      <label>Username: </label><br>
+      <p><?php echo $username ?></p><br>
+
+      <label>Email: </label><br>
+      <p><?php echo $email ?></p><br>
+
+      <label>First Name: </label><br>
+      <p><?php echo $firstname ?></p><br>
+
+      <label>Last Name: </label><br>
+      <p><?php echo $lastname ?></p><br>
+
+      <label>IC Number: </label><br>
+      <p><?php echo $ic ?></p><br>
+
+      <label>Address: </label><br>
+      <p><?php echo $address ?></p><br>
+
+      <label>Phone No.: </label><br>
+      <p><?php echo $phoneno ?></p><br>
+
+      <label>Application Status: </label><br>
+      <p><?php echo $status ?></p><br>
       <br>
       <form method="POST" action="application-result.php">
         <input type="text" name="id" value="<?php echo $applicantid ?>" style="display: none;">

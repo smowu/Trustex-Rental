@@ -145,7 +145,7 @@
                       ?>
                         <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
                           <td><?php echo sprintf('%012d', $listing['listingID']) ?></td>
-                          <td><?php echo sprintf("%08d",$listing['propertyID']) ?></td>
+                          <td><?php echo sprintf("%08d", $listing['propertyID']) ?></td>
                           <td><?php echo $listing['propertyName'] ?></td>
                           <td><?php echo $listing['rentPrice'] ?></td>
                           <td><?php echo $listing['listingTimestamp'] ?></td>
