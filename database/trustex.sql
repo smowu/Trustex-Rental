@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 03, 2022 at 03:31 PM
+-- Generation Time: Jul 05, 2022 at 07:47 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -140,8 +140,7 @@ INSERT INTO `listing` (`listingID`, `propertyID`, `listingTimestamp`) VALUES
 (12, 2, '2022-06-21 13:03:33'),
 (13, 12, '2022-07-02 13:37:41'),
 (14, 8, '2022-07-02 18:19:04'),
-(15, 13, '2022-07-03 09:27:10'),
-(16, 16, '2022-07-03 13:14:04');
+(19, 47, '2022-07-04 22:24:24');
 
 -- --------------------------------------------------------
 
@@ -192,11 +191,10 @@ INSERT INTO `property` (`propertyID`, `landlordRegNo`, `propertyName`, `property
 (3, 3, 'United Point Residence @ North Kiara', 'Jalan Lang Emas North Kiara, 50150 Segambut, Kuala Lumpur', 'Segambut', '50150', 'Kuala Lumpur', 'Service Residence', NULL, 958, 3, 2, 'Partially Furnished', NULL, 'United Point Residence partly furnished to RENT\r\n\r\n- 958sf', '1500.00'),
 (4, 4, 'R&F Princess Cove', 'Jalan Sultan Ibrahim Off Lebuhraya Sultan Iskandar, Tanjung Puteri, Johor Bahru, Johor', 'Johor Bahru', '80300', 'Johor', 'Service Residence', NULL, 1052, 3, 2, 'Fully Furnished', NULL, 'For Rent\r\nR&F Princess Cove, Johor Bahru@ link bridge to CIQ', '2500.00'),
 (8, 7, 'Legasi Kampung Bharu', 'No.25, Jalan Raja Muda Musa, 50300 Kampung Bharu, Kuala Lumpur', 'Kampung Bharu', '50300', 'Kuala Lumpur', 'Apartment', 17, 950, 3, 2, 'Fully Furnished', 'Pool,Wifi,Parking', 'Near LRT Kampung Bharu', '2700.00'),
-(10, 7, 'New Apartment', 'No.5, Jalan Yang Lurus, 12345 Bandar Raya, Kuala Lumpur', 'Bandar Raya', '12345', 'Kuala Lumpur', 'Apartment', 20, 900, 2, 2, 'Partially Furnished', 'Wifi,Parking', 'More testing....        ', '1500.00'),
 (11, 7, 'Plaza Rah', 'Jalan Raja Abdullah, 50300 Kampung Baru, Kuala Lumpur', 'Kampung Baru', '50300', 'W.P. Kuala Lumpur', 'Apartment', 13, 900, 3, 2, 'Unfurnished', 'Parking,Pool,Wifi', 'Near KLCC', '2000.00'),
 (12, 7, 'KL Eco City Vogue Suites 1', 'KL Eco City, Jalan Bangsar, 59000 Bangsar, Kuala Lumpur', 'Bangsar', '59000', 'W.P. Kuala Lumpur', 'Apartment', 20, 797, 2, 1, 'Fully Furnished', 'Wifi,Parking,Gym,Pool,Security,Others,', 'Short Walk To LRT & Mid Valley Garden Mall. Always Shown 3 Unit Vogue Suites One is high-rise residential property situated within MidValley City. It boasts to be Malaysia\'s tallest luxury residential condominium. Vogue Suites One is A 60-storey residential tower housing 708 residential suites. The place offers you the beautiful panoramic view of Kuala Lumpur City Centre and Bangsar.  Accessibility wise, the place is nearby major highways that has made it easier to travel to Petaling Jaya and other parts of Kuala Lumpur. If you prefer to commute, the nearest public transport would be LRT Abdullah Hukum, which is 5 minute away by foot. As for amenities, residents can easily access to many things due to its strategic location. With The Gardens and Mid Valley located opposite, residents can use the pedestrian bridge to visit the retail hub for food, entertainment, groceries and more. They can also go to Bangsar for some night life or foodie adventure.  Easy Access Major highway including -Federal Highway to PJ, Sunway, Subang, Shah Alam , Klang - New Pantai Expressway (NPE) connecting to Sunway , Subang Jaya, LDP highway as well -Kerinchi Link connecting to Sri Hartamas , Mont Kiara & Damansara and Penchala link as well.  Property Details: Limited Fully furnished unit 1bedroom and 1 study room come with bathroom. this unit come with 1 covered carpark. 2 tier security from the main lobby or from carpark entrance.  more than 1 unit can show you in one shot viewing .  Name: Vogue Suites One Address: Jalan Bangsar, KL Eco City Developer: SP Setia Type: Condominium Completion: 2017 Tenure: Leasehold Total Blocks: 2 (A&B) Total Storey: 60 Total Units: 708 Built up: 657 - 3993 sqft Layout: 1 Bedroom : 657sqft – 710sqft 1+1 Bedroom : 732sqft – 797sqft 2 Bedroom : 915sqft – 1,119sqft Loft units : 1,647sqft – 3,993sqft  Facilities: Sky gymnasium Meditation pavillion 50 metres olympic length pool Playground Al-fresco cafe deck Submerged cabana deck Jogging track Sauna Steam bath Business lounge Mini theatre 24 hours security', '2500.00'),
 (13, 8, 'New Property', 'Address', 'Tapah', '40000', 'Perak', 'Terrace', 0, 900, 3, 2, 'Fully Furnished', 'Wifi,Parking,Security,', 'ghdfshfsdhrtsh', '1500.00'),
-(16, 7, 'Property Demo', 'Address for property demo', 'KL City', '50000', 'W.P. Kuala Lumpur', 'Condominium', 20, 960, 3, 2, 'Partially Furnished', 'Wifi,Parking,Pool,Security,', 'Some long description....', '2000.00');
+(47, 7, 'Parc 3', 'Lot 20006 Jalan Pudu Perdana, Cheras, Kuala Lumpur', 'Cheras', '55200', 'W.P. Kuala Lumpur', 'Service Residence', 0, 977, 3, 2, 'Fully Furnished', 'Wifi,Parking,Gym,Pool,Security,Others,', '*Condo Name : Parc 3*Unit level:*Sqft : 977*Bedroom : 3*Bathroom : 2*Furnished : fully furnishes*Water Heater : yes*Air-cond : yes*Carpark Slot : 2*Rental: RM 2600I\'m Wendy Wong from The Roof Realty.We specialist in helping landlords to manage, rent, and sale their properties.We are cover area Cheras, Ampang, KLCC, Mont Kiara, Bangsar.All landlords, tenants, buyers are welcome!', '2600.00');
 
 -- --------------------------------------------------------
 
@@ -382,7 +380,7 @@ ALTER TABLE `landlord`
 -- AUTO_INCREMENT for table `listing`
 --
 ALTER TABLE `listing`
-  MODIFY `listingID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `listingID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -394,7 +392,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `property`
 --
 ALTER TABLE `property`
-  MODIFY `propertyID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `propertyID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `request`

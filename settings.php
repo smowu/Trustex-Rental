@@ -167,7 +167,7 @@
 <?php
   include("html/footer.html");
 
-  if (isset($_POST['save-account-edit']) || isset($_POST['save-profile-edit'] )) {
+  if (isset($_POST['save-account-edit']) || isset($_POST['save-profile-edit'])) {
     
     if (isset($_POST['save-account-edit'])) {
       if ($_POST['username'] != $user['userName'] && isset($_POST['username'])) {
@@ -186,7 +186,6 @@
       if ($_POST['ic'] != $user['userIC']) {
         $ic = mysqli_real_escape_string($connect, $_POST['ic']);
       }
-
       if ($_POST['gender'] != $user['userGender']) {
         $gender = mysqli_real_escape_string($connect, $_POST['gender']);
       }
