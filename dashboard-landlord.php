@@ -261,7 +261,7 @@
                     <div>
                       <p>No properties were found.</p>
                       <br>
-                      <a href="add-property.php">
+                      <a href="add-property-form.php">
                         <button>Add new property</button>
                       </a>
                     </div>

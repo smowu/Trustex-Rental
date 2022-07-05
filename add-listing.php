@@ -64,7 +64,7 @@
                     <div>
                       <p>No properties were found.</p>
                       <br>
-                      <a href="add-property.php" onclick="">
+                      <a href="add-property-form.php" onclick="">
                         <button>Add new property</button>
                       </a>
                     </div>

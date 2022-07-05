@@ -127,14 +127,43 @@
           </form><br>
         </div>
         <div class="listing-section-right">
+          <?php
+            include("dbconnect.php");
+            $sql = "SELECT *
+                    FROM listing, property, landlord, user
+                    WHERE listingID = '$list_id' 
+                    AND listing.propertyID = property.propertyID 
+                    AND landlord.landlordRegNo = property.landlordRegNo 
+                    AND landlord.userID = user.userID";
+            $landlord_result = mysqli_query($connect,$sql);
+            mysqli_close($connect);
+
+            $landlord = mysqli_fetch_assoc($landlord_result);
+            
+          ?>
           <div class="landlord-info-container">
             <div class="landlord-propic-container">
-              <image src="" alt="">
+              <div class="propic-container">
+                <?php $landlord_propic = "assets/images/users/user-".sprintf('%010d', $landlord["userID"])."/profile-picture/profile-picture.png" ?>
+                <image class="profile-pic" src="<?php echo $landlord_propic ?>" onerror="this.onerror=null; this.src='assets/images/profile-default.png'">
+              </div>
             </div>
             <div class="landlord-details">
-
+              <p><b><?php echo $landlord["userFName"] . " " . $landlord["userLName"] ?></b></p>
+              <p>Reg. No.: <?php echo sprintf('%06d',$landlord["landlordRegNo"]) ?></p>
+              <p>Tel: <?php echo $landlord["userPhoneNo"] ?></p>
             </div>
-            <button class="request-button">Request Inquiry</button>
+            <?php 
+              $button_link = "login.php";
+              $button_text = "Log In to Request Inquiry";
+              if (isset($_SESSION["userID"])) {
+                $button_link = "createRequest.php?id=" . $list_id . "";
+                $button_text = "Request Inquiry";
+              }
+            ?>
+            <a href="<?php echo $button_link ?>">
+              <button class="request-button"><?php echo $button_text ?></button>
+            </a>
           </div>
         </div>
       </div>
