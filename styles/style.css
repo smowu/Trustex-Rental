@@ -90,26 +90,42 @@ button {
 #login:hover img {
   content: url("../assets/icons/icon-user-blue.png");
 }
-.profile-icon {
-  display: flex;
-  justify-content: center;
+
+.propic-container {
+  overflow: hidden;
+  border-radius: 50%;
+  margin: auto;
+  display: flex; 
+  align-items: center; 
+  justify-content: center
+}
+.profile-pic {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  background-color: #257b9f20;
+}
+
+.propic-icon-container {
   top: 0;
   position: absolute;
   margin: 8px 0px 8px 0px;
   right: 16vw;
   list-style: none;
   cursor: pointer;
-}
-.profile-icon img {
+  width: 38px;
   height: 38px;
-  padding: 0px;
   outline: 1px solid #fbfbfb;
-  border-radius: 100em;
+}
+.propic-icon {
   background-color: #fbfbfb;
 }
-.profile-icon img:hover {
+.propic-icon-container:hover {
   outline: 3px solid #fbfbfb;
 }
+
 .user-menu {
   position: fixed;
   display: none;
@@ -165,9 +181,16 @@ button {
 .user-menu-profile img {
   width: 72px;
   margin: 8px;
-  border-radius: 100em;
+  border-radius: 50%;
   background-color: #257b9f20;
 }
+
+.propic-menu-container {
+  width: 72px;
+  height: 72px;
+  margin: 8px;
+}
+
 .user-menu-profile h4, .user-menu-profile p {
   padding: 2px 8px;
 }
@@ -492,6 +515,38 @@ button {
 }
 .active-page {
   background-color: #124054;
+}
+
+/* Property page (landlord view) */
+
+.property-images-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 420px;
+  background-color: #cccccc;
+}
+.property-banner-image {
+  /* position: absolute; */
+  overflow: hidden;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  /* margin: auto 0 auto 16px; */
+  width: 100%;
+  height: 100%;
+
+  padding: 0;
+  margin: 0;
+  background-color: #257b9f;
+}
+.property-banner-image img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 /* Footer contents */
@@ -860,12 +915,12 @@ footer hr {
   position: relative;
   display: inline;
 }
-.account-profile img {
+.propic-dashboard-container {
   width: 128px;
+  height: 128px;
   margin: 8px;
-  border-radius: 100em;
-  /* background-color: #fbfbfb; */
 }
+
 .account-profile h2, .account-profile p {
   padding: 2px 8px;
 }
@@ -1116,10 +1171,30 @@ footer hr {
   display: flex;
 }
 
+.upload-image-container {
+  position: relative;
+  height: 360px;
+  width: 100%;
+  display: flex; 
+  align-items: center; 
+  justify-content: center
+}
+.propic-upload-container {
+  width: 320px;
+  height: 320px;
+  margin: 32px;
+}
+
 .profile-pic-container  {
   position: relative;
-  border-radius: 50%;
 }
+
+.propic-settings-container {
+  width: 256px;
+  height: 256px;
+  margin: 16px;
+}
+
 .profile-pic-container h4 {
   position: absolute;
   display: flex;
@@ -1133,12 +1208,6 @@ footer hr {
   z-index: 9999;
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   pointer-events: none;
-}
-.profile-pic {
-  width: 256px;
-  margin: 16px;
-  border-radius: 50%;
-  background-color: #257b9f20;
 }
 .profile-pic-container .camera-icon {
   position: absolute;
@@ -1161,6 +1230,7 @@ footer hr {
   display: flex;
   justify-content: center;
   line-height: 256px;
+  /* padding: 16px; */
   margin: 16px;
   width: 256px; height: 256px;
   top: 0; left: 0;
@@ -1408,6 +1478,78 @@ footer hr {
   border-bottom: 3px solid #257b9f;
 }
 
+/* New Property Form */
+/* 
+.container-right h3 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 16px 8px;
+  border-radius: 0.5rem;
+}
+.container-right > div {
+  margin: 2rem 0 2rem 1rem;
+  background-color: #fbfbfb;
+  border: 0.5rem solid #fbfbfb;
+  outline: 1px solid #ffffff;
+}
+.dashboard-content > div > div {
+  border-radius: 1rem;
+  box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
+} */
+
+.property-details-container {
+  border-radius: 1rem;
+  box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
+}
+.property-details-container > div {
+  border-radius: 1rem;
+  background-color: #fbfbfb;
+  border: 0.5rem solid #fbfbfb;
+  outline: 1px solid #ffffff;
+}
+
+.property-image-upload-container {
+  position: relative;
+  display: flex;
+  vertical-align: middle;
+  width: 100%;
+  height: 240px;
+  border: 1px solid #cccccc;
+  border-radius: 0.5rem;
+  background-color: #cccccc22;
+  overflow-y: scroll;
+}
+.property-image-upload-thumb-container {
+  overflow: hidden;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  margin: auto 0 auto 16px;
+  width: 196px;
+  height: 196px;
+  border-radius: 0.5rem;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+}
+.thumb-empty {
+  border: 3px dashed #cccccc;
+}
+
+.property-upload-preview {
+  display: flex;
+}
+.property-image-upload-thumb {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.property-image-upload-thumb-empty {
+  height: 32px;
+  width: 32px;
+  filter: invert(81%) sepia(15%) saturate(0%) hue-rotate(249deg) brightness(94%) contrast(105%);
+}
+
 /* Default container */
 .default-container {
   padding: 56px 0;
@@ -1415,10 +1557,19 @@ footer hr {
   height: max-content;
   min-height: 100vh;
 }
-.default-container > h1 {
+.default-container h1,
+.property-container h1 {
   font-size: 3rem;
   padding: 2rem 0 0;
   width: 100%;
+}
+
+/* Default property container */
+.property-container {
+  padding: 56px 0;
+  color: #333333;
+  height: max-content;
+  min-height: 100vh;
 }
 
 /* Media queries */

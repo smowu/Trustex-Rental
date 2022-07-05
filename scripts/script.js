@@ -29,14 +29,14 @@ for (let link of links) {
 
 // User menu show/hide functions
 $(document).ready( function() {
-  $(".profile-icon").click( function() {
+  $(".propic-icon-container").click( function() {
     $(".user-menu").fadeToggle(100,"swing");
   });
 });
 
 $(document).mouseup(function(e) {
     var menu = $(".user-menu");
-    var icon = $(".profile-icon");
+    var icon = $(".propic-icon-container");
     if (!menu.is(e.target) && menu.has(e.target).length == 0 &&
         !icon.is(e.target) && icon.has(e.target).length == 0) {
         menu.fadeOut(100,"swing");

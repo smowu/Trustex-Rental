@@ -14,7 +14,12 @@
         <image class="icon close-icon" src="assets/icons/close.png" onclick="toggleImageForm()">
       </h3>
     </div>
-    <image class="profile-pic" src="" onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+    <div class="upload-image-container">
+      <div class="propic-container propic-upload-container">
+        <image class="profile-pic" src="" onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+      </div>
+    </div>
+    
     <hr><br>
     <div>
       <input type="file" name="fileToUpload" onchange="readImageURL(this)">
@@ -91,7 +96,9 @@
               <image class="camera-icon" src="assets/icons/camera.png">
                 <h4 class="camera-icon-text">Change profile picture</h4>
               </image>
-              <image class="profile-pic" src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+              <div class="propic-container propic-settings-container">
+                <image class="profile-pic" src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+              </div>
             </div>
             <div>
               <form class="account-info-form" action="" method="POST" enctype="multipart/form-data">
@@ -164,30 +171,30 @@
     
     if (isset($_POST['save-account-edit'])) {
       if ($_POST['username'] != $user['userName'] && isset($_POST['username'])) {
-        $username = $_POST['username'];
+        $username = mysqli_real_escape_string($connect, $_POST['username']);
       }
       if ($_POST['email'] != $user['userEmail'] && isset($_POST['email'])) {
-        $email = $_POST['email'];
+        $email = mysqli_real_escape_string($connect, $_POST['email']);
       }
     } else {
       if ($_POST['firstname'] != $user['userFName']) {
-        $firstname = $_POST['firstname'];
+        $firstname = mysqli_real_escape_string($connect, $_POST['firstname']);
       }
       if ($_POST['lastname'] != $user['userLName']) {
-        $lastname = $_POST['lastname'];
+        $lastname = mysqli_real_escape_string($connect, $_POST['lastname']);
       }
       if ($_POST['ic'] != $user['userIC']) {
-        $ic = $_POST['ic'];
+        $ic = mysqli_real_escape_string($connect, $_POST['ic']);
       }
 
       if ($_POST['gender'] != $user['userGender']) {
-        $gender = $_POST['gender'];
+        $gender = mysqli_real_escape_string($connect, $_POST['gender']);
       }
       if ($_POST['address'] != $user['userAddress']) {
-        $address = $_POST['address'];
+        $address = mysqli_real_escape_string($connect, $_POST['address']);
       }
       if ($_POST['phoneno'] != $user['userPhoneNo']) {
-        $phoneno = $_POST['phoneno'];
+        $phoneno = mysqli_real_escape_string($connect, $_POST['phoneno']);
       }
     }
     

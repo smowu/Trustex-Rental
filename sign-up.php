@@ -13,7 +13,10 @@
     $confirmpassword = $_POST['confirmpassword'];
 
     if ($password == $confirmpassword) {
-      include("dbconnect.php"); 
+      include("dbconnect.php");
+      $username = mysqli_real_escape_string($connect, $username);
+      $email = mysqli_real_escape_string($connect, $email);
+
       // Checks if the email address is already exist in the database
       $sql = "SELECT * FROM user WHERE userName = '$username' OR userEmail = '$email'";
       $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));

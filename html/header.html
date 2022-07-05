@@ -49,12 +49,14 @@
         ?>
             <!-- User quick menu button -->
             <li>
-              <a class="profile-icon">
-                <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+              <a class="propic-icon-container propic-container">
+                <image class="profile-pic propic-icon" src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
               </a>
               <div class="user-menu">
                 <div class="profile-menu user-menu-profile">
-                  <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+                  <div class="propic-container propic-menu-container">
+                    <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+                  </div>
                   <h4><?php echo $username ?></h4>
                   <p><?php echo $email ?></p><br>
                   <p><?php echo $usertype ?> Account</p>

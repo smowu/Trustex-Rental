@@ -107,6 +107,8 @@
           <label for="condominium">Condominium</label><br>
           <input type="radio" id="apartment" name="type" value="Apartment" disabled>
           <label for="apartment">Apartment</label><br>
+          <input type="radio" id="service_residence" name="type" value="Service Residence" disabled>
+          <label for="service_residence">Service Residence</label><br>
           <input type="radio" id="terrace" name="type" value="Terrace" disabled>
           <label for="terrace">Terrace</label><br>
           <input type="radio" id="bungalow" name="type" value="Bungalow" disabled>

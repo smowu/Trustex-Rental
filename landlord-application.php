@@ -81,13 +81,13 @@
 <?php
   if (isset($_POST["apply-submit"])) {
     // Capture values from user sign-up form
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $ic = $_POST['useric'];
-    $phoneno = $_POST['phoneno'];
-    $address = $_POST['address'];
-
     include("dbconnect.php");
+    $firstname = mysqli_real_escape_string($connect, $_POST['firstname']);
+    $lastname = mysqli_real_escape_string($connect, $_POST['lastname']);
+    $ic = mysqli_real_escape_string($connect, $_POST['useric']);
+    $phoneno = mysqli_real_escape_string($connect, $_POST['phoneno']);
+    $address = mysqli_real_escape_string($connect, $_POST['address']);
+
     $sql = "INSERT INTO applications (userID, userFName, userLName, userIC, userAddress, userPhoneNo) 
             VALUES ('".$_SESSION['userID']."','".$firstname."','".$lastname."','".$ic."','".$address."','".$phoneno."')";
     $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));

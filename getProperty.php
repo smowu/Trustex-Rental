@@ -63,6 +63,8 @@
 <label for="condominium">Condominium</label><br>
 <input type="radio" id="apartment" name="type" value="Apartment" <?php if ($prop['propertyType'] == "Apartment"){ echo 'checked="checked"'; }else{ echo 'disabled'; } ?>>
 <label for="apartment">Apartment</label><br>
+<input type="radio" id="service_residence" name="type" value="Service Residence" <?php if ($prop['propertyType'] == "Service Residence"){ echo 'checked="checked"'; }else{ echo 'disabled'; } ?>>
+<label for="service_residence">Service Residence</label><br>
 <input type="radio" id="terrace" name="type" value="Terrace" <?php if ($prop['propertyType'] == "Terrace"){ echo 'checked="checked"'; }else{ echo 'disabled'; } ?>>
 <label for="terrace">Terrace</label><br>
 <input type="radio" id="bungalow" name="type" value="Bungalow" <?php if ($prop['propertyType'] == "Bungalow"){ echo 'checked="checked"'; }else{ echo 'disabled'; } ?>>

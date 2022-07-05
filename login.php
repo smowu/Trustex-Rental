@@ -7,7 +7,7 @@
   if (isset($_POST['login-submit'])) {
     include("dbconnect.php");
     // Capture values from user login form
-    $email = $_POST['useremail'];
+    $email = mysqli_real_escape_string($connect, $_POST['useremail']);
     $password = $_POST['userpassword'];
 
     // Checks if the username/email and the matched password is in the database

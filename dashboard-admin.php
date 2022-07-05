@@ -26,7 +26,9 @@
         <div class="container-left">
           <div class="account-info">
             <div class="account-profile">
-              <image src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+              <div class="propic-container propic-dashboard-container">
+                <image class="profile-pic" src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+              </div>
               <h2><?php echo $username ?></h2>
               <p><?php echo $email ?></p><br>
               <p><?php echo $usertype ?> Account</p><br>
