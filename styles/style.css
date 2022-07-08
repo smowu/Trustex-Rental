@@ -668,7 +668,8 @@ button {
   line-height: 2rem;
 }
 .request-button {
-  width: 240px;
+  width: 80%;
+  max-width: 240px;
   font-size: 1rem;
   font-weight: bold;
   margin: 16px 0;
@@ -683,6 +684,14 @@ button {
 .request-button:hover {
   color: #257b9f;
   background-color: #fbfbfb;
+}
+
+/* Request Details */
+
+.propic-tenant-details-container {
+  width: 96px;
+  height: 96px;
+  margin: 8px;
 }
 
 /* Footer contents */
@@ -755,7 +764,7 @@ button {
   position: relative;
   font-size: 16px;
   line-height: 32px;
-  padding: 64px 2vw 64px 2vw;
+  padding: 64px 0 64px 2vw;
   width: auto;
 }
 #socials p {
@@ -1723,7 +1732,7 @@ footer hr {
   #logo {
     left: 4vw;
   }
-  #login, .profile-icon, .user-menu {
+  #login, .propic-icon-container, .user-menu {
     right: 2vw;
   }
   .container-margin {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 05, 2022 at 07:47 PM
+-- Generation Time: Jul 09, 2022 at 12:38 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -87,6 +87,36 @@ CREATE TABLE `booking` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `history`
+--
+
+CREATE TABLE `history` (
+  `ticketNo` int(8) NOT NULL,
+  `userID` int(10) NOT NULL,
+  `listingID` int(12) NOT NULL,
+  `requestTimestamp` timestamp NULL DEFAULT NULL,
+  `requestType` char(1) NOT NULL,
+  `propertyID` int(6) NOT NULL,
+  `landlordRegNo` int(6) NOT NULL,
+  `propertyName` varchar(256) NOT NULL,
+  `propertyAddress` varchar(512) NOT NULL,
+  `propertyCity` varchar(64) NOT NULL,
+  `propertyPoscode` varchar(5) NOT NULL,
+  `propertyState` varchar(64) NOT NULL,
+  `propertyType` varchar(32) NOT NULL,
+  `propertyFloorLevel` int(2) NOT NULL,
+  `propertyFloorSize` int(6) NOT NULL,
+  `propertyNumRooms` int(2) NOT NULL,
+  `propertyBathrooms` int(2) NOT NULL,
+  `propertyFurnishing` varchar(32) NOT NULL,
+  `propertyFacilities` varchar(128) NOT NULL,
+  `propertyDesc` varchar(2048) NOT NULL,
+  `rentPrice` decimal(6,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `landlord`
 --
 
@@ -130,14 +160,6 @@ INSERT INTO `listing` (`listingID`, `propertyID`, `listingTimestamp`) VALUES
 (2, 2, '2022-06-20 06:55:20'),
 (3, 3, '2022-06-20 06:55:20'),
 (4, 4, '2022-06-20 08:52:17'),
-(5, 1, '2022-06-20 06:12:12'),
-(6, 2, '2022-06-20 06:55:20'),
-(7, 1, '2022-06-21 13:03:13'),
-(8, 2, '2022-06-21 13:03:18'),
-(9, 3, '2022-06-21 13:03:33'),
-(10, 4, '2022-06-21 13:03:33'),
-(11, 1, '2022-06-21 13:03:33'),
-(12, 2, '2022-06-21 13:03:33'),
 (13, 12, '2022-07-02 13:37:41'),
 (14, 8, '2022-07-02 18:19:04'),
 (19, 47, '2022-07-04 22:24:24');
@@ -220,15 +242,22 @@ CREATE TABLE `request` (
   `userID` int(10) NOT NULL,
   `listingID` int(12) NOT NULL,
   `requestTimestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `requestType` char(1) NOT NULL
+  `rentStartDate` date DEFAULT NULL,
+  `rentEndDate` date DEFAULT NULL,
+  `rentDuration` int(2) NOT NULL,
+  `rentNumTenants` int(2) NOT NULL,
+  `requestStatus` varchar(32) NOT NULL DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `request`
 --
 
-INSERT INTO `request` (`ticketNo`, `userID`, `listingID`, `requestTimestamp`, `requestType`) VALUES
-(2, 15, 1, '2022-06-29 08:47:12', 'R');
+INSERT INTO `request` (`ticketNo`, `userID`, `listingID`, `requestTimestamp`, `rentStartDate`, `rentEndDate`, `rentDuration`, `rentNumTenants`, `requestStatus`) VALUES
+(2, 15, 1, '2022-06-29 08:47:12', NULL, NULL, 0, 0, 'Pending'),
+(3, 12, 19, '2022-07-08 22:31:06', '2022-09-10', '0000-00-00', 6, 2, 'Rejected'),
+(4, 12, 19, '2022-07-08 22:31:19', '2022-09-10', '2023-03-10', 6, 1, 'Rejected'),
+(5, 12, 19, '2022-07-08 15:30:56', '2022-09-10', '2023-03-10', 6, 1, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -297,6 +326,12 @@ ALTER TABLE `applications`
 -- Indexes for table `booking`
 --
 ALTER TABLE `booking`
+  ADD PRIMARY KEY (`ticketNo`);
+
+--
+-- Indexes for table `history`
+--
+ALTER TABLE `history`
   ADD PRIMARY KEY (`ticketNo`);
 
 --
@@ -380,7 +415,7 @@ ALTER TABLE `landlord`
 -- AUTO_INCREMENT for table `listing`
 --
 ALTER TABLE `listing`
-  MODIFY `listingID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `listingID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -398,7 +433,7 @@ ALTER TABLE `property`
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `ticketNo` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ticketNo` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`

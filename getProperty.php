@@ -35,12 +35,8 @@
   // }
 
 ?>
-<div class="image-upload-form" action="uploadImage.php" method="post" enctype="multipart/form-data">
-  <image class="" src=""></image>
-  <br>
-  <div>
-    <input type="file" name="fileToUpload" onchange="readImageURL(this)">
-  </div>
+<div class="property-images">
+  
 </div><br>
 
 <label for="name">Name: </label><br>

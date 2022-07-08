@@ -63,9 +63,7 @@
         <input type="submit" name="approve" value="Approve">
         <input type="submit" name="reject" value="Reject">
       </form><br>
-      <a href="dashboard.php">
-        <h4>Return to Dashboard</h4>
-      </a>
+      <a href="dashboard.php"><h4>Return to Dashboard</h4></a>
     </div>
   </body>
 </html>

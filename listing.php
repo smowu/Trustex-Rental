@@ -3,13 +3,22 @@
 
   $list_id = $_GET['id'];
   include("dbconnect.php");
-  $sql = "SELECT *
+  $sql1 = "SELECT *
           FROM listing, property
           WHERE listing.propertyID = property.propertyID AND listing.listingID = '$list_id'";
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $result = mysqli_query($connect, $sql1) or die ("Error: ".mysqli_error());
+
+  $sql2 = "SELECT *
+          FROM listing, property, landlord, user
+          WHERE listingID = '$list_id' 
+          AND listing.propertyID = property.propertyID 
+          AND landlord.landlordRegNo = property.landlordRegNo 
+          AND landlord.userID = user.userID";
+  $landlord_result = mysqli_query($connect, $sql2) or die ("Error: ".mysqli_error());
   mysqli_close($connect);
 
   $listing = mysqli_fetch_assoc($result);
+  $landlord = mysqli_fetch_assoc($landlord_result);
   $prop_id = $listing["propertyID"];
 
   $propertyName = $listing["propertyName"];
@@ -37,21 +46,21 @@
       <?php
         $dir = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "";
         $file = "";
-        $thumb = [];
+        $images = [];
         if ($f = opendir($dir)) {
           $i = 0;
           while (($file = readdir($f)) != false) {
             if ($file != '.' && $file != '..') {
-              $thumb[$i] = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "/" . $file . "";
+              $images[$i] = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "/" . $file . "";
               $i++;
             }        
           }
           closedir($f);
         }
-        for ($i = 0; $i < count($thumb); $i++) {
+        for ($i = 0; $i < count($images); $i++) {
       ?>
           <div class="property-banner-image">
-            <image class="" src="<?php echo $thumb[$i] ?>">
+            <image class="" src="<?php echo $images[$i] ?>">
           </div>
       <?php
         }
@@ -101,12 +110,6 @@
             <label for="propertyFloorSize">Floor Size: </label><br>
             <input class="property-text-input" type="text" name="propertyFloorSize" value="<?php echo $propertyFloorSize ?>" placeholder="N/A" readonly><br><br>
 
-            <label for="propertyNumRooms">No. of Rooms: </label><br>
-            <input class="property-text-input" type="text" name="propertyNumRooms" value="<?php echo $propertyNumRooms ?>" placeholder="N/A" readonly><br><br>
-
-            <label for="propertyBathrooms">No. of Bathrooms: </label><br>
-            <input class="property-text-input" type="text" name="propertyBathrooms" value="<?php echo $propertyBathrooms ?>" placeholder="N/A" readonly><br><br>
-
             <label for="propertyFurnishing">Furnishing: </label><br>
             <input class="property-text-input" type="text" name="propertyFurnishing" value="<?php echo $propertyFurnishing ?>" placeholder="N/A" readonly><br><br>
 
@@ -125,22 +128,15 @@
           -->
 
           </form><br>
+          <?php
+            if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'L' && $_SESSION['landlordRegNo'] == $landlord['landlordRegNo']) {
+              echo "<a href='dashboard-landlord.php'>Return to Dashboard</a>";
+            } else {
+              echo "<a href='index.php'>Return to Home</a>";
+            }
+          ?>
         </div>
         <div class="listing-section-right">
-          <?php
-            include("dbconnect.php");
-            $sql = "SELECT *
-                    FROM listing, property, landlord, user
-                    WHERE listingID = '$list_id' 
-                    AND listing.propertyID = property.propertyID 
-                    AND landlord.landlordRegNo = property.landlordRegNo 
-                    AND landlord.userID = user.userID";
-            $landlord_result = mysqli_query($connect,$sql);
-            mysqli_close($connect);
-
-            $landlord = mysqli_fetch_assoc($landlord_result);
-            
-          ?>
           <div class="landlord-info-container">
             <div class="landlord-propic-container">
               <div class="propic-container">

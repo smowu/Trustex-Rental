@@ -42,7 +42,7 @@
             <div class="dashboard-table-content">
               <?php
               include("dbconnect.php");
-                $sql = "SELECT ticketNo, requestTimestamp, request.listingID, list.propertyName, requestType, user.userName
+                $sql = "SELECT ticketNo, requestTimestamp, request.listingID, list.propertyName, user.userName
                         FROM request
                         LEFT JOIN user ON request.userID = user.userID
                         LEFT JOIN (
@@ -50,7 +50,7 @@
                           FROM property, listing
                           WHERE listing.propertyID = property.propertyID
                         ) AS list ON request.listingID = list.listingID
-                        WHERE list.landlordRegNo = '$reg_no'";
+                        WHERE list.landlordRegNo = '$reg_no' AND requestStatus = 'Pending'";
                 $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
                 mysqli_close($connect);
 
@@ -63,12 +63,11 @@
                         <th>Request Date</th>
                         <th>Listing ID</th>
                         <th>Property Name</th>
-                        <th>Type</th>
                         <th>Requested By</th>
                         <th></th>
                         <th></th>
                       </tr>
-                      <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
+                      <tr class="no-hover"><th class="th-border" colspan="6"></th></tr>
                       <?php
                       for ($i = 0; $request = mysqli_fetch_assoc($result); $i++) {
                           $location = "location.href='request.php?t=".$request['ticketNo']."'";
@@ -77,13 +76,16 @@
                           <td><?php echo date("Y-m-d",strtotime($request['requestTimestamp'])) ?></td>
                           <td><?php echo sprintf('%012d', $request['listingID']) ?></td>
                           <td><?php echo $request['propertyName'] ?></td>
-                          <td><?php echo $request['requestType'] ?></td>
                           <td><?php echo $request['userName'] ?></td>
-                          <td><button onclick="<?php echo $location ?>">View</button></td>
+                          <td>
+                            <button class="view-button" onclick="<?php echo $location ?>">
+                              <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
+                            </button>
+                          </td>
                           <td>
                             <form method="POST" action="request-result.php">
-                              <input type="text" name="id" value="<?php echo "" ?>" style="display: none;">
-                              <input type="submit" name="approve" value="Approve">
+                              <input type="text" name="ticketNo" value="<?php echo $request['ticketNo'] ?>" style="display: none;">
+                              <input type="submit" name="accept" value="Accept">
                               <input type="submit" name="reject" value="Reject">
                             </form>
                             </td>

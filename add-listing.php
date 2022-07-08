@@ -79,78 +79,7 @@
       <br>
       <form method="POST" action="" enctype="multipart/form-data">
         <div id="listing-form">
-          <div class="image-upload-form" action="uploadImage.php" method="post" enctype="multipart/form-data">
-            <image class="" src=""></image>
-            <br>
-            <div>
-              <input type="file" name="fileToUpload" onchange="readImageURL(this)">
-            </div>
-          </div><br>
-
-          <label for="name">Name: </label><br>
-          <p><?php echo "<br>" ?></p><br>
-
-          <label for="address">Address: </label><br>
-          <p><?php echo "<br>" ?></p><br>
-
-          <label for="city">City: </label>
-          <p><?php echo "<br>" ?></p><br>
-
-          <label for="poscode">Poscode: </label>
-          <p><?php echo "<br>" ?></p><br>
-
-          <label for="state">State: </label>
-          <p><?php echo "<br>" ?></p><br>
-
-          <label for="type">Property Type: </label><br>
-          <input type="radio" id="condominium" name="type" value="Condominium" disabled>
-          <label for="condominium">Condominium</label><br>
-          <input type="radio" id="apartment" name="type" value="Apartment" disabled>
-          <label for="apartment">Apartment</label><br>
-          <input type="radio" id="service_residence" name="type" value="Service Residence" disabled>
-          <label for="service_residence">Service Residence</label><br>
-          <input type="radio" id="terrace" name="type" value="Terrace" disabled>
-          <label for="terrace">Terrace</label><br>
-          <input type="radio" id="bungalow" name="type" value="Bungalow" disabled>
-          <label for="bungalow">Bungalow</label><br>
-          <input type="radio" id="semid" name="type" value="Semi-D" disabled>
-          <label for="semid">Semi-D</label><br>
-          <input type="radio" id="townhouse" name="type" value="Townhouse" disabled>
-          <label for="townhouse">Town House</label><br>
-          <input type="radio" id="others" name="type" value="Others" required disabled>
-          <label for="others">Others</label><br><br>
-
-          <label for="floor-level">Floor Level: </label>
-          <p><?php echo "<br>" ?></p><br>
-          <label for="floor-size">Floor Size: </label>
-          <p><?php echo "0" ?> sqft</p><br>
-          <label for="num-rooms">No. of Rooms: </label>
-          <p><?php echo "<br>" ?></p><br>
-          <label for="num-bathrooms">No. of Bathrooms: </label>
-          <p><?php echo "<br>" ?></p><br>
-
-          <label for="furnishing">Furnishing: </label>
-          <p><?php echo "<br>" ?></p><br>
-
-          <label for="facilities[]">Facilities: </label><br>
-          <input type="checkbox" id="facilities1" name="facilities[]" value="Wifi" disabled>
-          <label for="facilities1"> Wifi</label><br>
-          <input type="checkbox" id="facilities2" name="facilities[]" value="Parking" disabled>
-          <label for="facilities2"> Parking Lot</label><br>
-          <input type="checkbox" id="facilities3" name="facilities[]" value="Gym" disabled>
-          <label for="facilities3"> Gymnasium</label><br>
-          <input type="checkbox" id="facilities4" name="facilities[]" value="Pool" disabled>
-          <label for="facilities4"> Swimming Pool</label><br>
-          <input type="checkbox" id="facilities5" name="facilities[]" value="Security" disabled>
-          <label for="facilities5"> Security Guard</label><br>
-          <input type="checkbox" id="other1" name="facilities[]" value="Others" disabled>
-          <label for="other1"> Others</label><br><br>
-
-          <label for="rent-price">Rent Price: </label>
-          <p>RM <?php echo "0" ?></p><br>
-
-          <label for="description">Description: </label><br>
-          <p><?php echo "<br>" ?></p><br>
+          <p>Select your property to be listed.</p><br>
 
           <input type="submit" name="listing-submit" value="Add to Listing" disabled>
         </div>
@@ -161,24 +90,22 @@
   </body>
 </html>
 <?php
-
-if (isset($_POST['listing-submit'])) {
-  include("dbconnect.php");
-  $sql = "INSERT INTO listing (propertyID)
-          VALUES ('".$_POST['propertyID']."')";
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-  mysqli_close($connect);
-
-  if ($result) {
-    echo "<script>alert('Your property has been successfully listed!')</script>";
-    echo "<script>window.location.replace('dashboard.php');</script>";
-  } else {
-    echo "<script>alert('Something went wrong!')</script>";
-  }
-}
   include("html/footer.html");
-?>
+  if (isset($_POST['listing-submit'])) {
+    include("dbconnect.php");
+    $sql = "INSERT INTO listing (propertyID)
+            VALUES ('".$_POST['propertyID']."')";
+    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    mysqli_close($connect);
 
+    if ($result) {
+      echo "<script>alert('Your property has been successfully listed!')</script>";
+      echo "<script>window.location.replace('dashboard.php');</script>";
+    } else {
+      echo "<script>alert('Something went wrong!')</script>";
+    }
+  }
+?>
 <script>
   // Fill listing form
   function fillListing(prop) {

@@ -24,5 +24,5 @@
       echo "<script>alert('Application successfully Rejected!')</script>";
     }
   }
-  echo "<script>window.location.replace('dashboard.php');</script>";
+  echo "<script>window.location.replace('dashboard-admin.php');</script>";
 ?>

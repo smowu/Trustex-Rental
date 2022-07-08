@@ -91,8 +91,8 @@
               <?php
                 include("dbconnect.php");
                 $sql = "SELECT *
-                        FROM request, rent
-                        WHERE request.ticketNo = rent.ticketNo AND request.userID = '$id'";
+                        FROM request
+                        WHERE userID = '$id' AND requestStatus = 'Active'";
                 $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
                 mysqli_close($connect);
                 $numrows = mysqli_num_rows($result);
@@ -123,8 +123,8 @@
               <?php 
                 include("dbconnect.php");
                 $sql = "SELECT *
-                        FROM request
-                        WHERE request.userID = '$id'";
+                        FROM history
+                        WHERE userID = '$id'";
                 $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
                 mysqli_close($connect);
 

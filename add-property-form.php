@@ -87,15 +87,8 @@
 
             <label for="fileToUpload">Upload Property Images</label>
             <div class="property-image-upload-container">
-              <div id="property-upload-preview" class="property-upload-preview">
-                <!-- 
-                <div class="property-image-upload-thumb-container">
-                  <image class="property-image-upload-thumb" src=""></image>
-                </div>
-                 -->
-              </div>
+              <div id="property-upload-preview" class="property-upload-preview"></div>
               
-
               <input id="upload-property-image" type="file" name="propertyImage[]" multiple onchange="selectPropertyImage()" style="display: none;">
               <div class="property-image-upload-thumb-container thumb-empty" onclick="">
                 <image class="property-image-upload-thumb property-image-upload-thumb-empty" src="assets/icons/plus.png"></image>
@@ -264,6 +257,8 @@
 
 </script>
 <?php
+  include("html/footer.html");
+  
   if (isset($_POST['property-submit'])) {
     $checkbox = $_POST['facilities'];  
     $facilities = "";  
@@ -318,5 +313,4 @@
       echo "<script>alert('Something went wrong!')</script>";
     }
   }
-  include("html/footer.html");
 ?>

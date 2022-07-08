@@ -127,6 +127,8 @@
           <label for="propertyNumRooms">Rent Price: </label><br>
           <input class="property-text-input" type="text" name="rentPrice" value="<?php echo $rentPrice ?>" placeholder="N/A" readonly><br><br>
 
+          <input type="submit" name="listing-submit" value="Add to Listing"><br><br>
+
           <input id="cancel-update-property" type="submit" name="cancel-update-property" style="display: none;">
           <input class="edit-property-button" type="button" name="edit-property-button" onclick="toggleEditProperty()" value="Edit">
           <input id="update-property" class="update-property-button" type="submit" name="update-property" value="Save" style="display: none;">
@@ -142,6 +144,21 @@
 </html>
 <?php
   include("html/footer.html");
+
+  if (isset($_POST['listing-submit'])) {
+    include("dbconnect.php");
+    $sql = "INSERT INTO listing (propertyID)
+            VALUES ('".$_POST['propertyID']."')";
+    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    mysqli_close($connect);
+
+    if ($result) {
+      echo "<script>alert('Your property has been successfully listed!')</script>";
+      echo "<script>window.location.replace('dashboard.php');</script>";
+    } else {
+      echo "<script>alert('Something went wrong!')</script>";
+    }
+  }
 
   if (isset($_POST['update-property'])) {
     include("dbconnect.php");
