@@ -85,21 +85,151 @@
           ?>
         </div>
         <div class="container-right">
+          <?php 
+            include("dbconnect.php");
+            $sql = "SELECT ticketNo, requestTimestamp, propertyName, requestStatus
+                    FROM request
+                    LEFT JOIN (
+                      SELECT propertyName, listingID
+                      FROM property, listing
+                      WHERE listing.propertyID = property.propertyID
+                    ) AS list ON request.listingID = list.listingID
+                    WHERE userID = '$id' AND (requestStatus = 'Accepted' OR requestStatus = 'Rejected')";
+            $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+            mysqli_close($connect);
+
+            $numrows = mysqli_num_rows($result);
+            if ($numrows > 0) {
+          ?>
+            <div>
+              <h3>Recent Request Status</h3>
+              <div class="dashboard-table-content">
+                <div class="dashboard-table">
+                  <table>
+                    <tr class="no-hover">
+                      <th>Request ID</th>
+                      <th>Requested On</th>
+                      <th>Property Name</th>
+                      <th>Result</th>
+                      <th></th>
+                    </tr>
+                    <tr class="no-hover"><th class="th-border" colspan="5"></th></tr>
+                    <?php
+                      for ($i = 0; $request = mysqli_fetch_assoc($result); $i++) {
+                        $location = "location.href='request.php?id=".$request['ticketNo']."'";
+                    ?>
+                      <tr ondblclick="location.href='property.php'">
+                        <td><?php echo sprintf("%08d",$request['ticketNo']) ?></td>
+                        <td><?php echo date("Y-m-d", strtotime($request['requestTimestamp'])) ?></td>
+                        <td><?php echo $request['propertyName'] ?></td>
+                        <td><b><?php echo $request['requestStatus'] ?></b></td>
+                        <td>
+                          <form action="" method="POST">
+                            <input type="submit" name="dismiss" value="Dismiss">
+                            <input type="text" name="ticketNo" value="<?php echo $request['ticketNo'] ?>" style="display: none;">
+                            <input type="text" name="requestStatus" value="<?php echo $request['requestStatus'] ?>" style="display: none;">
+                          </form>
+                        </td>
+                      </tr>
+                    <?php
+                        // Gap between rows
+                        if ($i < $numrows-1) {
+                          echo "<tr class='spacer'><td></td></tr>";
+                        }
+                      }
+                    ?>
+                  </table>
+                </div> 
+              </div>
+            </div>
+          <?php
+            }
+          ?>
           <div>
             <h3>Rental Status</h3>
             <div class="dashboard-table-content">
               <?php
                 include("dbconnect.php");
+                $sql_update = "UPDATE request SET requestStatus = CASE 
+                               WHEN rentStartDate < NOW() THEN 'Active'
+                               ELSE requestStatus
+                               END
+                               WHERE userID = '$id' AND (requestStatus = 'Accepted' OR requestStatus = 'Upcoming')";
+                $update_result = mysqli_query($connect, $sql_update) or die ("Error: ".mysqli_error());
+
+                if (!$update_result) {
+                  echo "<script>alert('Something went wrong!');</script>";
+                }
+
                 $sql = "SELECT *
                         FROM request
-                        WHERE userID = '$id' AND requestStatus = 'Active'";
+                        LEFT JOIN (
+                          SELECT propertyName, propertyAddress, listingID, landlord.landlordRegNo, userFName, userLName, rentPrice
+                          FROM property, listing, user, landlord
+                          WHERE listing.propertyID = property.propertyID AND landlord.landlordRegNo = property.landlordRegNo AND user.userID = landlord.userID
+                        ) AS list ON request.listingID = list.listingID
+                        WHERE userID = '$id' AND (requestStatus = 'Active' OR requestStatus = 'Upcoming' OR requestStatus = 'Accepted')
+                        ORDER BY rentStartDate DESC
+                        LIMIT 1";
                 $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+
                 mysqli_close($connect);
-                $numrows = mysqli_num_rows($result);
-                if ($numrows > 0) {
+
+                if ($rent = mysqli_fetch_assoc($result)) {
               ?>
-                  <div class="dashboard-table">
-                    <div style="height:400px;"></div>
+                  <div class="rental-status">
+
+                    <?php
+                      if ($rent['requestStatus'] == "Upcoming" || $rent['requestStatus'] == "Accepted") {
+
+                        $now = time();
+                        $start_date = strtotime($rent['rentStartDate']);
+                        $date_diff = $start_date - $now;
+
+                        $days_left = round($date_diff / (60 * 60 * 24));
+                    ?>
+                        <p>Your upcoming rent...</p>
+                        <h2>in <?php echo $days_left ?> Day(s)</h2>
+                    <?php
+                      } else {
+                        echo "<p>Your current rental status</p>";
+                      }
+                    ?><br>
+                    <div class="status-container">
+                      <p><b>Property</b></p>
+                      <h2><?php echo $rent['propertyName'] ?></h2>
+                      <p><?php echo $rent['propertyAddress'] ?></p>
+                    </div><br>
+                    <div class="status-container">
+                      <p><b>Landlord</b></p>
+                      <h2><?php echo $rent['userFName'] . " " . $rent['userLName'] ?></h2>
+                      <p>Reg. No.: <?php echo sprintf("%06d", $rent['landlordRegNo']) ?></p>
+                    </div><br>
+
+                    <div class="status-container">
+                      <p><b>Start Date</b></p>
+                      <h2><?php echo $rent['rentStartDate'] ?></h2>
+
+                      <p><b>End Date</b></p>
+                      <h2><?php echo $rent['rentEndDate'] ?></h2>
+                    </div><br>
+
+                    <div class="status-container">
+                      <p><b>Rent Price per Month</b></p>
+                      <h2>RM <?php echo $rent['rentPrice'] ?></h2>
+                      <br>
+
+                      <p><b>Total Payments Left</b></p>
+                      <?php 
+                        $months_left = $rent['rentDuration']; // temp
+                        $payment_left = $months_left * $rent['rentPrice'];
+                      ?>
+                      <h2><?php echo $rent['rentDuration'] . " (RM " . sprintf("%.2f",$payment_left) . ")" ?></h2>
+                      <br>
+
+                      <p><b>Next payment in...</b></p>
+                      <h2><?php echo $days_left ?> Day(s)</h2>
+                    </div>
                   </div> 
               <?php
                 } else {
@@ -197,5 +327,24 @@
 </html>
 <?php
     include("html/footer.html");
+    
+    if (isset($_POST['dismiss'])) {
+      $new_status = "";
+      if ($_POST['requestStatus'] == "Accepted") {
+        $new_status = "Upcoming";
+      } else if ($_POST['requestStatus'] == "Rejected") {
+        $new_status = "Archived";
+      }
+
+      $ticket_no = $_POST["ticketNo"];
+      include("dbconnect.php");
+      $sql = "UPDATE request SET
+              requestStatus = '$new_status'
+              WHERE ticketNo = '$ticket_no'";
+      $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+      mysqli_close($connect);
+      echo "<script>window.location.replace('dashboard.php');</script>";
+    }
+
   }
 ?>

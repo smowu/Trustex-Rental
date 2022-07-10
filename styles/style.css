@@ -1196,6 +1196,18 @@ footer hr {
   background-color: #257b9f;
 }
 
+.rental-status {
+  padding: 1rem;
+  height: max-content;
+  /* max-height: 31rem; */
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  border: solid 1px #cccccc;  
+  background-color: #cccccc22;
+  /* overflow-y: scroll; */
+}
+
+
 .add-button {
   color: #666666;
   font-size: 1rem;

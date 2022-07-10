@@ -18,7 +18,7 @@
             <h3>Select Your Property</h3>
             <div class="dashboard-table-content">
               <?php
-              include("dbconnect.php");
+                include("dbconnect.php");
                 $sql = "SELECT propertyID, propertyName, propertyCity, propertyState, propertyType
                         FROM property
                         WHERE landlordRegNo = '$reg_no'";
@@ -112,14 +112,14 @@
     $(".dashboard-table td").css("background-color", "#cccccc22");
     $(".dashboard-table tr").css("outline", "none");
 
-    $("#list-id-"+prop+" td").css("background-color", "#c9dee777");
-    $("#list-id-"+prop+"").css("outline", "3px solid #257b9f");
+    $("#list-id-" + prop + " td").css("background-color", "#c9dee777");
+    $("#list-id-" + prop + "").css("outline", "3px solid #257b9f");
     if (prop == "") {
       document.getElementById("listing-form").innerHTML = "";
       return;
     }
-    var xmlhttp=new XMLHttpRequest();
-    xmlhttp.onreadystatechange=function() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById("listing-form").innerHTML = this.responseText;
       }

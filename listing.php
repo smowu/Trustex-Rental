@@ -9,11 +9,11 @@
   $result = mysqli_query($connect, $sql1) or die ("Error: ".mysqli_error());
 
   $sql2 = "SELECT *
-          FROM listing, property, landlord, user
-          WHERE listingID = '$list_id' 
-          AND listing.propertyID = property.propertyID 
-          AND landlord.landlordRegNo = property.landlordRegNo 
-          AND landlord.userID = user.userID";
+           FROM listing, property, landlord, user
+           WHERE listingID = '$list_id' 
+           AND listing.propertyID = property.propertyID 
+           AND landlord.landlordRegNo = property.landlordRegNo 
+           AND landlord.userID = user.userID";
   $landlord_result = mysqli_query($connect, $sql2) or die ("Error: ".mysqli_error());
   mysqli_close($connect);
 
