@@ -130,23 +130,6 @@
   }
 
   var totalUploaded = 0;
-  // function previewPropertyImage() {
-  //   var totalFiles = $("#upload-property-image").get(0).files.length;
-  //   totalUploaded += totalFiles;
-  //   if (totalUploaded > 5) {
-  //     alert("Maximum 5 images are allowed.");
-  //     return;
-  //   }
-  //   if (totalUploaded == 5) {
-  //     $(".thumb-empty").hide();
-  //   } 
-  //   for (var i = 0; i < totalFiles; i++) {
-  //     $(".property-upload-preview").append(
-  //       "<div class='property-image-upload-thumb-container'> <image class='property-image-upload-thumb' src='" + URL.createObjectURL(event.target.files[i]) + "'> </div>"
-  //     );
-  //   }
-  // }
-
   var images = [];
   function selectPropertyImage() {
     var image = document.getElementById('upload-property-image').files;
@@ -196,69 +179,10 @@
     })
   }
 
-// Container for the images.
-// const selectedImages = new FormData();
-
-// function gphoto(input, imagePreview) {
-//   for (const file of input.files) {
-//     const image = new Image();
-//     image.classList.add('gphoto');
-//     image.src = URL.createObjectURL(file);
-//     image.onload = event => {
-//       $(imagePreview).append(image);
-//       URL.revokeObjectURL(event.target.src);
-//     };
-
-//     // Image is added here.
-//     selectedImages.append('gphotos', file);
-
-//   }
-// }
-
-// $('#gphotos').on('change', function() {
-//   gphoto(this, 'div.preview');
-// });
-
-// $('#gphotos-form').on('submit', function(event) {
-
-//   // Get the data from the form, but remove the gphotos[] one,
-//   // because we want to use our own collection of images.
-//   const formData = new FormData(event.target);
-//   formData.delete('gphotos[]');
-//   for (const file of selectedImages.values()) {
-//     formData.append('gphotos', file);
-//   }
-
-//   // Send container to your server.
-//   // Change the url: value to your PHP script.
-//   $.ajax({
-//     url: 'http://example.com/script.php',
-//     data: formData,
-//     processData: false,
-//     contentType: false,
-//     type: 'POST',
-//     success: function(data) {
-//       console.log(data);
-
-//       // Delete all the images from the container.
-//       for (let key of selectedImages.keys()) {
-//         selectedImages.delete(key)
-//       };
-
-//       // Clear the preview.
-//       $('div.preview').html('');
-
-//     }
-//   });
-
-//   event.preventDefault();
-
-// });
-
 </script>
 <?php
   include("html/footer.html");
-  
+
   if (isset($_POST['property-submit'])) {
     $checkbox = $_POST['facilities'];  
     $facilities = "";  

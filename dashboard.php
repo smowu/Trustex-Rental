@@ -178,18 +178,16 @@
                 if ($rent = mysqli_fetch_assoc($result)) {
               ?>
                   <div class="rental-status">
-
                     <?php
+                      $now = new DateTime('now');
+                      $start_date = new DateTime($rent['rentStartDate']);
+                      $end_date = new DateTime($rent['rentEndDate']);
+
                       if ($rent['requestStatus'] == "Upcoming" || $rent['requestStatus'] == "Accepted") {
-
-                        $now = time();
-                        $start_date = strtotime($rent['rentStartDate']);
-                        $date_diff = $start_date - $now;
-
-                        $days_left = round($date_diff / (60 * 60 * 24));
+                        $days_left = $now->diff($start_date);
                     ?>
                         <p>Your upcoming rent...</p>
-                        <h2>in <?php echo $days_left ?> Day(s)</h2>
+                        <h2>in <?php echo $days_left->days ?> Day(s)</h2>
                     <?php
                       } else {
                         echo "<p>Your current rental status</p>";
@@ -208,27 +206,46 @@
 
                     <div class="status-container">
                       <p><b>Start Date</b></p>
-                      <h2><?php echo $rent['rentStartDate'] ?></h2>
+                      <h2><?php echo $start_date->format('d F Y') ?></h2>
 
                       <p><b>End Date</b></p>
-                      <h2><?php echo $rent['rentEndDate'] ?></h2>
+                      <h2><?php echo $end_date->format('d F Y') ?></h2>
                     </div><br>
 
                     <div class="status-container">
-                      <p><b>Rent Price per Month</b></p>
+                      <p><b>Rent price per month</b></p>
                       <h2>RM <?php echo $rent['rentPrice'] ?></h2>
                       <br>
 
-                      <p><b>Total Payments Left</b></p>
-                      <?php 
-                        $months_left = $rent['rentDuration']; // temp
-                        $payment_left = $months_left * $rent['rentPrice'];
+                      <p><b>Payments remaining</b></p>
+                      <?php
+                        $ticket_no = $rent['ticketNo'];
+                        include("dbconnect.php");
+                        $sql = "SELECT *
+                                FROM payment
+                                WHERE ticketNo = '$ticket_no'";
+                        $result_payments = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                        mysqli_close($connect);
+
+                        $num_payments_made = mysqli_num_rows($result_payments);
+
+                        $months_left = $rent['rentDuration'] - $num_payments_made;
+                        $payments_left = $months_left * $rent['rentPrice'];
                       ?>
-                      <h2><?php echo $rent['rentDuration'] . " (RM " . sprintf("%.2f",$payment_left) . ")" ?></h2>
+                      <h2><?php echo $months_left . " (RM " . sprintf("%.2f",$payments_left) . ")" ?></h2>
                       <br>
 
-                      <p><b>Next payment in...</b></p>
-                      <h2><?php echo $days_left ?> Day(s)</h2>
+                      <p><b>Your next payment in...</b></p>
+                      <?php 
+                        $next_payment_date = new DateTime($rent['rentStartDate']);
+                        $num_days = $num_payments_made * 30;
+                        $next_payment_date->add(new DateInterval('P'.$num_days.'D'));
+
+                        $payment_days_left = $now->diff($next_payment_date);
+                      ?>
+                      <h2><?php echo $payment_days_left->days . " Day(s) on " . $next_payment_date->format('d F Y') ?></h2><br>
+
+                      <a href="payment.php?ticket=<?php echo $rent['ticketNo'] ?>"><button>Make Payment</button></a>
                     </div>
                   </div> 
               <?php

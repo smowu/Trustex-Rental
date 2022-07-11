@@ -32,8 +32,6 @@
   }
   $address = $user['userAddress'];
   $phoneno = $user['userPhoneNo'];
-
-  // echo "<script>alert('');</script>";
 ?>
     <!DOCTYPE html>
     <html>
@@ -71,7 +69,6 @@
                   echo $address 
                 ?></textarea><br>
               </div><br>
-              <!-- <input type="reset" name="reset-form" value="Clear Form"> -->
               <input type="submit" name="apply-submit" value="Apply">
             </form>
           </div>
