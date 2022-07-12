@@ -86,8 +86,14 @@
         <div class="profile-section">
           <h3>
             Account Info
-            <button class="edit-button profile-edit">
+            <button class="settings-button edit-button">
               <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
+            </button>
+            <button class="settings-button cancel-button">
+              <image class="icon edit-icon" src="assets/icons/cancel.png"><span>Cancel</span>
+            </button>
+            <button class="settings-button save-button">
+              <image class="icon edit-icon" src="assets/icons/tick.png"><span>Save</span>
             </button>
           </h3>
           
@@ -128,8 +134,14 @@
         <div class="personal-details">
           <h3>
             Personal Details
-            <button class="edit-button personal-edit">
+            <button class="settings-button edit-button">
               <image class="icon edit-icon" src="assets/icons/write.png"><span>Edit</span>
+            </button>
+            <button class="settings-button cancel-button">
+              <image class="icon edit-icon" src="assets/icons/cancel.png"><span>Cancel</span>
+            </button>
+            <button class="settings-button save-button">
+              <image class="icon edit-icon" src="assets/icons/tick.png"><span>Save</span>
             </button>
           </h3>
           <form class="personal-info-form" action="" method="POST" enctype="multipart/form-data">
@@ -166,38 +178,38 @@
 </html>
 <?php
   include("html/footer.html");
-
+  
   if (isset($_POST['save-account-edit']) || isset($_POST['save-profile-edit'])) {
-    
+
+    include("dbconnect.php");
     if (isset($_POST['save-account-edit'])) {
-      if ($_POST['username'] != $user['userName'] && isset($_POST['username'])) {
+      if ($_POST['username'] != $username && isset($_POST['username'])) {
         $username = mysqli_real_escape_string($connect, $_POST['username']);
       }
-      if ($_POST['email'] != $user['userEmail'] && isset($_POST['email'])) {
+      if ($_POST['email'] != $email && isset($_POST['email'])) {
         $email = mysqli_real_escape_string($connect, $_POST['email']);
       }
     } else {
-      if ($_POST['firstname'] != $user['userFName']) {
+      if ($_POST['firstname'] != $firstname) {
         $firstname = mysqli_real_escape_string($connect, $_POST['firstname']);
       }
-      if ($_POST['lastname'] != $user['userLName']) {
+      if ($_POST['lastname'] != $lastname) {
         $lastname = mysqli_real_escape_string($connect, $_POST['lastname']);
       }
-      if ($_POST['ic'] != $user['userIC']) {
+      if ($_POST['ic'] != $ic) {
         $ic = mysqli_real_escape_string($connect, $_POST['ic']);
       }
-      if ($_POST['gender'] != $user['userGender']) {
+      if ($_POST['gender'] != $gender) {
         $gender = mysqli_real_escape_string($connect, $_POST['gender']);
       }
-      if ($_POST['address'] != $user['userAddress']) {
+      if ($_POST['address'] != $address) {
         $address = mysqli_real_escape_string($connect, $_POST['address']);
       }
-      if ($_POST['phoneno'] != $user['userPhoneNo']) {
+      if ($_POST['phoneno'] != $phoneno) {
         $phoneno = mysqli_real_escape_string($connect, $_POST['phoneno']);
       }
     }
     
-    include("dbconnect.php");
     $sql = "UPDATE user SET 
             userName = '$username',
             userEmail = '$email',
@@ -207,14 +219,14 @@
             userGender = '$gender',
             userAddress = '$address',
             userPhoneNo = '$phoneno'
-            WHERE user.userID = ".$_SESSION['userID']."";
+            WHERE user.userID = '$id'";
     $update_result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
     mysqli_close($connect);
 
     if (!$update_result) {
       echo "<script>alert('Something went wrong!');</script>";
     }
-    echo "<script>history.go(-1);</script>";
+    echo "<script>window.location.replace('settings.php');</script>";
   }
   
 ?>

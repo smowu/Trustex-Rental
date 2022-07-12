@@ -1425,7 +1425,7 @@ footer hr {
   padding: 24px;
   margin: auto;
 }
-.edit-button {
+.settings-button {
   float: right;
   color: #666666;
   font-size: 1rem;
@@ -1435,7 +1435,7 @@ footer hr {
   padding-right: 8px;
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.edit-button:hover {
+.settings-button:hover {
   background-color: #cccccc22;
 }
 .edit-icon {

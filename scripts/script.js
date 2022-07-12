@@ -81,76 +81,52 @@ function resetProfilePicture() {
 
 // Edit profile in settings
 $(document).ready(function(){
-	$('.profile-edit').click(function(){
+
+  $(".save-button").hide();
+  $(".cancel-button").hide();
+
+	$('.profile-section .edit-button').click(function(){
     enableEditAccountInfo();
     $(".profile-username").select();
 	});
-  $('.profile-username').dblclick(function(){
-    enableEditAccountInfo();
-	});
-  $('.profile-email').dblclick(function(){
-    enableEditAccountInfo();
-	});
 
-  $('.personal-edit').click(function(){
+  $('.personal-details .edit-button').click(function(){
     enableEditPersonalInfo();
     $(".personal-firstname").select();
 	});
-  $(".personal-info-form input").dblclick(function(){
-    enableEditPersonalInfo();
+
+  $('.profile-section .save-button').click(function(){
+    saveAccountInfo();
+	});
+  $('.personal-details .save-button').click(function(){
+    savePersonalInfo();
 	});
 
   function enableEditAccountInfo() {
-    $(".profile-edit").hide();
+    $(".profile-section .edit-button").hide();
+    $(".profile-section .save-button").show();
+    $(".profile-section .cancel-button").show();
     $(".account-info-form input").attr("readonly", false);
     $(".account-info-form input").css("border", "2px solid #cccccc");
   }
-  function saveEditAccountInfo() {
+  function saveAccountInfo() {
     $(".account-info-form input").css("border", "transparent");
     $(".account-info-form input").attr("readonly", true);
     $(".save-account-edit").click();
   }
 
   function enableEditPersonalInfo() {
-    $(".personal-edit").hide();
+    $(".personal-details .edit-button").hide();
+    $(".personal-details .save-button").show();
+    $(".personal-details .cancel-button").show();
     $(".personal-info-form input").attr("readonly", false);
     $(".personal-info-form input").css("border", "2px solid #cccccc");
   }
-  function saveEditPersonalInfo() {
+  function savePersonalInfo() {
     $(".personal-info-form input").css("border", "transparent");
     $(".personal-info-form input").attr("readonly", true);
     $(".save-profile-edit").click();
   }
-
-	$('input.input-account[type="text"]').blur(function() {
-    // if ($.trim(this.value) == ''){
-    //   this.value = (this.defaultValue ? this.defaultValue : '');
-    // }
-    saveEditAccountInfo();
-  });
-  $('input.input-personal[type="text"]').blur(function() {
-    // if ($.trim(this.value) == ''){
-    //   this.value = (this.defaultValue ? this.defaultValue : '');
-    // }
-    saveEditPersonalInfo();
-  });
-
-  $('input.input-account[type="text"]').keypress(function(event) {
-    if (event.keyCode == '13') {
-      // if ($.trim(this.value) == ''){
-      //   this.value = (this.defaultValue ? this.defaultValue : '');
-      // }
-      saveEditAccountInfo();
-    }
-  });
-  $('input.input-personal[type="text"]').keypress(function(event) {
-    if (event.keyCode == '13') {
-      // if ($.trim(this.value) == ''){
-      //   this.value = (this.defaultValue ? this.defaultValue : '');
-      // }
-      saveEditPersonalInfo();
-    }
-  });
 
 });
 
