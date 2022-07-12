@@ -366,6 +366,7 @@ button {
 }
 .listing-search-bar-icon {
   position: relative;
+  top: 14px;
   right: 36px;
   opacity: 0.4;
   filter: invert(36%) sepia(16%) saturate(6117%) hue-rotate(171deg) brightness(88%) contrast(71%);
@@ -692,6 +693,22 @@ button {
   width: 96px;
   height: 96px;
   margin: 8px;
+}
+
+.transaction-container {
+  position: relative;
+  width: 100%;
+  margin: 2rem 0;
+  background-color: #fbfbfb;
+  border: 0.5rem solid #fbfbfb;
+  outline: 1px solid #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
+}
+.transaction-container h3 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 16px 8px;
+  border-radius: 0.5rem;
 }
 
 /* Footer contents */

@@ -227,7 +227,10 @@
                         $result_payments = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
                         mysqli_close($connect);
 
-                        $num_payments_made = mysqli_num_rows($result_payments);
+                        $num_payments_made = 0;
+                        while ($payment = mysqli_fetch_array($result_payments)) {
+                          $num_payments_made += $payment['paymentDuration'];
+                        }
 
                         $months_left = $rent['rentDuration'] - $num_payments_made;
                         $payments_left = $months_left * $rent['rentPrice'];

@@ -70,7 +70,7 @@
                       <tr class="no-hover"><th class="th-border" colspan="6"></th></tr>
                       <?php
                       for ($i = 0; $request = mysqli_fetch_assoc($result); $i++) {
-                          $location = "location.href='request.php?t=".$request['ticketNo']."'";
+                          $location = "location.href='request.php?t=".$request['ticketNo']."&status=".$request['requestStatus']."'";
                       ?>
                         <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
                           <td><?php echo date("Y-m-d",strtotime($request['requestTimestamp'])) ?></td>
@@ -88,7 +88,7 @@
                               <input type="submit" name="accept" value="Accept">
                               <input type="submit" name="reject" value="Reject">
                             </form>
-                            </td>
+                          </td>
                         </tr>
                       <?php
                           // Gap between rows
@@ -105,6 +105,77 @@
                   <div class="dashboard-empty">
                     <div>
                       <p>No new request is found.</p>
+                    </div>
+                  </div>
+              <?php  
+                }
+              ?>
+            </div>
+          </div>
+          <div>
+            <h3>Active Renters</h3>
+            <div class="dashboard-table-content">
+              <?php
+              include("dbconnect.php");
+                $sql = "SELECT *
+                        FROM request
+                        LEFT JOIN user ON request.userID = user.userID
+                        LEFT JOIN (
+                          SELECT propertyName, listingID, landlordRegNo
+                          FROM property, listing
+                          WHERE listing.propertyID = property.propertyID
+                        ) AS list ON request.listingID = list.listingID
+                        WHERE list.landlordRegNo = '$reg_no' AND (requestStatus = 'Active' OR requestStatus = 'Upcoming')";
+                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                mysqli_close($connect);
+
+                $numrows = mysqli_num_rows($result);
+                if ($numrows > 0) {
+              ?>
+                  <div class="dashboard-table">
+                    <table>
+                      <tr class="no-hover">
+                        <th>Listing ID</th>
+                        <th>Property Name</th>
+                        <th>Rented By</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                      <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
+                      <?php
+                      for ($i = 0; $request = mysqli_fetch_assoc($result); $i++) {
+                          $location = "location.href='request.php?t=".$request['ticketNo']."&status=".$request['requestStatus']."'";
+                      ?>
+                        <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
+                          <td><?php echo sprintf('%012d', $request['listingID']) ?></td>
+                          <td><?php echo $request['propertyName'] ?></td>
+                          <td><?php echo $request['userFName'] . " " . $request['userLName'] ?></td>
+                          <td><?php echo date("d-m-Y",strtotime($request['rentStartDate'])) ?></td>
+                          <td><?php echo date("d-m-Y",strtotime($request['rentEndDate'])) ?></td>
+                          <td><?php echo $request['requestStatus'] ?></td>
+                          <td>
+                            <button class="view-button" onclick="<?php echo $location ?>">
+                              <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
+                            </button>
+                          </td>
+                        </tr>
+                      <?php
+                          // Gap between rows
+                          if ($i < $numrows-1) {
+                            echo "<tr class='spacer'><td></td></tr>";
+                          }
+                        }
+                      ?>
+                    </table>
+                  </div> 
+              <?php
+                } else {
+              ?>
+                  <div class="dashboard-empty">
+                    <div>
+                      <p>No any active renters currently.</p>
                     </div>
                   </div>
               <?php  
