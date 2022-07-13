@@ -51,7 +51,7 @@
 
         <h1>Make Payment</h1><br>
         <p>Request Ticket No.: <?php echo sprintf("%08d",$ticket_no) ?></p>
-        <p>Remaining Amount To Pay: RM <?php echo sprintf("%.2f",$payments_left) ?></p><br>
+        <p>Remaining Amount To Pay: <br><h2>RM <?php echo sprintf("%.2f",$payments_left) ?></h2></p><br>
 
         <h2>Renting Details</h2><br>
         <label for="num-month">Paying for: </label>
@@ -70,18 +70,21 @@
         <b>RM <input id="amount-paid" type="text" name="amount-paid" value="<?php echo sprintf("%.2f", $rent['rentPrice']) ?>" readonly><br></b><br>
 
         <h2>Payment Details</h2><br>
-        <label for="card-no">Card Number: </label><br>
+        <label for="card-no">Card Number (16-digits)</label><br>
         <input type="text" name="card-no" value="" required><br>
-        <label for="card-no">Expiry Date: </label><br>
+        <label for="card-no">Expiry Date (MM/YY)</label><br>
         <input type="text" name="card-exp" value="" required><br>
-        <label for="card-no">CVC: </label><br>
+        <label for="card-no">CVC (3-digits)</label><br>
         <input type="text" name="card-cvc" value="" required><br>
 
         <br>
-        <input id="confirm-payment" type="submit" name="confirm-payment" value="Confirm Payment">
+        <input class="make-payment-button" id="confirm-payment" type="submit" name="confirm-payment" value="Confirm Payment">
       </form>
       <br>
-      <button onclick="location.href='dashboard.php'">Cancel</button>
+      <a class="return-dashboard" href="dashboard.php">
+        <img src="assets/icons/back-button.png"></img>
+        <h4>Cancel</h4>
+      </a>
     </div>
   </body>
 </html>

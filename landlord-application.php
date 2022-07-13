@@ -44,7 +44,7 @@
           <a href="index.php">
             <img height="32" src="assets/images/TrustexLogo.png" alt="Trustex Logo">
           </a>
-          <a href="dashboard.php" class="return-dashboard">
+          <a href="dashboard.php" class="return-dashboard-landlord">
             <h3>Return to Dashboard</h3>
           </a>
         </div>
@@ -60,6 +60,14 @@
               </div><br>
               <div class="application-input">
                 <input type="text" name="useric" placeholder="IC Number" value="<?php echo $ic ?>" required><br>
+              </div><br>
+              <div class="application-input">
+                <div class="radio-gender">
+                  <input type="radio" id="male" name="gender" value="M" <?php if ($gender == "Male"){ echo 'checked="checked"'; } ?>>
+                  <label for="male"><b>Male</b></label><br>
+                  <input type="radio" id="female" name="gender" value="F" <?php if ($gender == "Female"){ echo 'checked="checked"'; } ?>>
+                  <label for="female"><b>Female</b></label>
+                </div>
               </div><br>
               <div class="application-input">
                 <input type="text" name="phoneno" placeholder="Phone Number" value="<?php echo $phoneno ?>" required><br>
@@ -82,11 +90,12 @@
     $firstname = mysqli_real_escape_string($connect, $_POST['firstname']);
     $lastname = mysqli_real_escape_string($connect, $_POST['lastname']);
     $ic = mysqli_real_escape_string($connect, $_POST['useric']);
+    $gender = $_POST['gender'];
     $phoneno = mysqli_real_escape_string($connect, $_POST['phoneno']);
     $address = mysqli_real_escape_string($connect, $_POST['address']);
 
-    $sql = "INSERT INTO applications (userID, userFName, userLName, userIC, userAddress, userPhoneNo) 
-            VALUES ('".$_SESSION['userID']."','".$firstname."','".$lastname."','".$ic."','".$address."','".$phoneno."')";
+    $sql = "INSERT INTO applications (userID, userFName, userLName, userIC, userGender, userAddress, userPhoneNo) 
+            VALUES ('".$_SESSION['userID']."','".$firstname."','".$lastname."','".$ic."','".$gender."','".$address."','".$phoneno."')";
     $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
     mysqli_close($connect);
 

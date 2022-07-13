@@ -14,78 +14,90 @@
       <form class="add-property-form" action="" method="POST" enctype="multipart/form-data">
         <div class="property-details-container">
           <div>
-            <label for="name">Name</label><br>
-            <input type="text" name="name" value="" placeholder="Property Name" required><br><br>
-            <label for="address">Address</label><br>
-            <input type="text" name="address" value="" placeholder="Property Address" required><br><br>
-            <label for="city">City</label><br>
-            <input type="text" name="city" value="" placeholder="Property City" required><br><br>
-            <label for="poscode">Poscode</label><br>
-            <input type="text" name="poscode" value="" placeholder="Property Poscode" required><br><br>
-
-            <!-- State -->
-            <label for="state">State</label><br>
-            <select name="state" id="state" required>
-              <option disabled selected value> -- Select a state -- </option>
-            </select><br><br>
-
-            <label for="type">Property Type</label><br>
-            <input type="radio" id="condominium" name="type" value="Condominium">
-            <label for="condominium">Condominium</label><br>
-            <input type="radio" id="apartment" name="type" value="Apartment">
-            <label for="apartment">Apartment</label><br>
-            <input type="radio" id="service_residence" name="type" value="Service Residence">
-            <label for="service_residence">Service Residence</label><br>
-            <input type="radio" id="terrace" name="type" value="Terrace">
-            <label for="terrace">Terrace</label><br>
-            <input type="radio" id="bungalow" name="type" value="Bungalow">
-            <label for="bungalow">Bungalow</label><br>
-            <input type="radio" id="semid" name="type" value="Semi-D">
-            <label for="semid">Semi-D</label><br>
-            <input type="radio" id="townhouse" name="type" value="Townhouse">
-            <label for="townhouse">Town House</label><br>
-            <input type="radio" id="others" name="type" value="Others" required>
-            <label for="others">Others</label><br><br>
-
-            <label for="floor-level">Floor Level</label><br>
-            <input type="text" name="floor-level" value="" placeholder="Floor Level"><br><br>
-            <label for="floor-size">Floor Size</label><br>
-            <input type="text" name="floor-size" value="" placeholder="Floor Size"><br><br>
-            <label for="num-rooms">No. of Rooms</label><br>
-            <input type="text" name="num-rooms" value="" placeholder="No. of Rooms" required><br>
-            <label for="num-bathrooms">No. of Bathrooms</label><br>
-            <input type="text" name="num-bathrooms" value="" placeholder="No. of Bathrooms" required><br><br>
-
-            <!-- Furnishing -->
-            <label for="furnishing">Furnishing</label><br>
-            <select name="furnishing" id="furnishing">
-              <option disabled selected value> -- Select furnishing -- </option>
-            </select><br><br>
-
-            <!-- Facilities -->
-            <label for="facilities[]">Facilities</label><br>
-            <input type="checkbox" id="facilities1" name="facilities[]" value="Wifi">
-            <label for="facilities1"> Wifi</label><br>
-            <input type="checkbox" id="facilities2" name="facilities[]" value="Parking">
-            <label for="facilities2"> Parking Lot</label><br>
-            <input type="checkbox" id="facilities3" name="facilities[]" value="Gym">
-            <label for="facilities3"> Gymnasium</label><br>
-            <input type="checkbox" id="facilities4" name="facilities[]" value="Pool">
-            <label for="facilities4"> Swimming Pool</label><br>
-            <input type="checkbox" id="facilities5" name="facilities[]" value="Security">
-            <label for="facilities5"> Security Guard</label><br>
-
-            <input type="checkbox" id="other1" name="facilities[]" value="Others">
-            <label for="other1"> Others</label><br><br>
-
-            <label for="rent-price">Rent Price</label><br>
-            RM <input type="text" name="rent-price" value="" placeholder="Renting Price"><br><br>
-
-            <label for="description">Description</label><br>
-            <textarea name="description" cols="50" rows="10" placeholder="Enter property description..."></textarea><br>
+            <div class="property-detail">
+              <label for="name">Name</label><br>
+              <input type="text" name="name" value="" placeholder="Property Name" required>
+            </div>
+            <div class="property-detail">
+              <label for="address">Address</label><br>
+              <input type="text" name="address" value="" placeholder="Property Address" required>
+            </div>
+            <div class="property-detail">
+              <label for="city">City</label><br>
+              <input type="text" name="city" value="" placeholder="Property City" required>
+            </div>
+            <div class="property-detail">
+              <label for="poscode">Poscode</label><br>
+              <input type="text" name="poscode" value="" placeholder="Property Poscode" required>
+            </div>
+            <div class="property-detail">
+              <label for="state">State</label><br>
+              <select name="state" id="state" required>
+                <option disabled selected value> -- Select a state -- </option>
+              </select>
+            </div>
+            <div class="property-detail">
+              <label for="type">Property Type</label><br>
+              <input type="radio" id="condominium" name="type" value="Condominium">
+              <label for="condominium">Condominium</label><br>
+              <input type="radio" id="apartment" name="type" value="Apartment">
+              <label for="apartment">Apartment</label><br>
+              <input type="radio" id="service_residence" name="type" value="Service Residence">
+              <label for="service_residence">Service Residence</label><br>
+              <input type="radio" id="terrace" name="type" value="Terrace">
+              <label for="terrace">Terrace</label><br>
+              <input type="radio" id="bungalow" name="type" value="Bungalow">
+              <label for="bungalow">Bungalow</label><br>
+              <input type="radio" id="semid" name="type" value="Semi-D">
+              <label for="semid">Semi-D</label><br>
+              <input type="radio" id="townhouse" name="type" value="Townhouse">
+              <label for="townhouse">Town House</label><br>
+              <input type="radio" id="others" name="type" value="Others" required>
+              <label for="others">Others</label>
+            </div>
+            <div class="property-detail">
+              <label for="floor-level">Floor Level</label><br>
+              <input type="text" name="floor-level" value="" placeholder="Floor Level">
+            </div>
+            <div class="property-detail">
+              <label for="floor-size">Floor Size</label><br>
+              <input type="text" name="floor-size" value="" placeholder="Floor Size">
+            </div>
+            <div class="property-detail">
+              <label for="num-rooms">No. of Rooms</label><br>
+              <input type="text" name="num-rooms" value="" placeholder="No. of Rooms" required><br>
+              <label for="num-bathrooms">No. of Bathrooms</label><br>
+              <input type="text" name="num-bathrooms" value="" placeholder="No. of Bathrooms" required>
+            </div>
+            <div class="property-detail">
+              <label for="furnishing">Furnishing</label><br>
+              <select name="furnishing" id="furnishing">
+                <option disabled selected value> -- Select furnishing -- </option>
+              </select>
+            </div>
+            <div class="property-detail">
+              <label for="facilities[]">Facilities</label><br>
+              <input type="checkbox" id="facilities1" name="facilities[]" value="Wifi">
+              <label for="facilities1"> Wifi</label><br>
+              <input type="checkbox" id="facilities2" name="facilities[]" value="Parking">
+              <label for="facilities2"> Parking Lot</label><br>
+              <input type="checkbox" id="facilities3" name="facilities[]" value="Gym">
+              <label for="facilities3"> Gymnasium</label><br>
+              <input type="checkbox" id="facilities4" name="facilities[]" value="Pool">
+              <label for="facilities4"> Swimming Pool</label><br>
+              <input type="checkbox" id="facilities5" name="facilities[]" value="Security">
+              <label for="facilities5"> Security Guard</label>
+            </div>
+            <div class="property-detail">
+              <label for="rent-price">Rent Price</label><br>
+              RM <input type="text" name="rent-price" value="" placeholder="Renting Price">
+            </div>
+            <div class="property-detail">
+              <label for="description">Description</label><br>
+              <textarea name="description" cols="50" rows="10" placeholder="Enter property description..."></textarea>
+            </div>
             <br>
-
-            <label for="fileToUpload">Upload Property Images</label>
+            <label for="fileToUpload"><h3>Upload Property Images</h3></label>
             <div class="property-image-upload-container">
               <div id="property-upload-preview" class="property-upload-preview"></div>
               
@@ -97,10 +109,16 @@
           </div>
         </div>
         <br>
-        <input type="reset" name="reset" value="Clear">
-        <input type="submit" onclick="uploadPropertyImage()" name="property-submit" value="Add Property">
-      </form><br>
-      <button onclick="location.href='dashboard-landlord.php'">Cancel</button>
+        <div class="property-detail-buttons">
+          <input type="reset" name="reset" value="Clear Form">
+          <input type="submit" onclick="uploadPropertyImage()" name="property-submit" value="Add Property">
+        </div>
+      </form>
+      <br>
+      <a class="return-dashboard" href="dashboard.php">
+        <img src="assets/icons/back-button.png"></img>
+        <h4>Cancel</h4>
+      </a>
     </div>
   </body>
 </html>

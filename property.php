@@ -1,6 +1,6 @@
 <?php 
   session_start();
-  if (!isset($_SESSION['userID']) || $_SESSION['userType'] != "L") {
+  if (!isset($_SESSION['userID']) || ($_SESSION['userType'] != "L" && $_SESSION['userType'] != "A")) {
     header("Location: dashboard.php");
   }
   $prop_id = $_GET['id'];
@@ -12,10 +12,10 @@
   mysqli_close($connect);
   $property = mysqli_fetch_assoc($result);
 
-  if ($property['landlordRegNo'] != $_SESSION['landlordRegNo']) {
+  if ($property['landlordRegNo'] != $_SESSION['landlordRegNo'] && $_SESSION['userType'] != "A") {
     header("Location: dashboard-landlord.php");
   }
-
+  
   $propertyName = $property["propertyName"];
   $propertyAddress = $property["propertyAddress"];
   $propertyCity = $property["propertyCity"];
@@ -30,10 +30,6 @@
   $propertyFacilities = $property["propertyFacilities"];
   $propertyDesc = $property["propertyDesc"];
   $rentPrice = $property["rentPrice"];
-
-  // $prop_arr = array($propertyName, $propertyAddress, $propertyCity, $propertyPoscode, $propertyState, $propertyType,
-  //                   $propertyFloorLevel, $propertyFloorSize, $propertyNumRooms, $propertyBathrooms, $propertyFurnishing,
-  //                   $propertyFacilities, $propertyDesc, $rentPrice);
 
   include("html/header.html");
 ?>
@@ -81,63 +77,112 @@
         }
       ?>
       </div>
-      <div class="container-margin">
-        <form class="property-details" action="" method="POST" enctype="multipart/form-data">
-          <h1><?php echo $propertyName ?></h1>
-          <input class="property-h1" type="text" name="propertyName" value="<?php echo $propertyName ?>" placeholder="N/A" readonly><br><br>
+      <div class="container-margin listing-section-container">
+        <div class="listing-section-left">
+          <form class="property-details" action="" method="POST" enctype="multipart/form-data">
+            <h1 class="property-details-text"><?php echo $propertyName ?></h1>
+            <input class="property-text-h1 property-text-input" type="text" name="propertyName" value="<?php echo $propertyName ?>" placeholder="N/A" readonly><br>
 
-          <p>Property ID: <?php echo sprintf("%08d",$property['propertyID']) ?></p><br>
+            <p>Property ID: <?php echo sprintf("%08d",$property['propertyID']) ?></p><br>
+            <input type="text" name="propertyID" value="<?php echo $property['propertyID'] ?>" style="display: none;">
 
-          <label for="propertyAddress">Address: </label><br>
-          <input class="property-text-input" type="text" name="propertyAddress" value="<?php echo $propertyAddress ?>" placeholder="N/A" readonly><br><br>
+            <div class="property-detail">
+              <label for="propertyAddress">Address</label><br>
+              <p class="property-details-text"><?php echo $propertyAddress ?></p>
+              <input class="property-text-input" type="text" name="propertyAddress" value="<?php echo $propertyAddress ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyCity">City</label><br>
+              <p class="property-details-text"><?php echo $propertyCity ?></p>
+              <input class="property-text-input" type="text" name="propertyCity" value="<?php echo $propertyCity ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyPoscode">Poscode</label><br>
+              <p class="property-details-text"><?php echo $propertyPoscode ?></p>
+              <input class="property-text-input" type="text" name="propertyPoscode" value="<?php echo $propertyPoscode ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyState">State</label><br>
+              <p class="property-details-text"><?php echo $propertyState ?></p>
+              <input class="property-text-input" type="text" name="propertyState" value="<?php echo $propertyState ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyType">Type</label><br>
+              <p class="property-details-text"><?php echo $propertyType ?></p>
+              <input class="property-text-input" type="text" name="propertyType" value="<?php echo $propertyType ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyFloorLevel">Floor Level</label><br>
+              <p class="property-details-text"><?php echo $propertyFloorLevel ?></p>
+              <input class="property-text-input" type="text" name="propertyFloorLevel" value="<?php echo $propertyFloorLevel ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyFloorSize">Floor Size</label><br>
+              <p class="property-details-text"><?php echo $propertyFloorSize ?></p>
+              <input class="property-text-input" type="text" name="propertyFloorSize" value="<?php echo $propertyFloorSize ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyNumRooms">No. of Rooms</label><br>
+              <p class="property-details-text"><?php echo $propertyNumRooms ?></p>
+              <input class="property-text-input" type="text" name="propertyNumRooms" value="<?php echo $propertyNumRooms ?>" placeholder="N/A" readonly>
+              <br>
+              <label for="propertyBathrooms">No. of Bathrooms</label><br>
+              <p class="property-details-text"><?php echo $propertyBathrooms ?></p>
+              <input class="property-text-input" type="text" name="propertyBathrooms" value="<?php echo $propertyBathrooms ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyFurnishing">Furnishing</label><br>
+              <p class="property-details-text"><?php echo $propertyFurnishing ?></p>
+              <input class="property-text-input" type="text" name="propertyFurnishing" value="<?php echo $propertyFurnishing ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyFacilities">Facilities</label><br>
+              <p class="property-details-text"><?php echo $propertyFacilities ?></p>
+              <input class="property-text-input" type="text" name="propertyFacilities" value="<?php echo $propertyFacilities ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyDesc">Description</label><br>
+              <p class="property-details-text"><?php echo $propertyDesc ?></p>
+              <input class="property-text-input" type="text" name="propertyDesc" value="<?php echo $propertyDesc ?>" placeholder="N/A" readonly>
+            </div>
+            <div class="property-detail">
+              <label for="propertyNumRooms">Rent Price</label><br>
+              <p class="property-details-text"><h2>RM <?php echo $rentPrice ?></h2></p>
+              <input class="property-text-input" type="text" name="rentPrice" value="<?php echo $rentPrice ?>" placeholder="N/A" readonly>
+            </div>
 
-          <label for="propertyCity">City: </label><br>
-          <input class="property-text-input" type="text" name="propertyCity" value="<?php echo $propertyCity ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyPoscode">Poscode: </label><br>
-          <input class="property-text-input" type="text" name="propertyPoscode" value="<?php echo $propertyPoscode ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyState">State: </label><br>
-          <input class="property-text-input" type="text" name="propertyState" value="<?php echo $propertyState ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyType">Type: </label><br>
-          <input class="property-text-input" type="text" name="propertyType" value="<?php echo $propertyType ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyFloorLevel">Floor Level: </label><br>
-          <input class="property-text-input" type="text" name="propertyFloorLevel" value="<?php echo $propertyFloorLevel ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyFloorSize">Floor Size: </label><br>
-          <input class="property-text-input" type="text" name="propertyFloorSize" value="<?php echo $propertyFloorSize ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyNumRooms">No. of Rooms: </label><br>
-          <input class="property-text-input" type="text" name="propertyNumRooms" value="<?php echo $propertyNumRooms ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyBathrooms">No. of Bathrooms: </label><br>
-          <input class="property-text-input" type="text" name="propertyBathrooms" value="<?php echo $propertyBathrooms ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyFurnishing">Furnishing: </label><br>
-          <input class="property-text-input" type="text" name="propertyFurnishing" value="<?php echo $propertyFurnishing ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyFacilities">Facilities: </label><br>
-          <input class="property-text-input" type="text" name="propertyFacilities" value="<?php echo $propertyFacilities ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyDesc">Description: </label><br>
-          <input class="property-text-input" type="text" name="propertyDesc" value="<?php echo $propertyDesc ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyNumRooms">Rent Price: </label><br>
-          <input class="property-text-input" type="text" name="rentPrice" value="<?php echo $rentPrice ?>" placeholder="N/A" readonly><br><br>
-
-          <input type="submit" name="listing-submit" value="Add to Listing"><br><br>
-
-          <input id="cancel-update-property" type="submit" name="cancel-update-property" style="display: none;">
-          <input class="edit-property-button" type="button" name="edit-property-button" onclick="toggleEditProperty()" value="Edit">
-          <input id="update-property" class="update-property-button" type="submit" name="update-property" value="Save" style="display: none;">
-          <input class="delete-property-button" type="button" name="delete-property-button" onclick="toggleDeleteForm()" value="Delete Property">
-          <input id="delete-property" type="submit" name="delete-property" style="display: none;">
-        </form><br>
-        
-        <a href="dashboard-landlord.php">Return to Dashboard</a>
-
+            <input id="listing-submit" type="submit" name="listing-submit" style="display: none;">
+            <input id="cancel-update-property" type="submit" name="cancel-update-property" style="display: none;">
+            <input id="update-property" type="submit" name="update-property" value="Save" style="display: none;">
+            <input id="delete-property" type="submit" name="delete-property" style="display: none;">
+          </form> 
+          <br>
+          <?php 
+            if ($_SESSION['userType'] == 'A' && isset($_GET['source']) && $_GET['source'] == 'details') {
+          ?>
+              <a class="return-dashboard" href="landlord-details.php?id=<?php echo $property['landlordRegNo']?>">
+                <img src="assets/icons/back-button.png"></img>
+                <h4>Back</h4>
+              </a>
+          <?php
+            } else {
+          ?>
+              <a class="return-dashboard" href="dashboard.php">
+                <img src="assets/icons/back-button.png"></img>
+                <h4>Return to Dashboard</h4>
+              </a>
+          <?php
+            }
+          ?>
+        </div>
+        <div class="property-section-right">
+          <form class="property-manage-form" method="POST">
+            <input class="property-manage-button" type="submit" name="listing-submit" value="Add to Listing">
+            <input class="property-manage-button update-property-button" type="button" name="" value="Save" onclick="saveEditProperty()" style="display: none;">
+            <input class="property-manage-button edit-property-button" type="button" name="edit-property-button" onclick="toggleEditProperty()" value="Edit">
+            <input class="property-delete-button delete-property-button" type="button" name="delete-property-button" onclick="toggleDeleteForm()" value="Delete Property">
+          </form>
+        </div>
       </div>
     </div>
   </body>
@@ -162,17 +207,6 @@
 
   if (isset($_POST['update-property'])) {
     include("dbconnect.php");
-    
-    // $i = 0;
-    // // echo "<script>alert('Post Value: ' + " .$i. " + '')</script>";
-    // foreach ($_POST as $value) {
-    //   echo "<script>alert('Post Value: ' + " .$value. " + '')</script>";
-    //   if ($value != $prop_arr[$i]) {
-    //     // echo "<script>alert('Post Value: ' + " .$value. " + '\nOriginal Value: ' + " .$prop_arr[$i]. " + '')</script>";
-    //     $prop_arr[$i] = mysqli_real_escape_string($connect, $value);
-    //   }
-    //   $i++;
-    // }
 
     if ($_POST['propertyName'] != $property['propertyName']) {
       $propertyName = mysqli_real_escape_string($connect, $_POST['propertyName']);
@@ -241,7 +275,6 @@
     } else {
       echo "<script>alert('Something went wrong!');</script>";
     }
-    echo "<script>history.go(-1);</script>";
   }
 
   if (isset($_POST["cancel-update-property"])) {
@@ -280,35 +313,47 @@
   }
 ?>
 <script>
+  $(document).ready(function(){
+    $(".property-details input").hide();
+  });
 
   function toggleDeleteForm() {
     $(".confirm-delete-property-container").fadeToggle(100,"swing");
   }
 
   $(document).mouseup(function(e) {
-    var uploadform = $(".confirm-delete-property");
+    var confirmform = $(".confirm-delete-property");
     var container = $(".confirm-delete-property-container");
-    if (!uploadform.is(e.target) && uploadform.has(e.target).length == 0) {
+    if (!confirmform.is(e.target) && confirmform.has(e.target).length == 0) {
       container.fadeOut(100,"swing");
     }
   });
 
   function toggleEditProperty() {
+    $(".property-details-text").hide();
     $(".update-property-button").css("display", "inherit");
     $(".property-details input").attr("readonly", false);
     $(".delete-property-button").attr("disabled", true);
+    $(".delete-property-button").css("opacity", 0.5);
+    $(".delete-property-button").css("pointer-events", "none");
     $(".edit-property-button").attr("value", "Cancel");
     $(".edit-property-button").attr("onclick", "cancelEditProperty()");
+    $(".property-text-input").show();
   }
   function cancelEditProperty() {
     $("#cancel-update-property").click();
     $(".property-details input").attr("readonly", true);
     $(".delete-property-button").attr("disabled", false);
+    $(".delete-property-button").css("opacity", 1);
+    $(".delete-property-button").css("pointer-events", "default");
     $(".edit-property-button").attr("value", "Edit");
     $(".edit-property-button").attr("onclick", "toggleEditProperty()");
+    $(".property-text-input").hide();
+    $(".property-details-text").show();
   }
   function saveEditProperty() {
     $(".property-details input").attr("readonly", true);
+    $("#update-property").click();
   }
 
 </script>

@@ -20,11 +20,16 @@
       </div>
     </div>
     
-    <hr><br>
+    <hr>
     <div>
-      <input type="file" name="fileToUpload" onchange="readImageURL(this)">
-      <input type="submit" value="Save Image" name="upload-image" class="save-image-button" disabled>
-      <input type="button" value="Remove Profile Picture" name="remove-profile-picture" onclick="resetProfilePicture()">
+      <div class="choose-file">
+        Choose File
+        <input type="file" name="fileToUpload" onchange="readImageURL(this)">
+      </div>
+      <div class="propic-upload-action">
+        <input type="submit" value="Save Image" name="upload-image" class="save-image-button" disabled>
+        <input type="button" value="Remove Profile Picture" name="remove-profile-picture" onclick="resetProfilePicture()">
+      </div>
     </div>
   </form>
 </div>
@@ -93,7 +98,7 @@
               <image class="icon edit-icon" src="assets/icons/cancel.png"><span>Cancel</span>
             </button>
             <button class="settings-button save-button">
-              <image class="icon edit-icon" src="assets/icons/tick.png"><span>Save</span>
+              <image class="icon edit-icon" src="assets/icons/save.png"><span>Save</span>
             </button>
           </h3>
           
@@ -111,6 +116,7 @@
                 <input class="profile-username input-account" type="text" name="username" value="<?php echo $username ?>" required readonly>
                 <input class="profile-email input-account" type="text" name="email" value="<?php echo $email ?>" required readonly>
                 <input class="save-account-edit" type="submit" name="save-account-edit" value="" style="display: none;">
+                <!-- <input class="cancel-account-edit" type="submit" name="cancel-account-edit" value="" style="display: none;"> -->
               </form>
               <br>
               <p><?php echo $usertype ?> Account</p>
@@ -141,7 +147,7 @@
               <image class="icon edit-icon" src="assets/icons/cancel.png"><span>Cancel</span>
             </button>
             <button class="settings-button save-button">
-              <image class="icon edit-icon" src="assets/icons/tick.png"><span>Save</span>
+              <image class="icon edit-icon" src="assets/icons/save.png"><span>Save</span>
             </button>
           </h3>
           <form class="personal-info-form" action="" method="POST" enctype="multipart/form-data">
@@ -160,6 +166,13 @@
             <div class="personal-info-gender">
               <p>Gender</p><br>
               <input class="personal-gender input-personal" type="text" name="gender" value="<?php echo $gender ?>" placeholder="N/A" readonly>
+              <div class="radio-gender">
+                <input type="radio" id="male" name="gender" value="M" <?php if ($gender == "Male"){ echo 'checked="checked"'; } ?>>
+                <label for="male"><b>Male</b></label><br>
+                <input type="radio" id="female" name="gender" value="F" <?php if ($gender == "Female"){ echo 'checked="checked"'; } ?>>
+                <label for="female"><b>Female</b></label>
+              </div>
+              <br>
             </div>
             <div class="personal-info-address">
               <p>Address</p><br>
@@ -209,7 +222,7 @@
         $phoneno = mysqli_real_escape_string($connect, $_POST['phoneno']);
       }
     }
-    
+
     $sql = "UPDATE user SET 
             userName = '$username',
             userEmail = '$email',
@@ -223,7 +236,9 @@
     $update_result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
     mysqli_close($connect);
 
-    if (!$update_result) {
+    if ($update_result) {
+      echo "<script>alert('Succesfully updated profile!');</script>";
+    } else {
       echo "<script>alert('Something went wrong!');</script>";
     }
     echo "<script>window.location.replace('settings.php');</script>";

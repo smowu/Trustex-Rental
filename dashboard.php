@@ -186,8 +186,10 @@
                       if ($rent['requestStatus'] == "Upcoming" || $rent['requestStatus'] == "Accepted") {
                         $days_left = $now->diff($start_date);
                     ?>
-                        <p>Your upcoming rent...</p>
-                        <h2>in <?php echo $days_left->days ?> Day(s)</h2>
+                        <div class="status-container">
+                          <p>Your upcoming rent...</p>
+                          <h2>in <?php echo $days_left->days ?> Day(s)</h2>
+                        </div>
                     <?php
                       } else {
                         echo "<p>Your current rental status</p>";
@@ -246,10 +248,12 @@
 
                         $payment_days_left = $now->diff($next_payment_date);
                       ?>
-                      <h2><?php echo $payment_days_left->days . " Day(s) on " . $next_payment_date->format('d F Y') ?></h2><br>
-
-                      <a href="payment.php?ticket=<?php echo $rent['ticketNo'] ?>"><button>Make Payment</button></a>
+                      <h2><?php echo $payment_days_left->days . " Day(s) on " . $next_payment_date->format('d F Y') ?></h2>
                     </div>
+                    <br>
+                    <a class="make-payment-button-container" href="payment.php?ticket=<?php echo $rent['ticketNo'] ?>">
+                      <button class="make-payment-button">Make Payment</button>
+                    </a>
                   </div> 
               <?php
                 } else {

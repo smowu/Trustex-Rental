@@ -80,12 +80,13 @@
       <form method="POST" action="" enctype="multipart/form-data">
         <div id="listing-form">
           <p>Select your property to be listed.</p><br>
-
-          <input type="submit" name="listing-submit" value="Add to Listing" disabled>
         </div>
       </form>
       <br>
-      <button onclick="location.href='dashboard-landlord.php'">Cancel</button>
+      <a class="return-dashboard" href="dashboard.php">
+        <img src="assets/icons/back-button.png"></img>
+        <h4>Cancel</h4>
+      </a>
     </div>
   </body>
 </html>

@@ -178,17 +178,12 @@ button {
   display: inline;
   color: #333333;
 }
-.user-menu-profile img {
-  width: 72px;
-  margin: 8px;
-  border-radius: 50%;
-  background-color: #257b9f20;
-}
 
 .propic-menu-container {
   width: 72px;
   height: 72px;
   margin: 8px;
+  background-color: #257b9f20;
 }
 
 .user-menu-profile h4, .user-menu-profile p {
@@ -367,14 +362,16 @@ button {
 .listing-search-bar-icon {
   position: relative;
   top: 14px;
-  right: 36px;
+  right: -24px;
   opacity: 0.4;
   filter: invert(36%) sepia(16%) saturate(6117%) hue-rotate(171deg) brightness(88%) contrast(71%);
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
 }
-.listing-search-bar:focus + .listing-search-bar-icon {
+
+.listing-search-bar:focus + .listing-search-bar-icon,
+.listing-search-bar-icon:hover {
   opacity: 1;
-  right: 36px;
 }
 
 .listing-grid {
@@ -529,12 +526,10 @@ button {
   background-color: #cccccc;
 }
 .property-banner-image {
-  /* position: absolute; */
   overflow: hidden;
   display: flex; 
   align-items: center; 
   justify-content: center;
-  /* margin: auto 0 auto 16px; */
   width: 100%;
   height: 100%;
 
@@ -553,11 +548,41 @@ button {
 .property-details {
   width: 100%;
 }
+.property-details label {
+  color: #999999;
+}
+.property-details-text {
+  font-weight: bold;
+}
 .property-details .property-text-input {
-  width: 420px;
+  width: 100%;
+  color: #333333;
+}
+.property-detail {
+  padding: 0 8px;
+  border-radius: 0.5rem;
+}
+.property-detail {
+  margin: 8px 0;
+  padding: 16px;
+  height: max-content;
+  border-radius: 0.5rem;
+  background-color: #cccccc33;
+}
+.property-detail p {
+  font-size: medium;
+  font-weight: bold;
+  color: #333333;
+  background-color: transparent;
+}
+.property-detail textarea {
+  width: 100%;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: none;
 }
 
-.confirm-delete-property-container {
+.prompt-overlay {
   position: fixed;
   display: none;
   width: 100vw;
@@ -565,7 +590,7 @@ button {
   background-color: #000000bb;
   z-index: 99999;
 }
-.confirm-delete-property {
+.prompt-container {
   position: relative;
   width: 512px;
   height: 128px;
@@ -576,6 +601,40 @@ button {
   border-radius: 1rem;
   outline: 1px solid #ffffff;
   box-shadow: 2rem 3rem 2rem #00000011;
+}
+
+.property-text-h1 {
+  margin: 2rem 0 1rem 0;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.listing-landlord-form input {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px;
+  margin: 8px 0px;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.property-edit-button {
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+}
+.property-edit-button:hover {
+  color: #257b9f;
+  background-color: #fbfbfb;
+}
+.remove-listing-button {
+  border: 3px solid #ca4848;
+  background-color: #ca4848;
+}
+.remove-listing-button:hover {
+  color: #ca4848;
+  background-color: #fbfbfb;
 }
 
 .prompt-buttons-container {
@@ -624,15 +683,14 @@ button {
 .listing-section-left {
   width: 70%
 }
-.listing-section-left > div {
-  margin: 2rem 1rem 2rem 0;
-  /* background-color: #257b9f;
-  border: 0.5rem solid #257b9f;
-  outline: 1px solid #5c9cb7; */
-  border-radius: 1rem;
-  box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
+.listing-section-left hr {
+  margin-right: 2rem;
 }
-.listing-section-right {
+.listing-details {
+  margin: 1rem 2rem 2rem 0;
+}
+.listing-section-right,
+.property-section-right {
   width: 30%;
 }
 .listing-section-right > div {
@@ -643,6 +701,57 @@ button {
   outline: 1px solid #5c9cb7;
   border-radius: 1rem;
   box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
+}
+
+.listing-details-room {
+  display: flex;
+}
+.listing-details-room > div {
+  display: inherit;
+  margin: 0px 32px;
+}
+.listing-details-room > div h2 {
+  margin: 0px 8px;
+}
+.listing-details-room-icon {
+  margin: 0px 8px;
+}
+
+.listing-landlord-form,
+.property-manage-form {
+  margin: 2rem 0 0 2rem;
+}
+.listing-landlord-form input,
+.property-manage-form input {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px;
+  margin: 8px 0px;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.property-edit-button,
+.property-manage-button {
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+}
+.property-edit-button:hover,
+.property-manage-button:hover {
+  color: #257b9f;
+  background-color: #fbfbfb;
+}
+.remove-listing-button,
+.property-delete-button {
+  border: 3px solid #ca4848;
+  background-color: #ca4848;
+}
+.remove-listing-button:hover,
+.property-delete-button:hover {
+  color: #ca4848;
+  background-color: #fbfbfb;
 }
 
 .landlord-info-container {
@@ -689,6 +798,26 @@ button {
 
 /* Request Details */
 
+.request-details-container label{
+  color: #999999;
+}
+.request-details {
+  padding: 0 8px;
+  border-radius: 0.5rem;
+}
+.request-details {
+  margin: 8px 0;
+  padding: 16px;
+  height: max-content;
+  border-radius: 0.5rem;
+  background-color: #cccccc33;
+}
+.request-details p {
+  font-size: medium;
+  font-weight: bold;
+  color: #333333;
+  background-color: transparent;
+}
 .propic-tenant-details-container {
   width: 96px;
   height: 96px;
@@ -1212,18 +1341,41 @@ footer hr {
   color: #fbfbfb;
   background-color: #257b9f;
 }
-
 .rental-status {
   padding: 1rem;
   height: max-content;
-  /* max-height: 31rem; */
   margin-top: 0.5rem;
   border-radius: 0.5rem;
   border: solid 1px #cccccc;  
   background-color: #cccccc22;
-  /* overflow-y: scroll; */
 }
-
+.status-container {
+  padding: 16px;
+  height: max-content;
+  border-radius: 0.5rem;
+  background-color: #cccccc33;
+}
+.make-payment-button-container {
+  display:inline;
+}
+.make-payment-button {
+  width: 240px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 8px;
+  margin: 8px 8px;
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.make-payment-button:hover {
+  color: #257b9f;
+  background-color: #fbfbfb;
+}
 
 .add-button {
   color: #666666;
@@ -1231,12 +1383,10 @@ footer hr {
   border-radius: 0.5rem;
   background-color: transparent;
   border: 0px solid #cccccc;
-  /* padding-right: 8px; */
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .add-button:hover {
   background-color: #5f912522;
-  /* background-color: #5f9125; */
 }
 .add-button:hover .add-icon {
   filter: invert(49%) sepia(99%) saturate(373%) hue-rotate(45deg) brightness(84%) contrast(80%);
@@ -1276,6 +1426,29 @@ footer hr {
   filter: invert(14%) sepia(34%) saturate(0%) hue-rotate(248deg) brightness(94%) contrast(85%);
 }
 
+.return-dashboard {
+  position: relative;
+  display: flex;
+  width: max-content;
+  color: #257b9f;
+  text-decoration: none;
+}
+.return-dashboard h4 {
+  margin-top: 4px;
+  border-bottom: 3px solid #fbfbfb00;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.return-dashboard img {
+  width: 24px;
+  height: 24px;
+  margin: 0px 8px 0px 4px;
+  filter: invert(41%) sepia(41%) saturate(747%) hue-rotate(152deg) brightness(93%) contrast(94%);
+}
+.return-dashboard h4:hover,
+.return-dashboard img:hover + .return-dashboard h4 {
+  border-bottom: 3px solid #257b9f;
+}
+
 /* Add Listing */
 .container-max {
   width: 100%;
@@ -1299,6 +1472,26 @@ footer hr {
   border-radius: 1rem;
   box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
 }
+.submit-button {
+  position: relative;
+  text-align: center;
+  width: 240px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px;
+  margin: 4px 0;
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.submit-button:hover {
+  color: #257b9f;
+  background-color: #fbfbfb;
+}
+
 
 
 /* Profile Settings */
@@ -1359,6 +1552,72 @@ footer hr {
   margin: 32px;
 }
 
+.choose-file {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 4px;
+  margin: 8px 0;
+  color: #fbfbfb;
+  border: 3px solid #257b9f;
+  border-radius: 100rem;
+  background-color: #257b9f;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.choose-file:hover,
+.image-upload-form input[type=submit]:hover {
+  color: #257b9f;
+  background-color: #fbfbfb;
+}
+
+.image-upload-form input[type=file] {
+  position: absolute;
+  z-index: 1000;
+  opacity: 0;
+  cursor: pointer;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.propic-upload-action {
+  display: flex;
+}
+.propic-upload-action input {
+  position: relative;
+  text-align: center;
+  width: 50%;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px;
+  margin: 4px 0;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.image-upload-form input[type=submit] {
+   border: 3px solid #257b9f;
+   background-color: #257b9f;
+   margin-right: 8px;
+}
+.image-upload-form input[type=submit]:disabled {
+  opacity: 0.5;
+}
+.image-upload-form input[type=button] {
+  border: 3px solid #ca4848;
+  background-color: #ca4848;
+  margin-left: 8px;
+}
+.image-upload-form input[type=button]:hover {
+  color: #ca4848;
+  background-color: #fbfbfb;
+}
+
 .profile-pic-container  {
   position: relative;
 }
@@ -1404,7 +1663,6 @@ footer hr {
   display: flex;
   justify-content: center;
   line-height: 256px;
-  /* padding: 16px; */
   margin: 16px;
   width: 256px; height: 256px;
   top: 0; left: 0;
@@ -1427,6 +1685,7 @@ footer hr {
 }
 .settings-button {
   float: right;
+  margin-left: 8px;
   color: #666666;
   font-size: 1rem;
   border-radius: 0.5rem;
@@ -1477,7 +1736,7 @@ footer hr {
   padding: 0 8px;
   border-radius: 0.5rem;
 }
-.personal-info-form div {
+.personal-info-form > div {
   margin: 8px 0;
   padding: 16px;
   height: max-content;
@@ -1496,6 +1755,19 @@ footer hr {
 .personal-info-form input:focus {
   outline: none;
 }
+.radio-gender {
+  display: flex;
+}
+.radio-gender label {
+  padding: 0 8px;
+  font-style: bold;
+  cursor: pointer;
+}
+.radio-gender label,
+.radio-gender input {
+  cursor: pointer;
+} 
+
 .personal-address {
   width: 100%;
   height: max-content;
@@ -1563,7 +1835,7 @@ footer hr {
   left: 48px;
   position: relative;
 }
-.return-dashboard {
+.return-dashboard-landlord {
   position: fixed;
   display: absolute;
   bottom: 48px;
@@ -1573,8 +1845,13 @@ footer hr {
   border-bottom: 3px solid #fbfbfb00;
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+.return-dashboard-landlord img {
+  width: 24px;
+  height: 24px;
+  margin: 0px 8px;
+}
 
-.return-dashboard:hover {
+.return-dashboard-landlord:hover {
   border-bottom: 3px solid #fbfbfb;
 }
 
@@ -1653,22 +1930,6 @@ footer hr {
 }
 
 /* New Property Form */
-/* 
-.container-right h3 {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  padding: 16px 8px;
-  border-radius: 0.5rem;
-}
-.container-right > div {
-  margin: 2rem 0 2rem 1rem;
-  background-color: #fbfbfb;
-  border: 0.5rem solid #fbfbfb;
-  outline: 1px solid #ffffff;
-}
-.dashboard-content > div > div {
-  border-radius: 1rem;
-  box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
-} */
 
 .property-details-container {
   border-radius: 1rem;
@@ -1723,6 +1984,105 @@ footer hr {
   width: 32px;
   filter: invert(81%) sepia(15%) saturate(0%) hue-rotate(249deg) brightness(94%) contrast(105%);
 }
+.property-detail-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.property-detail-buttons input {
+  width: 240px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px;
+  margin: 8px 8px;
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.property-detail-buttons input:hover {
+  color: #257b9f;
+  background-color: #fbfbfb;
+}
+
+
+
+/* Application Details */
+
+.application-details-container label{
+  color: #999999;
+}
+.application-details {
+  padding: 0 8px;
+  border-radius: 0.5rem;
+}
+.application-details {
+  margin: 8px 0;
+  padding: 16px;
+  height: max-content;
+  border-radius: 0.5rem;
+  background-color: #cccccc33;
+}
+.application-details p {
+  font-size: medium;
+  font-weight: bold;
+  color: #333333;
+  background-color: transparent;
+}
+.propic-applicant-details-container {
+  width: 128px;
+  height: 128px;
+  margin: 8px;
+}
+.application-details-container form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.application-form-button {
+  width: 180px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px;
+  margin: 8px;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.approve-button {
+  border: 3px solid #41b42a;
+  background-color: #41b42a;
+}
+.approve-button:hover {
+  color: #41b42a;
+  background-color: #fbfbfb;
+}
+.reject-button {
+  border: 3px solid #ca4848;
+  background-color: #ca4848;
+}
+.reject-button:hover {
+  color: #ca4848;
+  background-color: #fbfbfb;
+}
+
+/* Landlord Details */
+.propic-landlord-details-container {
+  width: 256px;
+  height: 256px;
+  margin: 2rem 0 0rem 0;
+}
+.landlord-property-container {
+  margin: 2rem 0 2rem 0;
+  background-color: #fbfbfb;
+  border: 0.5rem solid #fbfbfb;
+  outline: 1px solid #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
+}
 
 /* Default container */
 .default-container {
@@ -1736,6 +2096,19 @@ footer hr {
   font-size: 3rem;
   padding: 2rem 0 0;
   width: 100%;
+}
+
+/* Max width container  */
+.max-container {
+  position: relative;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #fbfbfb;
+  border: 0.5rem solid #fbfbfb;
+  outline: 1px solid #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
 }
 
 /* Default property container */

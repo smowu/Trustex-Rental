@@ -20,6 +20,14 @@
     $firstname = $applicant["userFName"];
     $lastname = $applicant["userLName"];
     $ic = $applicant["userIC"];
+    $gender = $applicant["userGender"];
+    if ($gender == "M") {
+      $gender = "Male";
+    } else if ($gender == "F") {
+      $gender = "Female";
+    } else {
+      $gender = "N/A";
+    }
     $address = $applicant["userAddress"];
     $phoneno = $applicant["userPhoneNo"];
     $status = $applicant["applicationStatus"];
@@ -31,39 +39,64 @@
       <h1>Landlord Application Details</h1><br>
       <p>Application ID: <?php echo sprintf('%06d', $applicantid) ?></p><br>
 
-      <label>User ID: </label><br>
-      <p><?php echo sprintf('%010d', $userid) ?></p><br>
+      <div class="max-container application-details-container">
+        <h2>Applicant Details</h2>
+        <p>User ID: <?php echo sprintf('%010d', $userid) ?></p><br><br>
+        <?php
+          $profileicon = "assets/images/users/user-".sprintf('%010d', $applicant['userID'])."/profile-picture/profile-picture.png";
+        ?>
+        <div class="propic-container propic-applicant-details-container">
+          <image class="profile-pic" src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
+        </div><br>
 
-      <label>Username: </label><br>
-      <p><?php echo $username ?></p><br>
-
-      <label>Email: </label><br>
-      <p><?php echo $email ?></p><br>
-
-      <label>First Name: </label><br>
-      <p><?php echo $firstname ?></p><br>
-
-      <label>Last Name: </label><br>
-      <p><?php echo $lastname ?></p><br>
-
-      <label>IC Number: </label><br>
-      <p><?php echo $ic ?></p><br>
-
-      <label>Address: </label><br>
-      <p><?php echo $address ?></p><br>
-
-      <label>Phone No.: </label><br>
-      <p><?php echo $phoneno ?></p><br>
-
-      <label>Application Status: </label><br>
-      <p><?php echo $status ?></p><br>
+        <div class="application-details">
+          <label>Username</label><br><br>
+          <p><?php echo $username ?></p>
+        </div>
+        <div class="application-details">
+          <label>Email</label><br><br>
+          <p><?php echo $email ?></p>
+        </div>
+        <div class="application-details">
+          <label>First Name</label><br><br>
+          <p><?php echo $firstname ?></p>
+        </div>
+        <div class="application-details">
+          <label>Last Name</label><br><br>
+          <p><?php echo $lastname ?></p>
+        </div>
+        <div class="application-details">
+          <label>IC Number</label><br><br>
+          <p><?php echo $ic ?></p>
+        </div>
+        <div class="application-details">
+          <label>Gender</label><br><br>
+          <p><?php echo $gender ?></p>
+        </div>
+        <div class="application-details">
+          <label>Address</label><br><br>
+          <p><?php echo $address ?></p>
+        </div>
+        <div class="application-details">
+          <label>Phone No.</label><br><br>
+          <p><?php echo $phoneno ?></p>
+        </div>
+        <div class="application-details">
+          <label>Application Status</label><br><br>
+          <p><?php echo $status ?></p>
+        </div>
+        <br>
+        <form method="POST" action="application-result.php">
+          <input type="text" name="id" value="<?php echo $applicantid ?>" style="display: none;">
+          <input class="application-form-button approve-button" type="submit" name="approve" value="Approve">
+          <input class="application-form-button reject-button" type="submit" name="reject" value="Reject">
+        </form>
+      </div>
       <br>
-      <form method="POST" action="application-result.php">
-        <input type="text" name="id" value="<?php echo $applicantid ?>" style="display: none;">
-        <input type="submit" name="approve" value="Approve">
-        <input type="submit" name="reject" value="Reject">
-      </form><br>
-      <a href="dashboard.php"><h4>Return to Dashboard</h4></a>
+      <a class="return-dashboard" href="dashboard.php">
+        <img src="assets/icons/back-button.png"></img>
+        <h4>Return to Dashboard</h4>
+      </a>
     </div>
   </body>
 </html>

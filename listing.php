@@ -17,10 +17,12 @@
   $landlord_result = mysqli_query($connect, $sql2) or die ("Error: ".mysqli_error());
   mysqli_close($connect);
 
+  if (mysqli_num_rows($landlord_result) == 0) {
+    header("Location: index.php");
+  }
   $listing = mysqli_fetch_assoc($result);
   $landlord = mysqli_fetch_assoc($landlord_result);
   $prop_id = $listing["propertyID"];
-
   $propertyName = $listing["propertyName"];
   $propertyAddress = $listing["propertyAddress"];
   $propertyCity = $listing["propertyCity"];
@@ -36,11 +38,29 @@
   $propertyDesc = $listing["propertyDesc"];
   $rentPrice = $listing["rentPrice"];
 
+  $price_per_sqft = sprintf("%.2f",$rentPrice / $propertyFloorSize);
+
   include("html/header.html");
 ?>
 <!DOCTYPE html>
 <html>
   <body id="listing">
+
+    <div class="prompt-overlay confirm-remove-listing-container">
+      <div class="prompt-container confirm-remove-listing">
+        <div>
+          <h3>
+            Are you sure you want to remove this listing?
+            <image class="icon close-icon" src="assets/icons/close.png" onclick="toggleDeleteForm()">
+          </h3>
+        </div>
+        <div class="prompt-buttons-container">
+          <input class="cancel-button" type="button" value="Cancel" name="cancel-delete" onclick="toggleDeleteForm()">
+          <input class="confirm-delete-button" type="button" value="Confirm" name="confirm-remove" onclick="document.getElementById('confirm-remove-listing').click()">
+        </div>
+      </div>
+    </div>
+
     <div class="default-container">
       <div class="property-images-container">
       <?php
@@ -68,75 +88,100 @@
       </div>
       <div class="container-margin listing-section-container">
         <div class="listing-section-left">
-          <form class="property-details" action="" method="POST" enctype="multipart/form-data">
-            <h1><?php echo $propertyName ?></h1>
-            <input class="property-h1" type="text" name="propertyName" value="<?php echo $propertyName ?>" placeholder="N/A" readonly><br><br>
+          <div class="listing-details">
+            <h1><?php if ($propertyName != "") { echo $propertyName; } else { echo "N/A"; } ?></h1><br>
+            <h2>RM <?php if ($rentPrice != "") { echo $rentPrice; } else { echo "N/A"; } ?></h2><br>
 
-            RM <input class="property-h1" type="text" name="rentPrice" value="<?php echo $rentPrice ?>" placeholder="N/A" readonly><br><br>
-
-            <label for="propertyFloorSize">Floor Size: </label><br>
-            <input class="" type="text" name="propertyFloorSize" value="<?php echo $propertyFloorSize ?>" placeholder="N/A" readonly><br><br>
-
-            <label for="propertyNumRooms">No. of Rooms: </label><br>
-            <input class="" type="text" name="propertyNumRooms" value="<?php echo $propertyNumRooms ?>" placeholder="N/A" readonly><br><br>
-
-            <label for="propertyBathrooms">No. of Bathrooms: </label><br>
-            <input class="" type="text" name="propertyBathrooms" value="<?php echo $propertyBathrooms ?>" placeholder="N/A" readonly><br><br>
-
-
-            <label for="propertyAddress">Address: </label><br>
-            <input class="property-text-input" type="text" name="propertyAddress" value="<?php echo $propertyAddress ?>" placeholder="N/A" readonly><br><br>
+            <div class="listing-details-room">
+              <image class="icon listing-details-room-icon" src="assets/icons/bed.png" alt="Bedroom icon">
+                <h2><?php if ($propertyNumRooms != "") { echo $propertyNumRooms; } else { echo "N/A"; } ?></h2>
+              </image>
+              <image class="icon listing-details-room-icon" src="assets/icons/bath.png" alt="Bedroom icon">
+                <h2><?php if ($propertyBathrooms != "") { echo $propertyBathrooms; } else { echo "N/A"; } ?></h2>
+              </image>
+              <div>
+                <h2><?php if ($propertyFloorSize != "") { echo $propertyFloorSize; } else { echo "N/A"; } ?> sqft</h2>
+                <h2>RM <?php if ($price_per_sqft != "") { echo $price_per_sqft; } else { echo "N/A"; } ?> per sqft</h2>
+              </div>
+            </div><br>
+            
+            <p><?php if ($propertyAddress != "") { echo $propertyAddress; } else { echo "N/A"; } ?></p><br>
 
             <label for="propertyCity">City: </label><br>
-            <input class="property-text-input" type="text" name="propertyCity" value="<?php echo $propertyCity ?>" placeholder="N/A" readonly><br><br>
+            <p><?php if ($propertyCity != "") { echo $propertyCity; } else { echo "N/A"; } ?></p><br>
 
             <label for="propertyPoscode">Poscode: </label><br>
-            <input class="property-text-input" type="text" name="propertyPoscode" value="<?php echo $propertyPoscode ?>" placeholder="N/A" readonly><br><br>
+            <p><?php if ($propertyPoscode != "") { echo $propertyPoscode; } else { echo "N/A"; } ?></p><br>
 
             <label for="propertyState">State: </label><br>
-            <input class="property-text-input" type="text" name="propertyState" value="<?php echo $propertyState ?>" placeholder="N/A" readonly><br><br>
-
+            <p><?php if ($propertyState != "") { echo $propertyState; } else { echo "N/A"; } ?></p>
+          </div>
+          <hr>
+          <div class="listing-details">
             <h2>Details</h2><br>
 
             <p>Listing ID: <?php echo sprintf("%012d",$listing['listingID']) ?></p>
             <p>Property ID: <?php echo sprintf("%08d",$listing['propertyID']) ?></p><br>
 
             <label for="propertyType">Type: </label><br>
-            <input class="property-text-input" type="text" name="propertyType" value="<?php echo $propertyType ?>" placeholder="N/A" readonly><br><br>
+            <p><?php if ($propertyType != "") { echo $propertyType; } else { echo "N/A"; } ?></p><br>
 
             <label for="propertyFloorLevel">Floor Level: </label><br>
-            <input class="property-text-input" type="text" name="propertyFloorLevel" value="<?php echo $propertyFloorLevel ?>" placeholder="N/A" readonly><br><br>
+            <p><?php if ($propertyFloorLevel != "") { echo $propertyFloorLevel; } else { echo "N/A"; } ?></p><br>
 
             <label for="propertyFloorSize">Floor Size: </label><br>
-            <input class="property-text-input" type="text" name="propertyFloorSize" value="<?php echo $propertyFloorSize ?>" placeholder="N/A" readonly><br><br>
+            <p><?php if ($propertyFloorSize != "") { echo $propertyFloorSize; } else { echo "N/A"; } ?> sqft</p><br>
 
             <label for="propertyFurnishing">Furnishing: </label><br>
-            <input class="property-text-input" type="text" name="propertyFurnishing" value="<?php echo $propertyFurnishing ?>" placeholder="N/A" readonly><br><br>
+            <p><?php if ($propertyFurnishing != "") { echo $propertyFurnishing; } else { echo "N/A"; } ?></p><br>
 
             <label for="propertyFacilities">Facilities: </label><br>
-            <input class="property-text-input" type="text" name="propertyFacilities" value="<?php echo $propertyFacilities ?>" placeholder="N/A" readonly><br><br>
-
+            <p><?php if ($propertyFacilities != "") { echo $propertyFacilities; } else { echo "N/A"; } ?></p>
+          </div>
+          <hr>
+          <div class="listing-details">
             <h2>Description</h2><br>
-            <input class="property-text-input" type="text" name="propertyDesc" value="<?php echo $propertyDesc ?>" placeholder="N/A" readonly><br><br>
-
-          <!--           
-            <input id="cancel-update-property" type="submit" name="cancel-update-property" style="display: none;">
-            <input class="edit-property-button" type="button" name="edit-property-button" onclick="toggleEditProperty()" value="Edit">
-            <input id="update-property" class="update-property-button" type="submit" name="update-property" value="Save" style="display: none;">
-            <input class="delete-property-button" type="button" name="delete-property-button" onclick="toggleDeleteForm()" value="Delete Property">
-            <input id="delete-property" type="submit" name="delete-property" style="display: none;"> 
-          -->
-
-          </form><br>
+            <p><?php if ($propertyDesc != "") { echo $propertyDesc; } else { echo "N/A"; } ?></p><br>
+          </div>
+          <br>
           <?php
             if (isset($_SESSION['userType']) && $_SESSION['userType'] == 'L' && $_SESSION['landlordRegNo'] == $landlord['landlordRegNo']) {
-              echo "<a href='dashboard-landlord.php'>Return to Dashboard</a>";
+          ?>
+              <a class="return-dashboard" href="dashboard.php">
+                <img src="assets/icons/back-button.png"></img>
+                <h4>Return to Dashboard</h4>
+              </a>
+          <?php
+            } else if ($_SESSION['userType'] == 'A' && isset($_GET['source']) && $_GET['source'] == 'details') {
+          ?>
+              <a class="return-dashboard" href="landlord-details.php?id=<?php echo $landlord['landlordRegNo']?>">
+                <img src="assets/icons/back-button.png"></img>
+                <h4>Back</h4>
+              </a>
+          <?php
             } else {
-              echo "<a href='index.php'>Return to Home</a>";
+          ?>
+              <a class="return-dashboard" href="index.php">
+                <img src="assets/icons/back-button.png"></img>
+                <h4>Back</h4>
+              </a>
+          <?php
             }
           ?>
         </div>
         <div class="listing-section-right">
+          <?php 
+            if ((isset($_SESSION['landlordRegNo']) && $_SESSION['landlordRegNo'] == $landlord['landlordRegNo']) || $_SESSION['userType'] == 'A') {
+          ?>
+            <form class="listing-landlord-form" method="POST">
+              <input class="property-edit-button" type="button" value="Manage Property" name="edit-property" onclick="location.href='property.php?id=<?php echo $listing['propertyID'] ?>&action=edit'">
+              <input class="remove-listing-button" type="button" value="Remove Listing" name="remove-listing" onclick="toggleDeleteForm()">
+              <input id="confirm-remove-listing" type="submit" value="" name="remove-listing" style="display: none;">
+            </form>
+            
+          <?php
+            } else {
+          ?>
           <div class="landlord-info-container">
             <div class="landlord-propic-container">
               <div class="propic-container">
@@ -149,17 +194,23 @@
               <p>Reg. No.: <?php echo sprintf('%06d',$landlord["landlordRegNo"]) ?></p>
               <p>Tel: <?php echo $landlord["userPhoneNo"] ?></p>
             </div>
-            <?php 
+          <?php
               $button_link = "login.php";
               $button_text = "Log In to Request Inquiry";
               if (isset($_SESSION["userID"])) {
                 $button_link = "createRequest.php?id=" . $list_id . "";
                 $button_text = "Request Inquiry";
               }
-            ?>
+              if (!(isset($_SESSION["userID"])) || !(isset($_SESSION['landlordRegNo'])) || $_SESSION['landlordRegNo'] != $landlord['landlordRegNo']) {
+          ?>
             <a href="<?php echo $button_link ?>">
               <button class="request-button"><?php echo $button_text ?></button>
             </a>
+          <?php
+              }
+            }
+          ?>
+            
           </div>
         </div>
       </div>
@@ -168,4 +219,44 @@
 </html>
 <?php
   include("html/footer.html");
+
+  if (isset($_POST["remove-listing"])) {
+    
+    include("dbconnect.php");
+    $sql = "SELECT listingID, requestStatus
+            FROM request
+            WHERE listingID = '$list_id' AND (requestStatus = 'Upcoming' OR requestStatus = 'Active' OR requestStatus = 'Pending')";
+    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    mysqli_close($connect);
+
+    if (mysqli_num_rows($result) != 0) {
+      echo "<script>alert('There are either Pending, Upcoming, or Active request on this listing!')</script>";
+    } else {
+      include("dbconnect.php");
+      $sql = "DELETE FROM listing 
+              WHERE listingID = '$list_id'";
+      $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+      mysqli_close($connect);
+    
+      if ($result) {
+        echo "<script>alert('Successfully removed property from listing!');</script>";
+        echo "<script>window.location.replace('dashboard-landlord.php');</script>";
+      } else {
+        echo "<script>alert('Something went wrong! Failed to delete the listing.');</script>";
+      }
+    }
+  }
 ?>
+<script>
+  function toggleDeleteForm() {
+    $(".confirm-remove-listing-container").fadeToggle(100,"swing");
+  }
+
+  $(document).mouseup(function(e) {
+    var confirmform = $(".confirm-remove-listing");
+    var container = $(".confirm-remove-listing-container");
+    if (!confirmform.is(e.target) && confirmform.has(e.target).length == 0) {
+      container.fadeOut(100,"swing");
+    }
+  });
+</script>

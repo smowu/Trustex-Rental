@@ -77,6 +77,7 @@ function resetProfilePicture() {
   $('.image-upload-form .profile-pic').attr('src', "assets/images/profile-default.png");
   $(".image-upload-form").trigger("reset");
   $('.save-image-button').prop('disabled', false);
+  
 }
 
 // Edit profile in settings
@@ -84,13 +85,16 @@ $(document).ready(function(){
 
   $(".save-button").hide();
   $(".cancel-button").hide();
+  $(".radio-gender").hide();
 
 	$('.profile-section .edit-button').click(function(){
+    $(".personal-details .cancel-button").click();
     enableEditAccountInfo();
     $(".profile-username").select();
 	});
 
   $('.personal-details .edit-button').click(function(){
+    $(".profile-section .cancel-button").click();
     enableEditPersonalInfo();
     $(".personal-firstname").select();
 	});
@@ -119,6 +123,8 @@ $(document).ready(function(){
     $(".personal-details .edit-button").hide();
     $(".personal-details .save-button").show();
     $(".personal-details .cancel-button").show();
+    $(".personal-gender").hide();
+    $(".radio-gender").show();
     $(".personal-info-form input").attr("readonly", false);
     $(".personal-info-form input").css("border", "2px solid #cccccc");
   }
@@ -128,50 +134,29 @@ $(document).ready(function(){
     $(".save-profile-edit").click();
   }
 
+  $('.profile-section .cancel-button').click(function(){
+    cancelEditAccountInfo();
+	});
+  $('.personal-details .cancel-button').click(function(){
+    cancelEditPersonalInfo();
+	});
+
+  function cancelEditAccountInfo() {
+    $(".profile-section .edit-button").show();
+    $(".profile-section .save-button").hide();
+    $(".profile-section .cancel-button").hide();
+    $(".account-info-form input").attr("readonly", true);
+    $(".account-info-form input").css("border", "transparent");
+  }
+
+  function cancelEditPersonalInfo() {
+    $(".personal-details .edit-button").show();
+    $(".personal-details .save-button").hide();
+    $(".personal-details .cancel-button").hide();
+    $(".radio-gender").hide();
+    $(".personal-gender").show();
+    $(".personal-info-form input").attr("readonly", true);
+    $(".personal-info-form input").css("border", "transparent");
+  }
+
 });
-
-// Check sign up infos
-
-function isSignupFormFilled() {
-
-}
-
-function checkUsernameFormat() {
-
-}
-
-function checkEmailFormat() {
-
-}
-
-function checkPasswordFormat() {
-
-}
-
-function checkPasswordConfirmation() {
-
-}
-
-// Check login infos
-
-function isLoginFormFilled() {
-
-}
-
-// Property calculations
-
-function calcPricePerSqf() {
-
-}
-
-// Date calculations
-
-function calcBookingDaysLeft() {
-
-}
-
-// Payment calculations
-
-function calcTotalRentPrice() {
-
-}

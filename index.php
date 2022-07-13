@@ -25,9 +25,9 @@
         <div class="listing-search-bar-container">
           <form class="search-form" action="">
             <input id="listing-search-bar" class="listing-search-bar" type="textbox" name="query" placeholder="Search location">
-              <image class="listing-search-bar-icon icon" src="assets/icons/find.png" onclick="focusSearch(0)">
+              <image class="listing-search-bar-icon icon" src="assets/icons/find.png" onclick="$('.submit-search').click()">
             </input>
-            <input type="submit" name="submit-search" value="" style="display: none;">
+            <input class="submit-search" type="submit" name="submit-search" value="" style="display: none;">
           </form>
         </div>
         <div class="listing-grid-container">

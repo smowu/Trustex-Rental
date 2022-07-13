@@ -17,6 +17,7 @@
       unlink($filepath);
       echo "<script>alert('Successfully removed profile picture!');</script>";
     }
+    echo "<script> window.location.replace('settings.php');</script>";
   } else {
     // Check if image file is a actual image or fake image
     if(isset($_POST["upload-submit"])) {
@@ -37,8 +38,8 @@
 
     // Allow certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-      && $imageFileType != "gif" ) {
-      echo "<script>alert('Sorry, only JPG, JPEG, PNG & GIF files are allowed.');</script>";
+      && $imageFileType != "gif" && $imageFileType != "webp") {
+      echo "<script>alert('Sorry, only .jpg, .jpeg, .png, .gif & .webp files are allowed.');</script>";
       $uploadOk = 0;
     }
 
@@ -49,13 +50,10 @@
     } else {
       if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . "profile-picture.png")) {
         echo "<script>alert('Successfully changed profile picture!');</script>";
-        echo "<script> window.location.replace('settings.php');</script>";
       } else {
         echo "<script>alert('Sorry, there was an error uploading your file.');</script>";
       }
     }
+    echo "<script> window.location.replace('settings.php');</script>";
   }
-
-  // echo "<script>history.go(-1);</script>";
-  header("Refresh:0; url=settings.php");
 ?>
