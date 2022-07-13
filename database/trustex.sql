@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Generation Time: Jul 09, 2022 at 12:38 AM
+-- Generation Time: Jul 13, 2022 at 07:57 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -37,7 +37,8 @@ CREATE TABLE `administrator` (
 --
 
 INSERT INTO `administrator` (`administratorID`, `userID`) VALUES
-(1, 1);
+(1, 1),
+(2, 19);
 
 -- --------------------------------------------------------
 
@@ -51,6 +52,7 @@ CREATE TABLE `applications` (
   `userFName` varchar(32) NOT NULL,
   `userLName` varchar(32) NOT NULL,
   `userIC` varchar(12) NOT NULL,
+  `userGender` char(1) NOT NULL,
   `userAddress` varchar(512) NOT NULL,
   `userPhoneNo` varchar(12) NOT NULL,
   `applicationStatus` varchar(32) NOT NULL DEFAULT 'Pending',
@@ -61,28 +63,15 @@ CREATE TABLE `applications` (
 -- Dumping data for table `applications`
 --
 
-INSERT INTO `applications` (`applicationID`, `userID`, `userFName`, `userLName`, `userIC`, `userAddress`, `userPhoneNo`, `applicationStatus`, `administratorID`) VALUES
-(1, 12, 'Trustex', 'User', '998877665544', 'Addresss', '0123456789', 'Rejected', 1),
-(2, 8, 'Durrani Afiq', 'Saidin', '990509145655', '162-G, Jalan Raja Abdullah, 50300 Kampung Baru Kuala Lumpur', '0125153410', 'Approved', 1),
-(3, 12, 'TRUSTEX', 'User', '980123145678', 'Some really really really really really really really really really really really really really really really really really long address', '0123456789', 'Rejected', 1),
-(4, 2, 'User', 'Two', '991111115555', 'Pretend this is a long and legitimate address', '01122334455', 'Pending', NULL),
-(5, 17, 'First', 'Last', '998877665544', 'asfsdagdsagearged', '0123456789', 'Rejected', 1),
-(6, 17, 'First', 'Last', '998877665544', 'asfsdagdsagearged', '0123456789', 'Approved', 1),
-(7, 12, 'TRUSTEX', 'User', '980123145678', 'Some really really really really really really really really really really really really really really really really really long address', '0123456789', 'Pending', NULL),
-(8, 18, 'User', 'Demo', '998877665544', 'Address', '0123456789', 'Approved', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `booking`
---
-
-CREATE TABLE `booking` (
-  `ticketNo` int(8) NOT NULL,
-  `bookingStatus` varchar(32) NOT NULL,
-  `bookingExpiryDate` date NOT NULL,
-  `bookingDeposit` decimal(6,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `applications` (`applicationID`, `userID`, `userFName`, `userLName`, `userIC`, `userGender`, `userAddress`, `userPhoneNo`, `applicationStatus`, `administratorID`) VALUES
+(1, 12, 'Trustex', 'User', '998877665544', 'M', 'Addresss', '0123456789', 'Rejected', 1),
+(2, 8, 'Durrani Afiq', 'Saidin', '990509145655', 'M', '162-G, Jalan Raja Abdullah, 50300 Kampung Baru Kuala Lumpur', '0125153410', 'Approved', 1),
+(3, 12, 'TRUSTEX', 'User', '980123145678', 'M', 'Some really really really really really really really really really really really really really really really really really long address', '0123456789', 'Rejected', 1),
+(4, 2, 'User', 'Two', '991111115555', 'M', 'Pretend this is a long and legitimate address', '01122334455', 'Pending', NULL),
+(5, 17, 'First', 'Last', '998877665544', 'M', 'asfsdagdsagearged', '0123456789', 'Rejected', 1),
+(6, 17, 'First', 'Last', '998877665544', 'M', 'asfsdagdsagearged', '0123456789', 'Approved', 1),
+(7, 12, 'TRUSTEX', 'User', '980123145678', 'M', 'Some really really really really really really really really really really really really really really really really really long address', '0123456789', 'Pending', NULL),
+(8, 18, 'User', 'Demo', '998877665544', 'M', 'Address', '0123456789', 'Approved', 1);
 
 -- --------------------------------------------------------
 
@@ -175,8 +164,18 @@ CREATE TABLE `payment` (
   `ticketNo` int(8) NOT NULL,
   `paymentTimestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `paymentType` varchar(16) NOT NULL,
+  `rentPrice` decimal(6,2) NOT NULL,
+  `paymentDuration` int(2) NOT NULL,
   `paymentAmount` decimal(6,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`transactionID`, `ticketNo`, `paymentTimestamp`, `paymentType`, `rentPrice`, `paymentDuration`, `paymentAmount`) VALUES
+(11, 5, '2022-07-11 18:18:40', '', '2600.00', 2, '5200.00'),
+(12, 5, '2022-07-11 18:23:16', '', '2600.00', 1, '2600.00');
 
 -- --------------------------------------------------------
 
@@ -212,24 +211,11 @@ INSERT INTO `property` (`propertyID`, `landlordRegNo`, `propertyName`, `property
 (2, 2, 'Desa Mentari PJS 2', 'Jalan PJS 2, 46000 Petaling Jaya, Selangor', 'Petaling Jaya', '46000', 'Selangor', 'Flat', NULL, 650, 3, 2, 'Unfurnished', '', '', '1500.00'),
 (3, 3, 'United Point Residence @ North Kiara', 'Jalan Lang Emas North Kiara, 50150 Segambut, Kuala Lumpur', 'Segambut', '50150', 'Kuala Lumpur', 'Service Residence', NULL, 958, 3, 2, 'Partially Furnished', NULL, 'United Point Residence partly furnished to RENT\r\n\r\n- 958sf', '1500.00'),
 (4, 4, 'R&F Princess Cove', 'Jalan Sultan Ibrahim Off Lebuhraya Sultan Iskandar, Tanjung Puteri, Johor Bahru, Johor', 'Johor Bahru', '80300', 'Johor', 'Service Residence', NULL, 1052, 3, 2, 'Fully Furnished', NULL, 'For Rent\r\nR&F Princess Cove, Johor Bahru@ link bridge to CIQ', '2500.00'),
-(8, 7, 'Legasi Kampung Bharu', 'No.25, Jalan Raja Muda Musa, 50300 Kampung Bharu, Kuala Lumpur', 'Kampung Bharu', '50300', 'Kuala Lumpur', 'Apartment', 17, 950, 3, 2, 'Fully Furnished', 'Pool,Wifi,Parking', 'Near LRT Kampung Bharu', '2700.00'),
+(8, 7, 'Legasi Kampung Bharu', 'No.25, Jalan Raja Muda Musa, 50300 Kampung Bharu, Kuala Lumpur', 'Kampung Bharu', '50300', 'Kuala Lumpur', 'Apartment', 17, 950, 3, 2, 'Fully Furnished', 'Pool,Wifi,Parking', 'Near LRT Kampung Bharu', '2500.00'),
 (11, 7, 'Plaza Rah', 'Jalan Raja Abdullah, 50300 Kampung Baru, Kuala Lumpur', 'Kampung Baru', '50300', 'W.P. Kuala Lumpur', 'Apartment', 13, 900, 3, 2, 'Unfurnished', 'Parking,Pool,Wifi', 'Near KLCC', '2000.00'),
-(12, 7, 'KL Eco City Vogue Suites 1', 'KL Eco City, Jalan Bangsar, 59000 Bangsar, Kuala Lumpur', 'Bangsar', '59000', 'W.P. Kuala Lumpur', 'Apartment', 20, 797, 2, 1, 'Fully Furnished', 'Wifi,Parking,Gym,Pool,Security,Others,', 'Short Walk To LRT & Mid Valley Garden Mall. Always Shown 3 Unit Vogue Suites One is high-rise residential property situated within MidValley City. It boasts to be Malaysia\'s tallest luxury residential condominium. Vogue Suites One is A 60-storey residential tower housing 708 residential suites. The place offers you the beautiful panoramic view of Kuala Lumpur City Centre and Bangsar.  Accessibility wise, the place is nearby major highways that has made it easier to travel to Petaling Jaya and other parts of Kuala Lumpur. If you prefer to commute, the nearest public transport would be LRT Abdullah Hukum, which is 5 minute away by foot. As for amenities, residents can easily access to many things due to its strategic location. With The Gardens and Mid Valley located opposite, residents can use the pedestrian bridge to visit the retail hub for food, entertainment, groceries and more. They can also go to Bangsar for some night life or foodie adventure.  Easy Access Major highway including -Federal Highway to PJ, Sunway, Subang, Shah Alam , Klang - New Pantai Expressway (NPE) connecting to Sunway , Subang Jaya, LDP highway as well -Kerinchi Link connecting to Sri Hartamas , Mont Kiara & Damansara and Penchala link as well.  Property Details: Limited Fully furnished unit 1bedroom and 1 study room come with bathroom. this unit come with 1 covered carpark. 2 tier security from the main lobby or from carpark entrance.  more than 1 unit can show you in one shot viewing .  Name: Vogue Suites One Address: Jalan Bangsar, KL Eco City Developer: SP Setia Type: Condominium Completion: 2017 Tenure: Leasehold Total Blocks: 2 (A&B) Total Storey: 60 Total Units: 708 Built up: 657 - 3993 sqft Layout: 1 Bedroom : 657sqft – 710sqft 1+1 Bedroom : 732sqft – 797sqft 2 Bedroom : 915sqft – 1,119sqft Loft units : 1,647sqft – 3,993sqft  Facilities: Sky gymnasium Meditation pavillion 50 metres olympic length pool Playground Al-fresco cafe deck Submerged cabana deck Jogging track Sauna Steam bath Business lounge Mini theatre 24 hours security', '2500.00'),
+(12, 7, 'KL Eco City Vogue Suites 1', 'KL Eco City, Jalan Bangsar, 59000 Bangsar, Kuala Lumpur', 'Bangsar', '59000', 'W.P. Kuala Lumpur', 'Apartment', 20, 797, 2, 1, 'Fully Furnished', 'Wifi,Parking,Gym,Pool,Security,', 'Short Walk To LRT & Mid Valley Garden Mall. Always Shown 3 Unit Vogue Suites One is high-rise residential property situated within MidValley City. It boasts to be Malaysia\'s tallest luxury residential condominium. Vogue Suites One is A 60-storey residential tower housing 708 residential suites. The place offers you the beautiful panoramic view of Kuala Lumpur City Centre and Bangsar.  Accessibility wise, the place is nearby major highways that has made it easier to travel to Petaling Jaya and other parts of Kuala Lumpur. If you prefer to commute, the nearest public transport would be LRT Abdullah Hukum, which is 5 minute away by foot. As for amenities, residents can easily access to many things due to its strategic location. With The Gardens and Mid Valley located opposite, residents can use the pedestrian bridge to visit the retail hub for food, entertainment, groceries and more. They can also go to Bangsar for some night life or foodie adventure.  Easy Access Major highway including -Federal Highway to PJ, Sunway, Subang, Shah Alam , Klang - New Pantai Expressway (NPE) connecting to Sunway , Subang Jaya, LDP highway as well -Kerinchi Link connecting to Sri Hartamas , Mont Kiara & Damansara and Penchala link as well.  Property Details: Limited Fully furnished unit 1bedroom and 1 study room come with bathroom. this unit come with 1 covered carpark. 2 tier security from the main lobby or from carpark entrance.  more than 1 unit can show you in one shot viewing .  Name: Vogue Suites One Address: Jalan Bangsar, KL Eco City Developer: SP Setia Type: Condominium Completion: 2017 Tenure: Leasehold Total Blocks: 2 (A&B) Total Storey: 60 Total Units: 708 Built up: 657 - 3993 sqft Layout: 1 Bedroom : 657sqft – 710sqft 1+1 Bedroom : 732sqft – 797sqft 2 Bedroom : 915sqft – 1,119sqft Loft units : 1,647sqft – 3,993sqft  Facilities: Sky gymnasium Meditation pavillion 50 metres olympic length pool Playground Al-fresco cafe deck Submerged cabana deck Jogging track Sauna Steam bath Business lounge Mini theatre 24 hours security', '2500.00'),
 (13, 8, 'New Property', 'Address', 'Tapah', '40000', 'Perak', 'Terrace', 0, 900, 3, 2, 'Fully Furnished', 'Wifi,Parking,Security,', 'ghdfshfsdhrtsh', '1500.00'),
-(47, 7, 'Parc 3', 'Lot 20006 Jalan Pudu Perdana, Cheras, Kuala Lumpur', 'Cheras', '55200', 'W.P. Kuala Lumpur', 'Service Residence', 0, 977, 3, 2, 'Fully Furnished', 'Wifi,Parking,Gym,Pool,Security,Others,', '*Condo Name : Parc 3*Unit level:*Sqft : 977*Bedroom : 3*Bathroom : 2*Furnished : fully furnishes*Water Heater : yes*Air-cond : yes*Carpark Slot : 2*Rental: RM 2600I\'m Wendy Wong from The Roof Realty.We specialist in helping landlords to manage, rent, and sale their properties.We are cover area Cheras, Ampang, KLCC, Mont Kiara, Bangsar.All landlords, tenants, buyers are welcome!', '2600.00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rent`
---
-
-CREATE TABLE `rent` (
-  `ticketNo` int(8) NOT NULL,
-  `rentStartDate` date NOT NULL,
-  `rentEndDate` date NOT NULL,
-  `rentPrice` decimal(6,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(47, 7, 'Parc 3', 'Lot 20006 Jalan Pudu Perdana, Cheras, Kuala Lumpur', 'Cheras', '55200', 'W.P. Kuala Lumpur', 'Service Residence', 0, 977, 3, 2, 'Fully Furnished', 'Wifi,Parking,Gym,Pool,Security,', '*Condo Name : Parc 3*Unit level:*Sqft : 977*Bedroom : 3*Bathroom : 2*Furnished : fully furnishes*Water Heater : yes*Air-cond : yes*Carpark Slot : 2*Rental: RM 2600I\'m Wendy Wong from The Roof Realty.We specialist in helping landlords to manage, rent, and sale their properties.We are cover area Cheras, Ampang, KLCC, Mont Kiara, Bangsar.All landlords, tenants, buyers are welcome!', '2600.00');
 
 -- --------------------------------------------------------
 
@@ -254,10 +240,9 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`ticketNo`, `userID`, `listingID`, `requestTimestamp`, `rentStartDate`, `rentEndDate`, `rentDuration`, `rentNumTenants`, `requestStatus`) VALUES
-(2, 15, 1, '2022-06-29 08:47:12', NULL, NULL, 0, 0, 'Pending'),
-(3, 12, 19, '2022-07-08 22:31:06', '2022-09-10', '0000-00-00', 6, 2, 'Rejected'),
-(4, 12, 19, '2022-07-08 22:31:19', '2022-09-10', '2023-03-10', 6, 1, 'Rejected'),
-(5, 12, 19, '2022-07-08 15:30:56', '2022-09-10', '2023-03-10', 6, 1, 'Pending');
+(3, 12, 19, '2022-07-10 00:17:32', '2022-09-10', '0000-00-00', 6, 2, 'Archived'),
+(4, 12, 19, '2022-07-10 00:17:38', '2022-09-10', '2023-03-10', 6, 1, 'Archived'),
+(5, 12, 19, '2022-07-10 00:29:40', '2022-09-10', '2023-03-10', 6, 1, 'Upcoming');
 
 -- --------------------------------------------------------
 
@@ -288,7 +273,7 @@ INSERT INTO `user` (`userID`, `userName`, `userEmail`, `userPassword`, `userType
 (2, 'user2', 'user2@gmail.com', '$2y$10$QQbJzH5h2X9oSVFYVULDeuFk8SnNA.4HkhZxpsodd7L33pvagt10u', 'T', 'User', 'Two', '991111115555', 'M', 'Pretend this is a long and legitimate address', '01122334455'),
 (3, 'user3', 'user3@gmail.com', '$2y$10$xBdUXA95vU/yDpESMogiEuVwW/CCYusGgg4h1YBKIBgPizo4YQ8kG', 'T', 'User', 'Three', '930303033334', 'F', 'A very short address', '0198765432'),
 (4, 'newTenant', 'sometenant@gmail.com', '$2y$10$B39kzf/iX0O0PWjLY/dlG.xUScjSZhhCBuMg1lFGl7Nst5UEpbZ5G', 'T', '', '', '', '', '', ''),
-(5, 'maxxy', 'maxyee@gmail.com', '$2y$10$zEt4DWW1JF/ywlbYr5aDEOpPS0j1r6ndtOmrFjqNWjm/c5mLs8czC', 'L', 'Max', 'Yee', '870215145758', 'F', '', '01110979689'),
+(5, 'maxxy', 'maxyee@gmail.com', '$2y$10$zEt4DWW1JF/ywlbYr5aDEOpPS0j1r6ndtOmrFjqNWjm/c5mLs8czC', 'L', 'Max', 'Yee', '870215145758', 'F', 'No. 45 Jalan Setiawangsa 2A Taman Setiawangsa, W.P. Kuala Lumpur', '01110979689'),
 (6, 'merul86', 'landlord2@gmail.com', '$2y$10$qSv/Vg9cPI75FI4AbFCRoeHVQEh8X7gvtqA5Tphqvnd2lH13YrGy.', 'L', 'Amerul', '', '930902055989', 'M', '', '0125925614'),
 (7, 'joshuaT', 'joshuatee@gmail.com', '$2y$10$DghDFyVkOz0sQj2pEG7FyuXMmlq89IBldKeRtOqQmDi4bveXtCJUO', 'L', 'Joshua', 'Tee', '901124073465', 'M', '', '0122939599'),
 (8, 'durraniafiq', 'durrani@gmail.com', '$2y$10$6HY9qveE26CFnwOC4nTm0.W36fRCopa8WeJYskcwrOxVSad2.9NV2', 'L', 'Durrani Afiq', 'Saidin', '990509145655', 'M', '162-G, Jalan Raja Abdullah, 50300 Kampung Baru Kuala Lumpur', '0125153410'),
@@ -297,11 +282,12 @@ INSERT INTO `user` (`userID`, `userName`, `userEmail`, `userPassword`, `userType
 (11, 'passwordtester', 'passwordtester@gmail.com', '$2y$10$R9qK7i9pn612W4J0GqDaQ.PrSK.C6kMgh7Kq1N2hj5i4JdQ/Szea.', 'T', '', '', '', '', '', ''),
 (12, 'trustexuser', 'trustexuser@gmail.com', '$2y$10$vlhAMNeOYnWsB9bylQT39OXGBMYbpcN9RL1kkAklY91P/oANUx2Ui', 'T', 'TRUSTEX', 'User', '980123145678', 'F', 'Some really really really really really really really really really really really really really really really really really long address', '0123456789'),
 (13, 'mkdirtest', 'mkdir@gmail.com', '$2y$10$.icu9qL60c8j.52pb6a6.uI18F39x.DjmM9Nc5jUKd5OnUVBgQj1a', 'T', '', '', '', '', '', ''),
-(14, 'kamarul', 'kama123@gmail.com', '$2y$10$VE4trj2c9iBbsVlxIB3YTeG8PHdiGuB1G0aPwA42aK6hF5cGHNEFK', 'T', '', '', '', '', '', ''),
+(14, 'kamarul', 'kama123@gmail.com', '$2y$10$VE4trj2c9iBbsVlxIB3YTeG8PHdiGuB1G0aPwA42aK6hF5cGHNEFK', 'T', 'Aiman', 'Kamarul', '', 'M', '', ''),
 (15, 'fossabot', 'fossabot@gmail.com', '$2y$10$eV4bFdbfqo0MXOkeAYmnIuexP6EQkTd87kDg0vALU9BQ38pfKEYWK', 'T', '', '', '', '', '', ''),
 (16, 'ayip', 'ayip020707@gmail.com', '$2y$10$oJyB9IRP0ItwluEKnojLnu6Gz7Z.xLj3NpwAKMIZl9CJKBmNqd.tG', 'T', 'Haris', 'Ikhwan', '020707080939', 'M', '203, Jalan Intan 2, Felda Trolak Timur', '0135272972'),
 (17, 'user', 'usertest@gmail.com', '$2y$10$b1aFgMGxwageT2JVoJDiC.fg00./CRfabdDJ901K4IMm7qa8vLzoW', 'L', 'First', 'Last', '998877665544', 'M', 'asfsdagdsagearged', '0123456789'),
-(18, 'userdemo', 'userdemo@gmail.com', '$2y$10$dNKh49AvOOYAS29XDyCWKeCdh4pZM7cN6HFTajLMseM8L1SYy9yTm', 'L', 'User', 'Demo', '998877665544', 'M', 'Address', '0123456789');
+(18, 'userdemo', 'userdemo@gmail.com', '$2y$10$dNKh49AvOOYAS29XDyCWKeCdh4pZM7cN6HFTajLMseM8L1SYy9yTm', 'L', 'User', 'Demo', '998877665544', 'M', 'Address', '0123456789'),
+(19, 'adminDemo', 'adminDemo@gmail.com', '$2y$10$B8IK1g0PDg4yGGuJ9WMFWuBxJHfw/WCu0S8qrFCtel8i9JSYjtrYm', 'A', 'Admin', 'Demo', '998877665544', 'M', 'Universiti Teknologi MARA (UiTM) Cawangan Perak, Kampus Tapah, 35400, Tapah Road, Perak', '0123456789');
 
 --
 -- Indexes for dumped tables
@@ -321,12 +307,6 @@ ALTER TABLE `applications`
   ADD PRIMARY KEY (`applicationID`),
   ADD KEY `userID` (`userID`),
   ADD KEY `administratorID` (`administratorID`);
-
---
--- Indexes for table `booking`
---
-ALTER TABLE `booking`
-  ADD PRIMARY KEY (`ticketNo`);
 
 --
 -- Indexes for table `history`
@@ -364,12 +344,6 @@ ALTER TABLE `property`
   ADD KEY `landlordRegNo` (`landlordRegNo`);
 
 --
--- Indexes for table `rent`
---
-ALTER TABLE `rent`
-  ADD KEY `ticketNo` (`ticketNo`);
-
---
 -- Indexes for table `request`
 --
 ALTER TABLE `request`
@@ -391,19 +365,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `administrator`
 --
 ALTER TABLE `administrator`
-  MODIFY `administratorID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `administratorID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
   MODIFY `applicationID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `booking`
---
-ALTER TABLE `booking`
-  MODIFY `ticketNo` int(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `landlord`
@@ -415,13 +383,13 @@ ALTER TABLE `landlord`
 -- AUTO_INCREMENT for table `listing`
 --
 ALTER TABLE `listing`
-  MODIFY `listingID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `listingID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `transactionID` int(12) NOT NULL AUTO_INCREMENT;
+  MODIFY `transactionID` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `property`
@@ -439,7 +407,7 @@ ALTER TABLE `request`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `userID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
@@ -457,12 +425,6 @@ ALTER TABLE `administrator`
 ALTER TABLE `applications`
   ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`),
   ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`administratorID`) REFERENCES `administrator` (`administratorID`);
-
---
--- Constraints for table `booking`
---
-ALTER TABLE `booking`
-  ADD CONSTRAINT `booking_ibfk_1` FOREIGN KEY (`ticketNo`) REFERENCES `request` (`ticketNo`);
 
 --
 -- Constraints for table `landlord`
@@ -488,12 +450,6 @@ ALTER TABLE `payment`
 --
 ALTER TABLE `property`
   ADD CONSTRAINT `property_ibfk_1` FOREIGN KEY (`landlordRegNo`) REFERENCES `landlord` (`landlordRegNo`);
-
---
--- Constraints for table `rent`
---
-ALTER TABLE `rent`
-  ADD CONSTRAINT `rent_ibfk_1` FOREIGN KEY (`ticketNo`) REFERENCES `request` (`ticketNo`);
 
 --
 -- Constraints for table `request`
