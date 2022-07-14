@@ -38,6 +38,7 @@
       <head>
         <link rel="icon" href="assets/images/trustex-favicon.png">
         <link rel="stylesheet" href="./styles/style.css" type="text/css">
+        <title>Landlord Registration</title>
       </head>
       <body style="display: inline-flex; background-color: #257b9f;">
 

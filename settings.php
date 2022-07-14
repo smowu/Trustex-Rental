@@ -114,7 +114,7 @@
             <div>
               <form class="account-info-form" action="" method="POST" enctype="multipart/form-data">
                 <input class="profile-username input-account" type="text" name="username" value="<?php echo $username ?>" required readonly>
-                <input class="profile-email input-account" type="text" name="email" value="<?php echo $email ?>" required readonly>
+                <input class="profile-email input-account" type="email" name="email" value="<?php echo $email ?>" required readonly>
                 <input class="save-account-edit" type="submit" name="save-account-edit" value="" style="display: none;">
               </form>
               <br>

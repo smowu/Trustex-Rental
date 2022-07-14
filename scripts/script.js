@@ -111,13 +111,11 @@ $(document).ready(function(){
   $(".radio-gender").hide();
 
 	$('.profile-section .edit-button').click(function(){
-    $(".personal-details .cancel-button").click();
     enableEditAccountInfo();
     $(".profile-username").select();
 	});
 
   $('.personal-details .edit-button').click(function(){
-    $(".profile-section .cancel-button").click();
     enableEditPersonalInfo();
     $(".personal-firstname").select();
 	});
@@ -127,6 +125,10 @@ $(document).ready(function(){
 	});
   $('.personal-details .save-button').click(function(){
     savePersonalInfo();
+	});
+
+  $('.cancel-button').click(function(){
+    window.location.reload();
 	});
 
   function enableEditAccountInfo() {

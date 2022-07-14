@@ -75,6 +75,7 @@
   <head>
     <link rel="icon" href="assets/images/trustex-favicon.png">
     <link rel="stylesheet" href="./styles/style.css" type="text/css">
+    <title>Sign up for a Trustex Account</title>
   </head>
   <body style="display: inline-flex; background-color: #257b9f;">
     <!-- Splashscreen & logo on the left side -->
@@ -93,7 +94,7 @@
             <input type="text" id="username" name="username" placeholder="Username" value="<?php echo $username; ?>" required><br>
           </div><br>
           <div class="form-textinput signup-input">
-            <input type="text" id="useremail" name="useremail" placeholder="Email" value="<?php echo $email; ?>" required><br>
+            <input type="email" id="useremail" name="useremail" placeholder="Email" value="<?php echo $email; ?>" required><br>
           </div><br>
           <div class="form-textinput signup-input">
             <input type="password" id="userpassword" name="userpassword" placeholder="Password" value="" required><br>
