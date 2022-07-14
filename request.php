@@ -121,7 +121,7 @@
       <?php
         }
 
-        // if (isset($_GET['status']) && ($_GET['status'] == "Active" || $_GET['status'] == "Upcoming")) {
+        if ($request['requestStatus'] != "Pending" && $request['requestStatus'] != "Rejected") {
       ?>
           <div class="transaction-container">
            <?php
@@ -191,7 +191,7 @@
             </div>
           </div>
       <?php
-        // }
+        }
       ?>
       <br>
       <a class="return-dashboard" href="dashboard.php">

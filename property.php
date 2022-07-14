@@ -10,12 +10,17 @@
           WHERE propertyID = '$prop_id'";
   $result = mysqli_query($connect, $sql);
   mysqli_close($connect);
+
   $property = mysqli_fetch_assoc($result);
+
+  if (!$property) {
+    header("Location: index.php");
+  }
 
   if ($_SESSION['userType'] != "A" && $property['landlordRegNo'] != $_SESSION['landlordRegNo']) {
     header("Location: dashboard-landlord.php");
   }
-  
+
   $propertyName = $property["propertyName"];
   $propertyAddress = $property["propertyAddress"];
   $propertyCity = $property["propertyCity"];
@@ -67,6 +72,7 @@
             }        
           }
           closedir($f);
+          sort($thumb);
         }
         for ($i = 0; $i < count($thumb); $i++) {
       ?>
@@ -147,7 +153,7 @@
             </div>
             <div class="property-detail">
               <label for="propertyNumRooms">Rent Price</label><br>
-              <p class="property-details-text"><h2>RM <?php echo $rentPrice ?>/month</h2></p>
+              <p class="property-details-text"><h2 class="property-details-text">RM <?php echo $rentPrice ?>/month</h2></p>
               <input class="property-text-input" type="text" name="rentPrice" value="<?php echo $rentPrice ?>" placeholder="N/A" readonly>
             </div>
 
@@ -252,7 +258,7 @@
             propertyDesc = '$propertyDesc',
             rentPrice = '$rentPrice'
             WHERE propertyID = '$prop_id'";
-    $update_result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+    $update_result = mysqli_query($connect,$sql);
     mysqli_close($connect);
 
     if ($update_result) {
@@ -263,14 +269,14 @@
   }
 
   if (isset($_POST["cancel-update-property"])) {
-    header("Refresh:0");
+    echo "<script>window.location.reload(true);</script>";
   }
 
   if (isset($_POST['listing-submit'])) {
     include("dbconnect.php");
     $sql = "INSERT INTO listing (propertyID)
             VALUES ('".$_POST['propertyID']."')";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    $result = mysqli_query($connect, $sql);
     mysqli_close($connect);
 
     if ($result) {
@@ -285,7 +291,7 @@
     include("dbconnect.php");
     $sql = "DELETE FROM property 
             WHERE propertyID = '$prop_id'";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    $result = mysqli_query($connect, $sql);
     mysqli_close($connect);
   
     if ($result) {
@@ -298,18 +304,17 @@
       $files = glob($dir . '*', GLOB_MARK);
       foreach ($files as $file) {
         if (is_dir($file)) {
-            self::deleteDir($file);
+          self::deleteDir($file);
         } else {
-            unlink($file);
+          unlink($file);
         }
       }
       rmdir($dir);
-
       echo "<script>alert('Successfully deleted the property!');</script>";
-      echo "<script>window.location.replace('dashboard-landlord.php');</script>";
     } else {
       echo "<script>alert('Something went wrong! Failed to delete the property.');</script>";
     }
+    echo "<script>document.location.reload(true);</script>";
   }
   
 ?>
@@ -342,6 +347,7 @@
     $(".property-text-input").show();
   }
   function cancelEditProperty() {
+    $(".property-text-input").hide();
     $("#cancel-update-property").click();
     $(".property-details input").attr("readonly", true);
     $(".delete-property-button").attr("disabled", false);
@@ -349,7 +355,6 @@
     $(".delete-property-button").css("pointer-events", "default");
     $(".edit-property-button").attr("value", "Edit");
     $(".edit-property-button").attr("onclick", "toggleEditProperty()");
-    $(".property-text-input").hide();
     $(".property-details-text").show();
   }
   function saveEditProperty() {

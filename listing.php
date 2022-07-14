@@ -17,10 +17,10 @@
   $landlord_result = mysqli_query($connect, $sql2);
   mysqli_close($connect);
 
-  if (mysqli_num_rows($landlord_result) == 0) {
+  if (!($listing = mysqli_fetch_assoc($result))) {
     header("Location: index.php");
   }
-  $listing = mysqli_fetch_assoc($result);
+  
   $landlord = mysqli_fetch_assoc($landlord_result);
   $prop_id = $listing["propertyID"];
   $propertyName = $listing["propertyName"];
@@ -76,6 +76,7 @@
             }        
           }
           closedir($f);
+          sort($images);
         }
         for ($i = 0; $i < count($images); $i++) {
       ?>

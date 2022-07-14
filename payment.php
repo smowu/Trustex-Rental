@@ -85,9 +85,9 @@
           <h2>Credit Card Details</h2><br>
           <label for="card-no">Card Number (16-digits)</label><br>
           <input type="text" name="card-no" value="" maxlength="16" required><br><br>
-          <label for="card-no">Expiry Date (MM/YY)</label><br>
+          <label for="card-exp">Expiry Date (MM/YY)</label><br>
           <input type="text" name="card-exp" value="" maxlength="5" required><br><br>
-          <label for="card-no">CVC (3-digits)</label><br>
+          <label for="card-cvc">CVC (3-digits)</label><br>
           <input type="password" name="card-cvc" value="" maxlength="3" required>
         </div>
 
@@ -116,6 +116,7 @@
       } else { 
         return true;
       }
+      
     }
 
     function checkExpiryDate($expDate) {
@@ -147,28 +148,26 @@
       }
     }
 
-    if (!($isCardNo = checkCard($cardNo)) || !($isExpired = checkExpiryDate($expDate)) || !($isCVC = checkCVC($cvc))) {
-      if (!$isCardNo) {
+    if (!checkCard($cardNo) || !checkExpiryDate($expDate) || !checkCVC($cvc)) {
+      if (!checkCard($cardNo)) {
         echo "<script>alert('Invalid card number!')</script>";
       }
-      if (!$isExpired) {
+      if (!checkExpiryDate($expDate)) {
         echo "<script>alert('Your card has expired or Invalid expiry date!')</script>";
       }
-      if (!$isCVC) {
+      if (!checkCVC($cvc)) {
         echo "<script>alert('Invalid CVC number!')</script>";
       }
       echo "<script>window.location.replace('payment.php?ticket=".$ticket_no."');</script>";
-      
     } else {
-      $payment_type = $_POST['payment-type'];
       $rent_price = $rent['rentPrice'];
       $payment_duration = $_POST['num-months'];
       $payment_amount = $_POST['amount-paid'];
 
       include("dbconnect.php");
 
-      $sql = "INSERT INTO payment (ticketNo, paymentType, rentPrice, paymentDuration, paymentAmount)
-              VALUES ('".$ticket_no."','".$payment_type."','".$rent_price."','".$payment_duration."','".$payment_amount."')";
+      $sql = "INSERT INTO payment (ticketNo, rentPrice, paymentDuration, paymentAmount)
+              VALUES ('".$ticket_no."','".$rent_price."','".$payment_duration."','".$payment_amount."')";
       $result = mysqli_query($connect, $sql);
       $transac_id = mysqli_insert_id($connect);
       mysqli_close($connect);

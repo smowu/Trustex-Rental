@@ -28,7 +28,7 @@
             </div>
             <div class="property-detail">
               <label for="poscode">Poscode</label><br>
-              <input type="text" name="poscode" value="" placeholder="Property Poscode" required>
+              <input type="text" name="poscode" value="" placeholder="Property Poscode" maxlength="5" required>
             </div>
             <div class="property-detail">
               <label for="state">State</label><br>
@@ -232,7 +232,7 @@
     mysqli_close($connect);
 
     if ($result) {
-      $dir = "../assets/images/properties/property-" . sprintf('%06d', $prop_id) . "/";
+      $dir = "/assets/images/properties/property-" . sprintf('%06d', $prop_id) . "/";
       $mkdir_success = mkdir(__DIR__ . $dir, 0777, true);
         
       if ($mkdir_success && isset($_FILES["propertyImage"]["name"])) {
@@ -242,10 +242,9 @@
           $tmpName = $_FILES["propertyImage"]["tmp_name"][$i];
           include("uploadPropertyImage.php");
         }
-      } else if (!$mkdir_success || count($_FILES["propertyImage"]["name"]) > 0) {
+      } else if (!$mkdir_success) {
         echo "<script>alert('Something went wrong while uploading property images!')</script>";
       }
-
       echo "<script>alert('Successfully added new property!')</script>";
       echo "<script>window.location.replace('property.php?id=".$prop_id."');</script>";
     } else {
