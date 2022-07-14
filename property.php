@@ -12,7 +12,7 @@
   mysqli_close($connect);
   $property = mysqli_fetch_assoc($result);
 
-  if ($property['landlordRegNo'] != $_SESSION['landlordRegNo'] && $_SESSION['userType'] != "A") {
+  if ($_SESSION['userType'] != "A" && $property['landlordRegNo'] != $_SESSION['landlordRegNo']) {
     header("Location: dashboard-landlord.php");
   }
   
@@ -256,7 +256,7 @@
     mysqli_close($connect);
 
     if ($update_result) {
-      echo "<script>alert('Successfully updated property!');</script>";
+      echo "<script>if(!alert('Successfully updated property!')){window.location.reload();}</script>";
     } else {
       echo "<script>alert('Something went wrong!');</script>";
     }

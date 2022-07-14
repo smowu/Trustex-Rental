@@ -236,6 +236,10 @@
     mysqli_close($connect);
 
     if ($update_result) {
+
+      $_SESSION['userName'] = $username;
+      $_SESSION['userEmail'] = $email;
+
       echo "<script>alert('Succesfully updated profile!');</script>";
     } else {
       echo "<script>alert('Something went wrong!');</script>";

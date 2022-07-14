@@ -26,7 +26,7 @@
                        "programName"=>"Diploma in Computer Science",
                        "group"=>"A4CS1104C",
                        "email"=>"irdinaaa19@gmail.com");      
-  $members[3] = array ("imageLink"=>"assets/images/group_members/alysh.jpg",
+  $members[3] = array ("imageLink"=>"assets/images/group_members/alysh.jpeg",
                        "name"=>"Nurrul Alysh Qhalysha binti Hamni @ Farid",
                        "studentNo"=>"2020815514",
                        "ic"=>"021016140386",

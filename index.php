@@ -66,12 +66,15 @@
 
                   $dir = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "";
                   $file = "";
+                  $files = array();
                   if ($f = opendir($dir)) {
                     while (($file = readdir($f)) != false) {
                       if ($file != '.' && $file != '..') {
-                          break;
+                        $files[] = $file;
                       }
                     }
+                    sort($files);
+                    $file = $files[0];
                     closedir($f);
                   }
 
