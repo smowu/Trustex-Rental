@@ -8,7 +8,7 @@
   $sql = "SELECT * FROM user
           LEFT JOIN administrator ON administrator.userID = user.userID
           WHERE user.userID = $id";
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $result = mysqli_query($connect, $sql);
   $row = mysqli_num_rows($result);
   mysqli_close($connect);
 
@@ -42,7 +42,7 @@
               <?php 
                 include("dbconnect.php");
                 $sql = "SELECT * FROM applications WHERE applicationStatus = 'Pending'";
-                $app_list_result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $app_list_result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 
                 $numrows = mysqli_num_rows($app_list_result);
@@ -65,7 +65,7 @@
                       ?>
                           <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
                             <td><?php echo sprintf('%06d', $applicant['applicationID']); ?></td>
-                            <td>date</td>
+                            <td><?php echo date("d-m-Y",strtotime($applicant['applicationTimestamp'])) ?></td>
                             <td><?php echo $applicant['userFName']." ".$applicant['userLName']; ?></td>
                             <td><?php echo $applicant['userIC']; ?></td>
                             <td>
@@ -88,7 +88,7 @@
               ?>
                   <div class="dashboard-empty">
                     <div>
-                      <p>You don't have any active rents!</p>
+                      <p>There are currently no application.</p>
                     </div>
                   </div>
               <?php  
@@ -110,7 +110,7 @@
                           WHERE user.userID = administrator.userID
                         ) AS adm ON adm.administratorID = landlord.administratorID";
 
-                $landlord_list_result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $landlord_list_result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 
                 $numrows = mysqli_num_rows($landlord_list_result);

@@ -9,10 +9,10 @@
   $sql_list = "SELECT *
                FROM listing, property
                WHERE listing.propertyID = property.propertyID AND listing.listingID = '$list_id'";
-  $result_list = mysqli_query($connect, $sql_list) or die ("Error: ".mysqli_error());
+  $result_list = mysqli_query($connect, $sql_list);
 
   $sql_user = "SELECT * FROM user WHERE userID = '$user_id'";
-  $result_user = mysqli_query($connect, $sql_user) or die ("Error: ".mysqli_error());
+  $result_user = mysqli_query($connect, $sql_user);
   
   mysqli_close($connect);
   $listing = mysqli_fetch_assoc($result_list);
@@ -25,96 +25,133 @@
   <body id="createRequest">
     <div class="default-container container-margin">
       <h1>Request Inquiry</h1><br>
-      <form class="request-details" action="" method="POST" enctype="multipart/form-data">
-        <div class="request-property-details">
-          <h2>Property Details</h2><br>
-          <p>Property ID: <?php echo sprintf("%06d", $listing['propertyID']) ?></p><br>
-          <label>Property: </label>
-          <p><b><?php echo $listing['propertyName'] ?></b></p><br>
+      <form class="request-inquiry max-container" action="" method="POST" enctype="multipart/form-data">
+        <h2>Property Details</h2><br>
+        <p>Property ID: <?php echo sprintf("%06d", $listing['propertyID']) ?></p><br> 
 
-          RM <input class="property-h1" type="text" name="rentPrice" value="<?php echo $listing['rentPrice'] ?>" placeholder="N/A" readonly><br><br>
+        <div class="request-inquiry-details">
+          <label>Property</label>
+          <h2><?php echo $listing['propertyName'] ?></h2>
+        </div>
+        <div class="request-inquiry-details">
+          <label>Property</label>
+          <h2>RM <?php echo $listing['rentPrice'] ?>/month</h2>
+        </div>
+        <div class="request-inquiry-details">
+          <label>Floor Size</label><br>
+          <p><?php echo $listing['propertyFloorSize'] ?> sqft</p>
+        </div>
+        <div class="request-inquiry-details">
+          <label>No. of Rooms</label><br>
+          <p><?php echo $listing['propertyNumRooms'] ?></p><br>
+          <label>No. of Bathrooms</label><br>
+          <p><?php echo $listing['propertyBathrooms'] ?></p>
+        </div>
+        <div class="request-inquiry-details">
+          <label>Address</label><br>
+          <p><?php echo $listing['propertyAddress'] ?></p>
+        </div>
+        <div class="request-inquiry-details">
+          <label>City</label><br>
+          <p><?php echo $listing['propertyCity'] ?></p>
+        </div>
+        <div class="request-inquiry-details">
+          <label>Poscode</label><br>
+          <p><?php echo $listing['propertyPoscode'] ?></p>
+        </div>
+        <div class="request-inquiry-details">
+          <label>State</label><br>
+          <p><?php echo $listing['propertyState'] ?></p>
+        </div>
+        <div class="request-inquiry-details">
+          <label>Type</label><br>
+          <p><?php echo $listing['propertyType'] ?></p>
+        </div>
+        <div class="request-inquiry-details">
+          <label>Floor Level</label><br>
+          <p><?php if ($listing['propertyFloorLevel'] != "") { echo $listing['propertyFloorLevel']; } else { echo "N/A"; } ?></p>
+        </div>
+        <div class="request-inquiry-details">
+          <label>Furnishing</label><br>
+          <p><?php echo $listing['propertyFurnishing'] ?></p>
+        </div>
+        <div class="request-inquiry-details">
+          <label>Facilities</label><br>
+          <p><?php if ($listing['propertyFacilities'] != "") { echo $listing['propertyFacilities']; } else { echo "N/A"; } ?></p>
+        </div>
+        <br>
 
-          <label for="propertyFloorSize">Floor Size: </label><br>
-          <input class="" type="text" name="propertyFloorSize" value="<?php echo $listing['propertyFloorSize'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyNumRooms">No. of Rooms: </label><br>
-          <input class="" type="text" name="propertyNumRooms" value="<?php echo $listing['propertyNumRooms'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyBathrooms">No. of Bathrooms: </label><br>
-          <input class="" type="text" name="propertyBathrooms" value="<?php echo $listing['propertyBathrooms'] ?>" placeholder="N/A" readonly><br><br>
-
-          
-          <label for="propertyAddress">Address: </label><br>
-          <input class="property-text-input" type="text" name="propertyAddress" value="<?php echo $listing['propertyAddress'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyCity">City: </label><br>
-          <input class="property-text-input" type="text" name="propertyCity" value="<?php echo $listing['propertyCity'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyPoscode">Poscode: </label><br>
-          <input class="property-text-input" type="text" name="propertyPoscode" value="<?php echo $listing['propertyPoscode'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyState">State: </label><br>
-          <input class="property-text-input" type="text" name="propertyState" value="<?php echo $listing['propertyState'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyType">Type: </label><br>
-          <input class="property-text-input" type="text" name="propertyType" value="<?php echo $listing['propertyType'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyFloorLevel">Floor Level: </label><br>
-          <input class="property-text-input" type="text" name="propertyFloorLevel" value="<?php echo $listing['propertyFloorLevel'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyFloorSize">Floor Size: </label><br>
-          <input class="property-text-input" type="text" name="propertyFloorSize" value="<?php echo $listing['propertyFloorSize'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyFurnishing">Furnishing: </label><br>
-          <input class="property-text-input" type="text" name="propertyFurnishing" value="<?php echo $listing['propertyFurnishing'] ?>" placeholder="N/A" readonly><br><br>
-
-          <label for="propertyFacilities">Facilities: </label><br>
-          <input class="property-text-input" type="text" name="propertyFacilities" value="<?php echo $listing['propertyFacilities'] ?>" placeholder="N/A" readonly><br><br>
-        </div><br>
-
-        <div class="renting-details">
+        <div class="renting-details request-inquiry-details">
           <h2>Renting Details</h2><br>
-          <label for="num-tenant">Number of Tenants: </label>
-          <input class="num-tenant" min="1" max="16" name="num-tenant" value="1" type="number" required> person(s)<br><br>
+          <label for="num-tenant">Number of Tenants</label>
+          <div class="num-input-container">
+            <input type="button" onclick="dec('num-tenant',1)" value=" - ">
+            <input class="num-input-box num-tenant" name="num-tenant" type="text" readonly required value="1">
+            <input type="button" onclick="inc('num-tenant',16)" value=" + ">
+            person(s)
+          </div><br>
+          
           <div class="calendar-container">
             <h3>Select Date</h3><br>
-            <label for="duration">Duration: </label>
-            <input class="duration" min="1" max="24" name="duration" value="1" type="number" required> month(s)
-            <br>
-            <label for="start-date">Start Date</label>
-            <input class="start-date" type="date" name="start-date" required>
-            <label for="end-date">End Date</label>
-            <input class="end-date" type="date" name="end-date" readonly required>
+            <label for="duration">Duration</label>
+            <div class="num-input-container">
+              <input type="button" onclick="dec('duration',1)" value=" - ">
+              <input class="num-input-box duration" name="duration" type="text" readonly required value="1">
+              <input type="button" onclick="inc('duration',48)" value=" + ">
+              month(s)
+            </div><br>
+            <div class="inquiry-calendar-container">
+              <div>
+                <label for="start-date">Start Date</label><br>
+                <input class="start-date" type="date" name="start-date" required>
+              </div>
+              <div>
+                <label for="end-date">End Date</label><br>
+                <input class="end-date" type="date" name="end-date" readonly required style="outline: none;">
+              </div>
+            </div>
           </div>
         </div><br>
 
-        <div class="tenant-details">
+        <div class="tenant-details request-inquiry-details">
           <h2>Tenant Details</h2><br>
-          <label for="firstname">First Name: </label>
-          <input type="text" name="firstname" placeholder="First Name" value="<?php echo $user['userFName']?>" required>
-          <label for="lastname">Last Name: </label>
-          <input type="text" name="lastname" placeholder="Last Name" value="<?php echo $user['userLName']?>" required><br>
-          <label for="ic">IC Number: </label>
-          <input type="text" name="ic" placeholder="IC Number" value="<?php echo $user['userIC']?>" required><br>
-          <label for="gender">Gender: </label>
-          <input type="text" name="gender" placeholder="Gender" value="<?php echo $user['userGender']?>" required><br>
-          <label for="address">Address: </label>
-          <input type="text" name="address" placeholder="Address" value="<?php echo $user['userAddress']?>" required><br>
-          <label for="phoneno">Phone No.: </label>
-          <input type="text" name="phoneno" placeholder="Phone Number" value="<?php echo $user['userPhoneNo']?>" required><br>
-
-          <!-- <div class="number-input">
-            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-            <input class="quantity" min="1" name="quantity" value="1" type="number">
-            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-          </div><br> -->
+          <div class="inquiry-name-details">
+            <div>
+              <label for="firstname">First Name</label><br>
+              <input type="text" name="firstname" placeholder="First Name" value="<?php echo $user['userFName']?>" required>
+            </div>
+            <div>
+              <label for="lastname">Last Name</label><br>
+              <input type="text" name="lastname" placeholder="Last Name" value="<?php echo $user['userLName']?>" required>
+            </div>
+          </div><br>
+          <label for="ic">IC Number</label><br>
+          <input type="text" name="ic" placeholder="IC Number" value="<?php echo $user['userIC']?>" required><br><br>
+          <label for="gender">Gender</label><br>
+          <div class="inquiry-radio-gender">
+            <input type="radio" id="male" name="gender" value="M" <?php if ($user['userGender'] == "M"){ echo 'checked="checked"'; } ?>>
+            <label for="male" style="color: #333333;"><b>Male</b></label><br>
+            <input type="radio" id="female" name="gender" value="F" <?php if ($user['userGender'] == "F"){ echo 'checked="checked"'; } ?>>
+            <label for="female" style="color: #333333;"><b>Female</b></label>
+          </div><br>
+          <label for="address">Address</label><br>
+          <textarea name="address" placeholder="Address" rows="4" cols="50"><?php echo $user['userAddress']?></textarea><br><br>
+          <label for="phoneno">Phone No.</label><br>
+          <input type="text" name="phoneno" placeholder="Phone Number" value="<?php echo $user['userPhoneNo']?>" required>
 
         </div>
         <br>
-        <input type="reset" name="clear-form" value="Clear Form">
-        <input type="submit" name="confirm-request" value="Confirm Request">
+        <div class="inquiry-form-button-container">
+          <input class="inquiry-form-button" type="reset" name="reset-form" value="Reset Form">
+          <input class="inquiry-form-button" type="submit" name="confirm-request" value="Confirm Request">
+        </div>
+        
       </form>
-      
+      <br>
+      <a class="return-dashboard" href="javascript:history.back()">
+        <img src="assets/icons/back-button.png"></img>
+        <h4>Cancel</h4>
+      </a>
     </div>
   </body>
 </html>
@@ -124,6 +161,23 @@
   if (isset($_POST["confirm-request"])) {
 
     include("dbconnect.php");
+
+    $firstname = mysqli_real_escape_string($connect, $_POST['firstname']);
+    $lastname = mysqli_real_escape_string($connect, $_POST['lastname']);
+    $ic = mysqli_real_escape_string($connect, $_POST['ic']);
+    $gender = mysqli_real_escape_string($connect, $_POST['gender']);
+    $address = mysqli_real_escape_string($connect, $_POST['address']);
+    $phoneno = mysqli_real_escape_string($connect, $_POST['phoneno']);
+
+    $sql_user = "UPDATE user SET 
+                 userFName = '$firstname',
+                 userLName = '$lastname',
+                 userIC = '$ic',
+                 userGender = '$gender',
+                 userAddress = '$address',
+                 userPhoneNo = '$phoneno'
+                 WHERE user.userID = '$user_id'";
+    $update_result = mysqli_query($connect,$sql_user);
 
     $duration = mysqli_real_escape_string($connect,$_POST["duration"]);
     $start_date = mysqli_real_escape_string($connect,$_POST["start-date"]);
@@ -135,7 +189,7 @@
     $result = mysqli_query($connect,$sql);
     mysqli_close($connect);
 
-    if ($result) {
+    if ($result && $update_result) {
       echo "<script>alert('Your renting request has been sent!')</script>";
       echo "<script>window.location.replace('dashboard.php');</script>";
     } else {
@@ -144,13 +198,21 @@
   }
 ?>
 <script>
+  Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
   window.onload = function() {
-    var today = new Date().toISOString().split('T')[0];
+    var date = new Date();
+    date = date.addDays(8);
+    var today = date.toISOString().split('T')[0];
     document.getElementsByName("start-date")[0].setAttribute('min', today);
   }
 
   $('.start-date, .duration').change(function () {
-    var stVal = $(".start-date").val()
+    var stVal = $(".start-date").val();
     var d = new Date(stVal.split("/").reverse().join("-"));
     var month = parseInt($(".duration").val());
     d.setMonth(d.getMonth() + month);

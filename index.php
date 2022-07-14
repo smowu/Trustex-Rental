@@ -46,7 +46,7 @@
                       WHERE listing.propertyID = property.propertyID 
                       ORDER BY listing.listingID ASC
                       LIMIT $startfrom, $numlistperpage";
-              $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+              $result = mysqli_query($connect, $sql);
               mysqli_close($connect);
 
               for ($i = 0; $i < $numlistperpage; $i++) {
@@ -55,7 +55,7 @@
                   $regNo = $rows['landlordRegNo'];
                   $sql = "SELECT userFName, userLName FROM user, landlord, property 
                           WHERE landlord.userID = user.userID AND landlord.landlordRegNo = '$regNo'";
-                  $landlordResult = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                  $landlordResult = mysqli_query($connect, $sql);
                   mysqli_close($connect);
 
                   $landlord = mysqli_fetch_array($landlordResult);
@@ -139,7 +139,7 @@
               <?php 
                 include("dbconnect.php"); 
                 $sql = "SELECT * FROM listing";
-                $rs = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $rs = mysqli_query($connect, $sql);
                 mysqli_close($connect);
                 $totallistings = mysqli_num_rows($rs);
                 

@@ -15,14 +15,16 @@
 
     include("dbconnect.php");
     $sql = "SELECT userID, applicationID, applicationStatus FROM applications WHERE applications.userID = $id";
-    $resultapplication = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    $resultapplication = mysqli_query($connect, $sql);
 
     $sql = "SELECT * FROM request WHERE request.userID = $id";
-    $resultreq = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    $resultreq = mysqli_query($connect, $sql);
     $row = mysqli_num_rows($resultreq);
     mysqli_close($connect);
 
     $req = mysqli_fetch_assoc($resultreq);
+
+    include("updateRequestStatus.php");
 
     include("html/header.html");
 ?>
@@ -94,8 +96,8 @@
                       FROM property, listing
                       WHERE listing.propertyID = property.propertyID
                     ) AS list ON request.listingID = list.listingID
-                    WHERE userID = '$id' AND (requestStatus = 'Accepted' OR requestStatus = 'Rejected')";
-            $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                    WHERE userID = '$id' AND (requestStatus = 'Accepted' OR requestStatus = 'Rejected' OR requestStatus = 'Pending')";
+            $result = mysqli_query($connect, $sql);
             mysqli_close($connect);
 
             $numrows = mysqli_num_rows($result);
@@ -116,20 +118,21 @@
                     <tr class="no-hover"><th class="th-border" colspan="5"></th></tr>
                     <?php
                       for ($i = 0; $request = mysqli_fetch_assoc($result); $i++) {
-                        $location = "location.href='request.php?id=".$request['ticketNo']."'";
                     ?>
-                      <tr ondblclick="location.href='property.php'">
+                      <tr>
                         <td><?php echo sprintf("%08d",$request['ticketNo']) ?></td>
-                        <td><?php echo date("Y-m-d", strtotime($request['requestTimestamp'])) ?></td>
+                        <td><?php echo date("d-m-Y", strtotime($request['requestTimestamp'])) ?></td>
                         <td><?php echo $request['propertyName'] ?></td>
                         <td><b><?php echo $request['requestStatus'] ?></b></td>
+                        <?php if ($request['requestStatus'] != 'Pending') {?>
                         <td>
                           <form action="" method="POST">
-                            <input type="submit" name="dismiss" value="Dismiss">
+                            <input class="dismiss-button view-button" type="submit" name="dismiss" value="Dismiss">
                             <input type="text" name="ticketNo" value="<?php echo $request['ticketNo'] ?>" style="display: none;">
                             <input type="text" name="requestStatus" value="<?php echo $request['requestStatus'] ?>" style="display: none;">
                           </form>
                         </td>
+                        <?php } ?>
                       </tr>
                     <?php
                         // Gap between rows
@@ -150,17 +153,6 @@
             <div class="dashboard-table-content">
               <?php
                 include("dbconnect.php");
-                $sql_update = "UPDATE request SET requestStatus = CASE 
-                               WHEN rentStartDate < NOW() THEN 'Active'
-                               ELSE requestStatus
-                               END
-                               WHERE userID = '$id' AND (requestStatus = 'Accepted' OR requestStatus = 'Upcoming')";
-                $update_result = mysqli_query($connect, $sql_update) or die ("Error: ".mysqli_error());
-
-                if (!$update_result) {
-                  echo "<script>alert('Something went wrong!');</script>";
-                }
-
                 $sql = "SELECT *
                         FROM request
                         LEFT JOIN (
@@ -171,8 +163,7 @@
                         WHERE userID = '$id' AND (requestStatus = 'Active' OR requestStatus = 'Upcoming' OR requestStatus = 'Accepted')
                         ORDER BY rentStartDate DESC
                         LIMIT 1";
-                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-
+                $result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 
                 if ($rent = mysqli_fetch_assoc($result)) {
@@ -226,7 +217,7 @@
                         $sql = "SELECT *
                                 FROM payment
                                 WHERE ticketNo = '$ticket_no'";
-                        $result_payments = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                        $result_payments = mysqli_query($connect, $sql);
                         mysqli_close($connect);
 
                         $num_payments_made = 0;
@@ -236,10 +227,13 @@
 
                         $months_left = $rent['rentDuration'] - $num_payments_made;
                         $payments_left = $months_left * $rent['rentPrice'];
+
+                        if ($months_left == 0) {
                       ?>
+                      <h2>Payment Completed</h2>
+                      <?php } else { ?>
                       <h2><?php echo $months_left . " (RM " . sprintf("%.2f",$payments_left) . ")" ?></h2>
                       <br>
-
                       <p><b>Your next payment in...</b></p>
                       <?php 
                         $next_payment_date = new DateTime($rent['rentStartDate']);
@@ -249,11 +243,18 @@
                         $payment_days_left = $now->diff($next_payment_date);
                       ?>
                       <h2><?php echo $payment_days_left->days . " Day(s) on " . $next_payment_date->format('d F Y') ?></h2>
+                      <?php 
+                        }
+                      ?>
                     </div>
+                    <?php 
+                      if ($months_left != 0) {
+                    ?>
                     <br>
                     <a class="make-payment-button-container" href="payment.php?ticket=<?php echo $rent['ticketNo'] ?>">
                       <button class="make-payment-button">Make Payment</button>
                     </a>
+                    <?php } ?>
                   </div> 
               <?php
                 } else {
@@ -275,11 +276,12 @@
             <h3>Rental History</h3>
             <div class="dashboard-table-content">
               <?php 
+                include("archiveRent.php");
                 include("dbconnect.php");
                 $sql = "SELECT *
                         FROM history
                         WHERE userID = '$id'";
-                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 
                 $numrows = mysqli_num_rows($result);
@@ -291,33 +293,22 @@
                       <tr class="no-hover">
                         <th>Req ID</th>
                         <th>Property Name</th>
-                        <th>Landlord</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Duration</th>
-                        <th>Rent Price</th>
-                        <th></th>
+                        <th>Rent Price (RM)</th>
                       </tr>
-                      <tr class="no-hover"><th class="th-border" colspan="8"></th></tr>
+                      <tr class="no-hover"><th class="th-border" colspan="6"></th></tr>
                       <?php
-                      // for ($i = 0; $x = mysqli_fetch_assoc($result); $i++) {
-                         for ($i = 0; $i < $numrows; $i++) {
-                          // $location = "location.href='xxxxx.php?id=".$x['xxx']."'";
-                           $location = "";
+                      for ($i = 0; $history = mysqli_fetch_assoc($result); $i++) {
                       ?>
-                        <tr onclick="location.href='property.php'">
-                          <td>text</td>
-                          <td>text</td>
-                          <td>text</td>
-                          <td>text</td>
-                          <td>text</td>
-                          <td>text</td>
-                          <td>text</td>
-                          <td>
-                            <button class="view-button" onclick="<?php echo $location ?>">
-                              <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
-                            </button>
-                          </td>
+                        <tr>
+                          <td><?php echo sprintf("%08d",$history['ticketNo']) ?></td>
+                          <td><?php echo $history['propertyName'] ?></td>
+                          <td><?php echo date("d-m-Y", strtotime($history['rentStartDate'])) ?></td>
+                          <td><?php echo date("d-m-Y", strtotime($history['rentEndDate'])) ?></td>
+                          <td><?php echo $history['rentDuration'] ?> month(s)</td>
+                          <td><?php echo $history['rentPrice'] ?>/month</td>
                         </tr>
                       <?php
                           // Gap between rows
@@ -365,7 +356,7 @@
       $sql = "UPDATE request SET
               requestStatus = '$new_status'
               WHERE ticketNo = '$ticket_no'";
-      $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+      $result = mysqli_query($connect, $sql);
       mysqli_close($connect);
       echo "<script>window.location.replace('dashboard.php');</script>";
     }

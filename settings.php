@@ -37,7 +37,7 @@
 <?php
   include("dbconnect.php");
   $sql = "SELECT * FROM user WHERE userID = ".$_SESSION['userID']."";
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $result = mysqli_query($connect, $sql);
   mysqli_close($connect);
   $user = mysqli_fetch_assoc($result);
 
@@ -73,7 +73,7 @@
 
   //   include("dbconnect.php");
   //   $sql = "UPDATE user SET userPassword = $newpassword WHERE userID = $id";
-  //   $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  //   $result = mysqli_query($connect, $sql);
   //   mysqli_close();
   //   if ($result) {
   //     echo "<script>alert('Successfully changed password!');</script>";
@@ -116,7 +116,6 @@
                 <input class="profile-username input-account" type="text" name="username" value="<?php echo $username ?>" required readonly>
                 <input class="profile-email input-account" type="text" name="email" value="<?php echo $email ?>" required readonly>
                 <input class="save-account-edit" type="submit" name="save-account-edit" value="" style="display: none;">
-                <!-- <input class="cancel-account-edit" type="submit" name="cancel-account-edit" value="" style="display: none;"> -->
               </form>
               <br>
               <p><?php echo $usertype ?> Account</p>
@@ -233,7 +232,7 @@
             userAddress = '$address',
             userPhoneNo = '$phoneno'
             WHERE user.userID = '$id'";
-    $update_result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+    $update_result = mysqli_query($connect,$sql);
     mysqli_close($connect);
 
     if ($update_result) {

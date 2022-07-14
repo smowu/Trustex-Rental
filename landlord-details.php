@@ -8,7 +8,7 @@
   $sql = "SELECT * 
           FROM landlord, user
           WHERE landlord.userID = user.userID AND landlordRegNo = '$reg_no'";
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $result = mysqli_query($connect, $sql);
   mysqli_close($connect);
   $landlord = mysqli_fetch_assoc($result);
 
@@ -73,7 +73,7 @@
             $sql = "SELECT *
                     FROM property
                     WHERE landlordRegNo = '$reg_no'";
-            $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+            $result = mysqli_query($connect, $sql);
             mysqli_close($connect);
 
             $numrows = mysqli_num_rows($result);
@@ -142,7 +142,7 @@
                         WHERE property.landlordRegNo = '$reg_no'
                     ) AS prop ON listing.propertyID = prop.propertyID
                     WHERE listing.propertyID = prop.propertyID";
-            $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+            $result = mysqli_query($connect, $sql);
             mysqli_close($connect);
 
             $numrows = mysqli_num_rows($result);
@@ -155,7 +155,7 @@
                     <th>Listing ID</th>
                     <th>Property ID</th>
                     <th>Name</th>
-                    <th>Rent Price</th>
+                    <th>Rent Price (RM)</th>
                     <th>Date Listed</th>
                     <th></th>
                   </tr>
@@ -168,7 +168,7 @@
                       <td><?php echo sprintf('%012d', $listing['listingID']) ?></td>
                       <td><?php echo sprintf("%08d", $listing['propertyID']) ?></td>
                       <td><?php echo $listing['propertyName'] ?></td>
-                      <td><?php echo $listing['rentPrice'] ?></td>
+                      <td><?php echo $listing['rentPrice'] ?>/month</td>
                       <td><?php echo date("Y-m-d",strtotime($listing['listingTimestamp'])) ?></td>
                       <td>
                         <button class="view-button" onclick="<?php echo $location ?>">

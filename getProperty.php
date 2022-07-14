@@ -4,7 +4,7 @@
   $sql = "SELECT *
           FROM property
           WHERE propertyID = '$prop_id'";
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $result = mysqli_query($connect, $sql);
   mysqli_close($connect);
 
   $prop = mysqli_fetch_assoc($result);

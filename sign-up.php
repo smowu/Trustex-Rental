@@ -19,18 +19,18 @@
 
       // Checks if the email address is already exist in the database
       $sql = "SELECT * FROM user WHERE userName = '$username' OR userEmail = '$email'";
-      $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+      $result = mysqli_query($connect,$sql);
       
       if (mysqli_num_rows($result) == 0) {
         // Inserting new data into the database
         $password = password_hash($password, PASSWORD_DEFAULT); // password encryption
         $sql = "INSERT INTO user (userName, userEmail, userPassword) 
                 VALUES('".$username."','".$email."','".$password."')";
-        $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+        $result = mysqli_query($connect,$sql);
 
         if ($result) {
           $sql = "SELECT * FROM user WHERE userName = '$email' OR userEmail = '$email'";
-          $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+          $result = mysqli_query($connect,$sql);
           mysqli_close($connect);
 
           $username = "";

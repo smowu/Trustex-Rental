@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="./styles/style.css" type="text/css">
 <?php
   $target_dir = "assets/images/properties/property-" . sprintf('%06d', $prop_id) . "/";
   $target_file = $target_dir . basename($imageName);
@@ -8,7 +9,6 @@
     $filepath = $target_dir . "profile-picture.png";
     if (file_exists($filepath)) {
       unlink($filepath);
-      echo "<script>alert('Successfully removed profile picture!');</script>";
     }
   } else {
     // Check if image file is a actual image or fake image
@@ -41,11 +41,10 @@
     // if everything is ok, try to upload file
     } else {
       // $newname = $imageName . "_" . uniqid();
-      if (move_uploaded_file($tmpName, $target_dir . "property-image-" . $i . ".png")) {
-        // echo "<script>alert('Successfully added property image!');</script>";
-      } else {
+      if (!move_uploaded_file($tmpName, $target_dir . "property-image-" . $i . ".png")) {
         echo "<script>alert('Sorry, there was an error uploading your file.');</script>";
       }
     }
   }
 ?>
+<script src="scripts/script.js"></script>

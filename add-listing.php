@@ -22,7 +22,7 @@
                 $sql = "SELECT propertyID, propertyName, propertyCity, propertyState, propertyType
                         FROM property
                         WHERE landlordRegNo = '$reg_no'";
-                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 
                 $numrows = mysqli_num_rows($result);
@@ -96,12 +96,13 @@
     include("dbconnect.php");
     $sql = "INSERT INTO listing (propertyID)
             VALUES ('".$_POST['propertyID']."')";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    $result = mysqli_query($connect, $sql);
+    $list_id = mysqli_insert_id($connect);
     mysqli_close($connect);
 
     if ($result) {
       echo "<script>alert('Your property has been successfully listed!')</script>";
-      echo "<script>window.location.replace('dashboard.php');</script>";
+      echo "<script>window.location.replace('listing.php?id=".$list_id."');</script>";
     } else {
       echo "<script>alert('Something went wrong!')</script>";
     }

@@ -5,11 +5,11 @@
     include("html/header.html");
     include("dbconnect.php");
     $sql_app = "SELECT * FROM applications WHERE applicationID = '".$_GET['id']."'";
-    $result_app = mysqli_query($connect, $sql_app) or die ("Error: ".mysqli_error($connect));
+    $result_app = mysqli_query($connect, $sql_app);
     $applicant = mysqli_fetch_assoc($result_app);
 
     $sql_user = "SELECT userName, userEmail FROM user WHERE userID = '".$applicant["userID"]."'";
-    $result_user = mysqli_query($connect, $sql_user) or die ("Error: ".mysqli_error($connect));
+    $result_user = mysqli_query($connect, $sql_user);
     mysqli_close($connect);
     $applicant_user = mysqli_fetch_assoc($result_user);
 
@@ -37,7 +37,8 @@
   <body id="application-form">
     <div class="default-container container-margin">
       <h1>Landlord Application Details</h1><br>
-      <p>Application ID: <?php echo sprintf('%06d', $applicantid) ?></p><br>
+      <p>Application ID: <?php echo sprintf('%06d', $applicantid) ?></p>
+      <p>Application Timestamp: <?php echo $applicant['applicationTimestamp'] ?></p><br>
 
       <div class="max-container application-details-container">
         <h2>Applicant Details</h2>

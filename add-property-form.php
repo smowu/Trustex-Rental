@@ -61,7 +61,7 @@
             </div>
             <div class="property-detail">
               <label for="floor-size">Floor Size</label><br>
-              <input type="text" name="floor-size" value="" placeholder="Floor Size">
+              <input type="text" name="floor-size" value="" placeholder="Floor Size"> sqft
             </div>
             <div class="property-detail">
               <label for="num-rooms">No. of Rooms</label><br>
@@ -90,7 +90,7 @@
             </div>
             <div class="property-detail">
               <label for="rent-price">Rent Price</label><br>
-              RM <input type="text" name="rent-price" value="" placeholder="Renting Price">
+              RM <input type="text" name="rent-price" value="" placeholder="Renting Price">/month
             </div>
             <div class="property-detail">
               <label for="description">Description</label><br>
@@ -102,7 +102,7 @@
               <div id="property-upload-preview" class="property-upload-preview"></div>
               
               <input id="upload-property-image" type="file" name="propertyImage[]" multiple onchange="selectPropertyImage()" style="display: none;">
-              <div class="property-image-upload-thumb-container thumb-empty" onclick="">
+              <div class="property-image-upload-thumb-container thumb-empty" onclick="$('#upload-property-image').click()">
                 <image class="property-image-upload-thumb property-image-upload-thumb-empty" src="assets/icons/plus.png"></image>
               </div>
             </div>
@@ -187,10 +187,8 @@
 
   function uploadPropertyImage() {
     $(document).ready(function() {
-      alert(images.length);
       var formData = new FormData();
       var uploaded = document.getElementById('upload-property-image').files.length;
-      alert(uploaded);
       for (var i = 0; i < images.length; i++) {
         formData.append("propertyImage[]", images[i]);
       }
@@ -229,7 +227,7 @@
             VALUES('".$_SESSION['landlordRegNo']."','".$name."','".$address."','".$city."','".$poscode."','".$state."',
                    '".$type."','".$floor_level."','".$floor_size."','".$num_rooms."','".$num_bathrooms."',
                    '".$furnishing."','".$facilities."','".$desc."','".$price."')";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    $result = mysqli_query($connect, $sql);
     $prop_id = mysqli_insert_id($connect);
     mysqli_close($connect);
 
@@ -239,7 +237,6 @@
         
       if ($mkdir_success && isset($_FILES["propertyImage"]["name"])) {
         $totalFiles = count($_FILES["propertyImage"]["name"]);
-        echo "<script>alert('Total files: " . $totalFiles . "');</script>";
         for ($i = 0; $i < $totalFiles; $i++) {
           $imageName = $_FILES["propertyImage"]["name"][$i];
           $tmpName = $_FILES["propertyImage"]["tmp_name"][$i];
@@ -250,7 +247,7 @@
       }
 
       echo "<script>alert('Successfully added new property!')</script>";
-      echo "<script>window.location.replace('dashboard.php');</script>";
+      echo "<script>window.location.replace('property.php?id=".$prop_id."');</script>";
     } else {
       echo "<script>alert('Something went wrong!')</script>";
     }

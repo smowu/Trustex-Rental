@@ -6,7 +6,7 @@
     $sql = "SELECT applicationID, applicationStatus, administratorID
             FROM applications
             WHERE applicationID = '$app_id' AND applicationStatus = 'Approved' AND administratorID IS NOT NULL";
-    $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+    $result = mysqli_query($connect,$sql);
     mysqli_close($connect);
 
     $appdata = mysqli_fetch_assoc($result);
@@ -15,11 +15,11 @@
     if (mysqli_num_rows($result) != 0) {
       include("dbconnect.php");
       $sql1 = "UPDATE user SET userType = 'L' WHERE userID = ".$_SESSION["userID"]."";
-      $result1 = mysqli_query($connect,$sql1) or die ("Error: " .mysqli_error($connect));
+      $result1 = mysqli_query($connect,$sql1);
 
       $sql2 = "INSERT INTO landlord (userID, administratorID) 
                VALUES('".$_SESSION["userID"]."','".$admin."')";
-      $result2 = mysqli_query($connect,$sql2) or die ("Error: " .mysqli_error($connect));
+      $result2 = mysqli_query($connect,$sql2);
       mysqli_close($connect);
 
       if ($result1 && $result2) {

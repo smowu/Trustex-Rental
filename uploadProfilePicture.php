@@ -1,15 +1,10 @@
+<link rel="stylesheet" href="./styles/style.css" type="text/css">
 <?php
   session_start();
   $target_dir = "assets/images/users/user-".sprintf('%010d', $_SESSION['userID'])."/profile-picture/";
   $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
   $uploadOk = 1;
   $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-  // Check if file already exists
-  // if (file_exists($target_file)) {
-  //   echo "Sorry, file already exists.";
-  //   $uploadOk = 0;
-  // }
 
   if (empty($_FILES["fileToUpload"]["tmp_name"])) {
     $filepath = $target_dir . "profile-picture.png";
@@ -57,3 +52,4 @@
     echo "<script> window.location.replace('settings.php');</script>";
   }
 ?>
+<script src="scripts/script.js"></script>

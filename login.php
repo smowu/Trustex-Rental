@@ -12,7 +12,7 @@
 
     // Checks if the username/email and the matched password is in the database
     $sql = "SELECT * FROM user WHERE userName = '$email' OR userEmail = '$email'";
-    $result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+    $result = mysqli_query($connect,$sql);
     mysqli_close($connect);
 
     if (mysqli_num_rows($result) != 0) {

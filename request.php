@@ -10,7 +10,7 @@
           LEFT JOIN user ON request.userID = user.userID
           WHERE listing.propertyID = property.propertyID AND request.listingID = listing.listingID AND ticketNo = '$ticket'";
 
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $result = mysqli_query($connect, $sql);
   mysqli_close($connect);
   $request = mysqli_fetch_assoc($result);
 
@@ -115,13 +115,13 @@
       ?>
         <form method="POST" action="request-result.php">
           <input type="text" name="ticketNo" value="<?php echo $request['ticketNo'] ?>" style="display: none;">
-          <input type="submit" name="accept" value="Accept">
-          <input type="submit" name="reject" value="Reject">
+          <input class="application-form-button approve-button" type="submit" name="accept" value="Accept">
+          <input class="application-form-button reject-button" type="submit" name="reject" value="Reject">
         </form><br>
       <?php
         }
 
-        if (isset($_GET['status']) && ($_GET['status'] == "Active" || $_GET['status'] == "Upcoming")) {
+        // if (isset($_GET['status']) && ($_GET['status'] == "Active" || $_GET['status'] == "Upcoming")) {
       ?>
           <div class="transaction-container">
            <?php
@@ -129,8 +129,8 @@
               $sql = "SELECT *
                       FROM payment
                       WHERE ticketNo = '$ticket'";
-              $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-              $payments = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+              $result = mysqli_query($connect, $sql);
+              $payments = mysqli_query($connect, $sql);
               mysqli_close($connect);
 
               $num_payments_made = 0;
@@ -191,7 +191,7 @@
             </div>
           </div>
       <?php
-        }
+        // }
       ?>
       <br>
       <a class="return-dashboard" href="dashboard.php">

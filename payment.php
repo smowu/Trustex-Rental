@@ -15,7 +15,7 @@
             WHERE listing.propertyID = property.propertyID AND landlord.landlordRegNo = property.landlordRegNo AND user.userID = landlord.userID
           ) AS list ON request.listingID = list.listingID
           WHERE ticketNo = '$ticket_no'";
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $result = mysqli_query($connect, $sql);
   mysqli_close($connect);
 
   $rent = mysqli_fetch_assoc($result);
@@ -36,7 +36,7 @@
           $sql = "SELECT *
                   FROM payment
                   WHERE ticketNo = '$ticket_no'";
-          $payments = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+          $payments = mysqli_query($connect, $sql);
           mysqli_close($connect);
 
           $num_payments_made = 0;
@@ -48,34 +48,48 @@
           $payments_left = $months_left * $rent['rentPrice'];
 
         ?>
-
         <h1>Make Payment</h1><br>
-        <p>Request Ticket No.: <?php echo sprintf("%08d",$ticket_no) ?></p>
-        <p>Remaining Amount To Pay: <br><h2>RM <?php echo sprintf("%.2f",$payments_left) ?></h2></p><br>
+        <p>Request Ticket No.: <?php echo sprintf("%08d",$ticket_no) ?></p><br>
 
-        <h2>Renting Details</h2><br>
-        <label for="num-month">Paying for: </label>
-        <input id="num-months" class="num-months" min="1" max="<?php echo $months_left ?>" name="num-months" value="1" type="number" required> month(s)<br>
-        <?php
-          $next_payment_date = new DateTime($rent['rentStartDate']);
-          $num_days = $num_payments_made * 30;
-          $next_payment_date->add(new DateInterval('P'.$num_days.'D'));
-          $until_date = clone $next_payment_date;
-          $num_days_paid = 1 * 30;
-          $until_date->add(new DateInterval('P'.$num_days_paid.'D'));
-        ?>
-        <p id="pay-for-date">For renting from <b><?php echo $next_payment_date->format('d F Y') . "</b> until <b>~" . $until_date->format('d F Y') ?></b></p><br>
-
-        <label for="amount-paid">Amount: </label><br>
-        <b>RM <input id="amount-paid" type="text" name="amount-paid" value="<?php echo sprintf("%.2f", $rent['rentPrice']) ?>" readonly><br></b><br>
-
-        <h2>Payment Details</h2><br>
-        <label for="card-no">Card Number (16-digits)</label><br>
-        <input type="text" name="card-no" value="" required><br>
-        <label for="card-no">Expiry Date (MM/YY)</label><br>
-        <input type="text" name="card-exp" value="" required><br>
-        <label for="card-no">CVC (3-digits)</label><br>
-        <input type="text" name="card-cvc" value="" required><br>
+        <div class="payment-details">
+          <p>Rent Price</p>
+          <h2>RM <?php echo $rent['rentPrice'] ?>/month</h2></p><br>
+          <p>Remaining Amount To Pay</p>
+          <h2>RM <?php echo sprintf("%.2f",$payments_left) . " (" . $months_left . " month(s))" ?></h2>
+        </div>
+        <div class="payment-details">
+          <h2>Payment Details</h2><br>
+          <label for="num-month">Paying for: </label>
+          <div class="num-input-container">
+            <input type="button" onclick="dec('num-months',1)" value=" - ">
+            <input id="num-months" class="num-input-box num-months" name="num-months" type="text" readonly required value="1">
+            <input type="button" onclick="inc('num-months',<?php echo $months_left ?>)" value=" + ">
+            month(s)
+          </div><br>
+          <?php
+            $next_payment_date = new DateTime($rent['rentStartDate']);
+            $num_days = $num_payments_made * 30;
+            $next_payment_date->add(new DateInterval('P'.$num_days.'D'));
+            $until_date = clone $next_payment_date;
+            $num_days_paid = 1 * 30;
+            $until_date->add(new DateInterval('P'.$num_days_paid.'D'));
+          ?>
+          <div id="pay-for-date">For renting from <b><?php echo $next_payment_date->format('d F Y') . "</b> until <b>~" . $until_date->format('d F Y') ?></b></div>
+        </div>
+        <div class="payment-details">
+          <label for="amount-paid">Total Amount</label><br>
+          <input id="amount-paid" type="text" name="amount-paid" value="<?php echo sprintf("%.2f", $rent['rentPrice']) ?>" readonly style="display: none;">
+          <h2 id="total-amount" style="font-size: 2rem;">RM <?php echo sprintf("%.2f", $rent['rentPrice']) ?></h2>
+        </div>
+        <div class="payment-details">
+          <h2>Credit Card Details</h2><br>
+          <label for="card-no">Card Number (16-digits)</label><br>
+          <input type="text" name="card-no" value="" maxlength="16" required><br><br>
+          <label for="card-no">Expiry Date (MM/YY)</label><br>
+          <input type="text" name="card-exp" value="" maxlength="5" required><br><br>
+          <label for="card-no">CVC (3-digits)</label><br>
+          <input type="password" name="card-cvc" value="" maxlength="3" required>
+        </div>
 
         <br>
         <input class="make-payment-button" id="confirm-payment" type="submit" name="confirm-payment" value="Confirm Payment">
@@ -155,7 +169,7 @@
 
       $sql = "INSERT INTO payment (ticketNo, paymentType, rentPrice, paymentDuration, paymentAmount)
               VALUES ('".$ticket_no."','".$payment_type."','".$rent_price."','".$payment_duration."','".$payment_amount."')";
-      $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+      $result = mysqli_query($connect, $sql);
       $transac_id = mysqli_insert_id($connect);
       mysqli_close($connect);
 
@@ -169,7 +183,7 @@
   }
 ?>
 <script>
-  $(".num-months").bind('keyup mouseup', function () {
+  $('.num-months').change( function () {
     var untilDate = new Date("<?php echo $until_date->format("Y-m-d")?>");
     var num_months = document.getElementById("num-months").value;
     var newDate = new Date(untilDate.setDate(untilDate.getMonth() + untilDate.getDate() + ((num_months - 1) * 30)));
@@ -181,6 +195,8 @@
     document.getElementById("pay-for-date").innerHTML = 
       "For renting from <b><?php echo $next_payment_date->format('d F Y') ?></b> until <b>~" + newDate_str + "</b>";    
     
-    document.getElementById("amount-paid").value = (<?php echo sprintf("%.2f", $rent['rentPrice']) ?> * num_months).toFixed(2);;
+    var new_val = (<?php echo sprintf("%.2f", $rent['rentPrice']) ?> * num_months).toFixed(2);
+    document.getElementById("amount-paid").value = new_val;
+    document.getElementById("total-amount").innerHTML = "RM " + new_val;
   });
 </script>

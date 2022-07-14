@@ -10,7 +10,7 @@
     $sql = "UPDATE request SET
             requestStatus = '$new_status'
             WHERE ticketNo = '$ticket_no'";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    $result = mysqli_query($connect, $sql);
     mysqli_close($connect);
 
     if (!$result || $new_status == "Pending") {

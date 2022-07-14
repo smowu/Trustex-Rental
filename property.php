@@ -8,7 +8,7 @@
   $sql = "SELECT * 
           FROM property
           WHERE propertyID = '$prop_id'";
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+  $result = mysqli_query($connect, $sql);
   mysqli_close($connect);
   $property = mysqli_fetch_assoc($result);
 
@@ -147,7 +147,7 @@
             </div>
             <div class="property-detail">
               <label for="propertyNumRooms">Rent Price</label><br>
-              <p class="property-details-text"><h2>RM <?php echo $rentPrice ?></h2></p>
+              <p class="property-details-text"><h2>RM <?php echo $rentPrice ?>/month</h2></p>
               <input class="property-text-input" type="text" name="rentPrice" value="<?php echo $rentPrice ?>" placeholder="N/A" readonly>
             </div>
 
@@ -177,7 +177,7 @@
         </div>
         <div class="property-section-right">
           <form class="property-manage-form" method="POST">
-            <input class="property-manage-button" type="submit" name="listing-submit" value="Add to Listing">
+            <input class="property-manage-button" type="button" name="listing-submit" onclick="$('#listing-submit').click()" value="Add to Listing">
             <input class="property-manage-button update-property-button" type="button" name="" value="Save" onclick="saveEditProperty()" style="display: none;">
             <input class="property-manage-button edit-property-button" type="button" name="edit-property-button" onclick="toggleEditProperty()" value="Edit">
             <input class="property-delete-button delete-property-button" type="button" name="delete-property-button" onclick="toggleDeleteForm()" value="Delete Property">
@@ -189,21 +189,6 @@
 </html>
 <?php
   include("html/footer.html");
-
-  if (isset($_POST['listing-submit'])) {
-    include("dbconnect.php");
-    $sql = "INSERT INTO listing (propertyID)
-            VALUES ('".$_POST['propertyID']."')";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-    mysqli_close($connect);
-
-    if ($result) {
-      echo "<script>alert('Your property has been successfully listed!')</script>";
-      echo "<script>window.location.replace('dashboard.php');</script>";
-    } else {
-      echo "<script>alert('Something went wrong!')</script>";
-    }
-  }
 
   if (isset($_POST['update-property'])) {
     include("dbconnect.php");
@@ -278,7 +263,22 @@
   }
 
   if (isset($_POST["cancel-update-property"])) {
-    // echo "<script>alert('Edit Canceled.')</script>";
+    header("Refresh:0");
+  }
+
+  if (isset($_POST['listing-submit'])) {
+    include("dbconnect.php");
+    $sql = "INSERT INTO listing (propertyID)
+            VALUES ('".$_POST['propertyID']."')";
+    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    mysqli_close($connect);
+
+    if ($result) {
+      echo "<script>alert('Your property has been successfully listed!')</script>";
+      echo "<script>window.location.replace('dashboard.php');</script>";
+    } else {
+      echo "<script>alert('Something went wrong!')</script>";
+    }
   }
 
   if (isset($_POST["delete-property"])) {
@@ -311,6 +311,7 @@
       echo "<script>alert('Something went wrong! Failed to delete the property.');</script>";
     }
   }
+  
 ?>
 <script>
   $(document).ready(function(){

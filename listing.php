@@ -6,7 +6,7 @@
   $sql1 = "SELECT *
           FROM listing, property
           WHERE listing.propertyID = property.propertyID AND listing.listingID = '$list_id'";
-  $result = mysqli_query($connect, $sql1) or die ("Error: ".mysqli_error());
+  $result = mysqli_query($connect, $sql1);
 
   $sql2 = "SELECT *
            FROM listing, property, landlord, user
@@ -14,7 +14,7 @@
            AND listing.propertyID = property.propertyID 
            AND landlord.landlordRegNo = property.landlordRegNo 
            AND landlord.userID = user.userID";
-  $landlord_result = mysqli_query($connect, $sql2) or die ("Error: ".mysqli_error());
+  $landlord_result = mysqli_query($connect, $sql2);
   mysqli_close($connect);
 
   if (mysqli_num_rows($landlord_result) == 0) {
@@ -90,7 +90,7 @@
         <div class="listing-section-left">
           <div class="listing-details">
             <h1><?php if ($propertyName != "") { echo $propertyName; } else { echo "N/A"; } ?></h1><br>
-            <h2>RM <?php if ($rentPrice != "") { echo $rentPrice; } else { echo "N/A"; } ?></h2><br>
+            <h2>RM <?php if ($rentPrice != "") { echo number_format(round($rentPrice,0)); } else { echo "N/A"; } ?>/month</h2><br>
 
             <div class="listing-details-room">
               <image class="icon listing-details-room-icon" src="assets/icons/bed.png" alt="Bedroom icon">
@@ -226,7 +226,7 @@
     $sql = "SELECT listingID, requestStatus
             FROM request
             WHERE listingID = '$list_id' AND (requestStatus = 'Upcoming' OR requestStatus = 'Active' OR requestStatus = 'Pending')";
-    $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+    $result = mysqli_query($connect, $sql);
     mysqli_close($connect);
 
     if (mysqli_num_rows($result) != 0) {
@@ -235,7 +235,7 @@
       include("dbconnect.php");
       $sql = "DELETE FROM listing 
               WHERE listingID = '$list_id'";
-      $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+      $result = mysqli_query($connect, $sql);
       mysqli_close($connect);
     
       if ($result) {

@@ -13,7 +13,7 @@
             applicationStatus = '$new_status', 
             administratorID = '$approver'
             WHERE applicationID = ".$_POST["id"]."";
-    $update_result = mysqli_query($connect,$sql) or die ("Error: " .mysqli_error($connect));
+    $update_result = mysqli_query($connect,$sql);
     mysqli_close($connect);
 
     if (!$update_result || $new_status == "Pending") {

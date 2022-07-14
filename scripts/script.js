@@ -1,3 +1,8 @@
+// Fixes Form Resubmission
+if (window.history.replaceState) {
+  window.history.replaceState(null, null, window.location.href);
+}
+
 // Goes to the top of the page
 function backToTop() {
   document.body.scrollTop = 0;
@@ -73,6 +78,24 @@ function readImageURL(input) {
   }
 }
 
+// Input type number
+function inc(element,max) {
+  let el = document.querySelector( `[name="${element}"]`);
+  if (parseInt(el.value) < max) {
+    el.value = parseInt(el.value) + 1;
+    $(el).trigger('change');
+  }
+}
+
+function dec(element,min) {
+  let el = document.querySelector(`[name="${element}"]`);
+  if (parseInt(el.value) > min) {
+    el.value = parseInt(el.value) - 1;
+    $(el).trigger('change');
+  }
+}
+
+// Reset propic
 function resetProfilePicture() {
   $('.image-upload-form .profile-pic').attr('src', "assets/images/profile-default.png");
   $(".image-upload-form").trigger("reset");

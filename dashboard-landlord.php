@@ -8,13 +8,11 @@
   $sql = "SELECT * FROM user
           LEFT JOIN landlord ON landlord.userID = user.userID
           WHERE user.userID = $id";
-  $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
-  $row = mysqli_num_rows($result);
+  $result = mysqli_query($connect, $sql);
   mysqli_close($connect);
 
   $user = mysqli_fetch_assoc($result);
   $reg_no = $_SESSION['landlordRegNo'] = $user['landlordRegNo'];
-  $username = $user['userName'];
 
   include("html/header.html");
 ?>
@@ -30,8 +28,8 @@
               <div class="propic-container propic-dashboard-container">
                 <image class="profile-pic" src=" <?php echo $profileicon ?> " onerror="this.onerror=null; this.src='assets/images/profile-default.png'"></image>
               </div>
-              <h2><?php echo $username ?></h2>
-              <p><?php echo $email ?></p><br>
+              <h2><?php echo $user['userName'] ?></h2>
+              <p><?php echo $user['userEmail'] ?></p><br>
               <p><?php echo $usertype ?> Account</p><br>
             </div>
           </div>
@@ -42,7 +40,7 @@
             <div class="dashboard-table-content">
               <?php
               include("dbconnect.php");
-                $sql = "SELECT ticketNo, requestTimestamp, request.listingID, list.propertyName, user.userName
+                $sql = "SELECT ticketNo, requestTimestamp, request.listingID, list.propertyName, user.userName, requestStatus
                         FROM request
                         LEFT JOIN user ON request.userID = user.userID
                         LEFT JOIN (
@@ -51,7 +49,7 @@
                           WHERE listing.propertyID = property.propertyID
                         ) AS list ON request.listingID = list.listingID
                         WHERE list.landlordRegNo = '$reg_no' AND requestStatus = 'Pending'";
-                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 
                 $numrows = mysqli_num_rows($result);
@@ -126,7 +124,7 @@
                           WHERE listing.propertyID = property.propertyID
                         ) AS list ON request.listingID = list.listingID
                         WHERE list.landlordRegNo = '$reg_no' AND (requestStatus = 'Active' OR requestStatus = 'Upcoming')";
-                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 
                 $numrows = mysqli_num_rows($result);
@@ -196,7 +194,7 @@
                             WHERE property.landlordRegNo = '$reg_no'
                         ) AS prop ON listing.propertyID = prop.propertyID
                         WHERE listing.propertyID = prop.propertyID";
-                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 
                 $numrows = mysqli_num_rows($result);
@@ -223,7 +221,7 @@
                           <td><?php echo sprintf("%08d", $listing['propertyID']) ?></td>
                           <td><?php echo $listing['propertyName'] ?></td>
                           <td><?php echo $listing['rentPrice'] ?></td>
-                          <td><?php echo date("Y-m-d",strtotime($listing['listingTimestamp'])) ?></td>
+                          <td><?php echo date("d-m-Y",strtotime($listing['listingTimestamp'])) ?></td>
                           <td>
                             <button class="view-button" onclick="<?php echo $location ?>">
                               <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
@@ -274,7 +272,7 @@
                 $sql = "SELECT *
                         FROM property
                         WHERE landlordRegNo = '$reg_no'";
-                $result = mysqli_query($connect, $sql) or die ("Error: ".mysqli_error());
+                $result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 
                 $numrows = mysqli_num_rows($result);
@@ -337,6 +335,69 @@
                       <a href="add-property-form.php">
                         <button>Add new property</button>
                       </a>
+                    </div>
+                  </div>
+              <?php  
+                }
+              ?>
+            </div>
+          </div>
+          <div>
+            <h3>Rent History</h3>
+            <div class="dashboard-table-content">
+              <?php
+              include("dbconnect.php");
+                $sql = "SELECT *
+                        FROM history
+                        WHERE landlordRegNo = '$reg_no'";
+                $result = mysqli_query($connect, $sql);
+                mysqli_close($connect);
+
+                $numrows = mysqli_num_rows($result);
+                if ($numrows > 0) {
+              ?>
+                  <div class="dashboard-table">
+                    <table>
+                      <tr class="no-hover">
+                        <th>Listing ID</th>
+                        <th>Property Name</th>
+                        <th>User ID</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th></th>
+                      </tr>
+                      <tr class="no-hover"><th class="th-border" colspan="7"></th></tr>
+                      <?php
+                      for ($i = 0; $request = mysqli_fetch_assoc($result); $i++) {
+                          $location = "location.href='request.php?t=".$request['ticketNo']."'";
+                      ?>
+                        <tr ondblclick="<?php echo $location ?>" style="user-select: none;">
+                          <td><?php echo sprintf('%012d', $request['listingID']) ?></td>
+                          <td><?php echo $request['propertyName'] ?></td>
+                          <td><?php echo sprintf("%010d",$request['userID']) ?></td>
+                          <td><?php echo date("d-m-Y",strtotime($request['rentStartDate'])) ?></td>
+                          <td><?php echo date("d-m-Y",strtotime($request['rentEndDate'])) ?></td>
+                          <td>
+                            <button class="view-button" onclick="<?php echo $location ?>">
+                              <image class="icon view-icon" src="assets/icons/eye.png"><span>View</span>
+                            </button>
+                          </td>
+                        </tr>
+                      <?php
+                          // Gap between rows
+                          if ($i < $numrows-1) {
+                            echo "<tr class='spacer'><td></td></tr>";
+                          }
+                        }
+                      ?>
+                    </table>
+                  </div> 
+              <?php
+                } else {
+              ?>
+                  <div class="dashboard-empty">
+                    <div>
+                      <p>You have no previous renters.</p>
                     </div>
                   </div>
               <?php  

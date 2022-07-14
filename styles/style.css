@@ -796,23 +796,130 @@ button {
   background-color: #fbfbfb;
 }
 
+/* Inquiry Details */
+
+.request-inquiry input[type=text]:not(.num-input-box) {
+  font-size: 1rem;
+}
+
+.inquiry-radio-gender {
+  display: flex;
+}
+
+.tenant-details textarea {
+  width: 100%;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: none;
+}
+
+.inquiry-form-button-container {
+  display: flex;
+  justify-content: center;
+}
+.inquiry-form-button {
+  width: 180px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px;
+  margin: 8px;
+  border: 3px solid #257b9f;
+  background-color: #257b9f;
+  color: #fbfbfb;
+  border-radius: 100rem;
+  cursor: pointer;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.inquiry-form-button:hover {
+  color: #257b9f;
+  background-color: #fbfbfb;
+}
+
+.num-input-container {
+  margin-top: 8px;
+  width: max-content;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.num-input-container input[type=button] {
+  color: #257b9f;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  border: 1px solid #257b9f00;
+  transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+}
+.num-input-container input[type=button]:hover {
+  background-color: #c9dee7;
+}
+.num-input-box {
+  width: 32px;
+  line-height: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333333;
+  background-color: transparent;
+  border: none;
+  pointer-events: none;
+}
+
+.inquiry-calendar-container {
+  display: flex;
+}
+.inquiry-calendar-container div {
+  margin-right: 64px;
+}
+.inquiry-calendar-container input[type=date] {
+  margin-top: 8px;
+  padding: 8px 2px;
+  color: #333333;
+  width: 196px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  outline: #33333300 solid 2px;
+  transition: 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.inquiry-calendar-container input[type=date]:focus {
+  outline: #333333 solid 2px;
+}
+
+.inquiry-name-details {
+  display: flex;
+}
+.inquiry-name-details div {
+  margin-right: 64px;
+}
+
 /* Request Details */
 
-.request-details-container label{
+.request-details-container label,
+.request-inquiry-details label,
+.payment-details label {
   color: #999999;
 }
-.request-details {
-  padding: 0 8px;
-  border-radius: 0.5rem;
-}
-.request-details {
+.request-details,
+.request-inquiry-details,
+.payment-details,
+.faq-details {
   margin: 8px 0;
   padding: 16px;
   height: max-content;
   border-radius: 0.5rem;
   background-color: #cccccc33;
 }
-.request-details p {
+.request-details p,
+.request-inquiry-details p,
+.payment-details p,
+.faq-details p {
   font-size: medium;
   font-weight: bold;
   color: #333333;
@@ -1322,7 +1429,7 @@ footer hr {
   border: solid 1px #cccccc;  
   background-color: #cccccc22;
   border-radius: 0.5rem;
-  height: 400px;
+  height: 160px;
   width: 100%;
   margin-top: 0.5rem;
 }
@@ -1425,6 +1532,14 @@ footer hr {
   transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   filter: invert(14%) sepia(34%) saturate(0%) hue-rotate(248deg) brightness(94%) contrast(85%);
 }
+.dismiss-button {
+  height: 2rem;
+  cursor: pointer;
+  padding: 8px;
+}
+.dismiss-button:hover {
+  background-color: #ca4848;
+}
 
 .return-dashboard {
   position: relative;
@@ -1492,7 +1607,12 @@ footer hr {
   background-color: #fbfbfb;
 }
 
+/* Payment Page */
 
+.payment-details input[type=text]:not(.num-input-box),
+.payment-details input[type=password] {
+  font-size: 1rem;
+}
 
 /* Profile Settings */
 #settings {
@@ -1758,13 +1878,16 @@ footer hr {
 .radio-gender {
   display: flex;
 }
-.radio-gender label {
-  padding: 0 8px;
+.radio-gender label,
+.inquiry-radio-gender label {
+  padding: 0 16px 0 8px;
   font-style: bold;
   cursor: pointer;
 }
 .radio-gender label,
-.radio-gender input {
+.radio-gender input,
+.inquiry-radio-gender label,
+.inquiry-radio-gender input {
   cursor: pointer;
 } 
 
@@ -2082,6 +2205,119 @@ footer hr {
   outline: 1px solid #ffffff;
   border-radius: 1rem;
   box-shadow: 0.2rem 0.3rem 0.5rem rgba(18, 64, 84, 0.2);
+}
+
+/* About Us */
+
+.about-us-details label {
+  color: #999999;
+}
+.about-us-details {
+  margin: 8px 0;
+  padding: 16px;
+  height: max-content;
+  border-radius: 0.5rem;
+  background-color: #cccccc33;
+}
+.about-us-details {
+  font-size: medium;
+  font-weight: bold;
+  color: #333333;
+  background-color: transparent;
+}
+
+.member-table-content {
+  position: relative;
+}
+.member-table {
+  height: 100%;
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+  border: solid 1px #cccccc;  
+  background-color: #cccccc22;
+  overflow-x: scroll;
+}
+.member-table table {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  border-spacing: 0;
+}
+.member-table th {
+  padding: 8px 16px;
+}
+.th-border {
+  border-top: 1px solid #cccccc;
+}
+.member-table td {
+  background-color: #cccccc22;
+  padding: 4px 16px;
+  color: #666666;
+}
+.member-table tr {
+  outline: none;
+  transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.member-table td:first-child,
+.member-table th:first-child:not(.th-border) {
+  border-radius: 10px 0 0 10px;
+}
+.member-table td:last-child,
+.member-table th:last-child:not(.th-border) {
+  border-radius: 0 10px 10px 0;
+}
+.member-propic-container {
+  overflow: hidden;
+  width: 160px;
+  height: 240px;
+  border-radius: 1rem;
+  margin: 8px;
+  display: flex; 
+  align-items: center; 
+  justify-content: center
+}
+.member-propic {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  background-color: #257b9f20;
+}
+
+.trustex-logo {
+  width: max-content;
+  height: max-content;
+  padding: 32px;
+  margin: 4rem 0 2rem 0;
+  background-color: #257b9f;
+  border-radius: 1rem;
+}
+.trustex-logo img {
+  height: 128px;
+}
+
+/* FAQ */
+
+.faq-details {
+  margin: 16px 0;
+  padding: 16px;
+  height: max-content;
+  border-radius: 0.5rem;
+  background-color: #cccccc33;
+}
+.faq-details h2 {
+  font-size: 2rem;
+}
+.faq-details i {
+  font-weight: normal;
+  color: #333333;
+  background-color: transparent;
+}
+.quote {
+  font-size: 4rem;
+  opacity: 0.5;
 }
 
 /* Default container */
