@@ -123,7 +123,7 @@
                           FROM property, listing
                           WHERE listing.propertyID = property.propertyID
                         ) AS list ON request.listingID = list.listingID
-                        WHERE list.landlordRegNo = '$reg_no' AND (requestStatus = 'Active' OR requestStatus = 'Upcoming')";
+                        WHERE list.landlordRegNo = '$reg_no' AND (requestStatus = 'Active' OR requestStatus = 'Upcoming' OR requestStatus = 'Accepted')";
                 $result = mysqli_query($connect, $sql);
                 mysqli_close($connect);
 

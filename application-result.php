@@ -2,7 +2,7 @@
   session_start();
   if (isset($_POST["id"]) && $_SESSION["userType"] == 'A') {
     $new_status = "Pending";
-    $approver = $_SESSION["userID"];
+    $approver = $_SESSION['administratorID'];
     if (isset($_POST["approve"])) {
       $new_status = "Approved";
     } else if (isset($_POST["reject"])) {
